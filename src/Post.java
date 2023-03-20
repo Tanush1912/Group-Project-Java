@@ -35,4 +35,13 @@ public class Post {
             this.date = new Date();
         }
     }
+
+    /**
+     * Method to get the content of the post
+     * 
+     * @return Content of the post
+     */
+    public String getContent() {
+        return content;
+    }
 }

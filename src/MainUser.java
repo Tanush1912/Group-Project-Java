@@ -35,7 +35,12 @@ public class MainUser extends User {
         }
     }
 
-    public void viewFriends() {
-        // View friends list of the main user
+    /**
+     * Method to remove a friend from the main user's friends list
+     * 
+     * @param user The user to be removed from friends list
+     */
+    public void removeFriend(User user) {
+        friends.remove(user);
     }
 }

@@ -18,14 +18,6 @@ public class Graph {
         graph = new HashMap<>();
     }
 
-    // /**
-    //  * Method to get the graph
-    //  * @return Graph of users and their friends
-    //  */
-    // public Map<User, Set<User>> getGraph() {
-    //     return graph;
-    // }
-
     /**
      * Add a user to the graph
      * @param user User to be added

@@ -33,6 +33,15 @@ public class SocialNetwork {
     }
 
     /**
+     * Method to get the data of all the users in the social network
+     * 
+     * @return Hash map of users and their data
+     */
+    public Map<String, User> getUsersData() {
+        return usersData;
+    }
+
+    /**
      * Method to load the social network data from the file
      */
     public void loadNetwork() {
@@ -102,5 +111,24 @@ public class SocialNetwork {
                 }
             }
         }
+    }
+
+    /**
+     * Method to compare the friends of the main user with the friends of another user
+     * 
+     * @param userToCompare User whose friends to compare with the main user's friends
+     */
+    public void compareFriends(User userToCompare) {
+        Set<User> commonFriends = new HashSet<>();
+        Set<User> uncommonFriends = new HashSet<>();
+        for (User friend : mainUser.getFriends()) {
+            if (userToCompare.getFriends().contains(friend)) {
+                commonFriends.add(friend);
+            } else {
+                uncommonFriends.add(friend);
+            }
+        }
+        System.out.println(" - Friends you have in common: " + commonFriends);
+        System.out.println(" - Users you may want to add to your friends: " + uncommonFriends);
     }
 }

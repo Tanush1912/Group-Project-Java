@@ -1,3 +1,5 @@
+import java.util.Map;
+
 /**
  * Class responsible for displaying the menu to the user
  * 
@@ -13,6 +15,14 @@ public class Menu {
      * Object to validate the input of the user
      */
     private InputValidator inputValidator;
+    /**
+     * Object to provide access to the main user of the social network
+     */
+    private MainUser mainUser;
+    /**
+     * Object to provide access to the data of all the users in the social network
+     */
+    private Map<String, User> usersData;
 
     /**
      * Default constructor to initialise the fields necessary for menu and load the social network from file
@@ -21,6 +31,8 @@ public class Menu {
         socialNetwork = new SocialNetwork();
         socialNetwork.loadNetwork();
         inputValidator = new InputValidator();
+        mainUser = socialNetwork.getMainUser();
+        usersData = socialNetwork.getUsersData();
     }
 
     /**
@@ -29,11 +41,10 @@ public class Menu {
     public void displayMenu() {
         System.out.println("*** Welcome to the Facebook! ***");
         System.out.println("Please, choose one of the following options: ");
-        // Example of how to format the options of the menu and display them: 
         System.out.println(" - 1. View the profile");
         System.out.println(" - 2. Edit the profile");
         System.out.println(" - 3. View the list of friends");
-        // System.out.println(" - 0. Exit the program");
+        System.out.println(" - 0. Sign out");
     }
 
     /**
@@ -79,15 +90,66 @@ public class Menu {
                             break;
                     }
                 } while (!isValid);
-                socialNetwork.getMainUser().editProfile(editChoice, input);
+                mainUser.editProfile(editChoice, input);
+                break;
+            case 3:
+                interactWithFriends();
                 break;
             case 0:
-                // Option 0 is selected...
+                System.out.println("*** You have succesfully signed out! ***");
                 break;
             default:
                 System.out.println("### Error: Invalid choice. Please, try again.");
                 break;
         }
+    }
+
+    /**
+     * Method to interact with the friends of the main user and run queries on them
+     */
+    public void interactWithFriends() {
+        mainUser.viewFriends();
+        System.out.println("*** Choose what you would like to do with your friends: \n - 1. View the profile of a friend \n - 2. Remove a friend \n - 3. View the friend's list of friends \n - 0. Back to main menu");
+        boolean isValid;
+        do {
+            isValid = true;
+            int choice = inputValidator.processChoiceInput();
+            switch(choice) {
+                case 1:
+                    String usernameProfile = inputValidator.processUsernameInput();
+                    if (mainUser.getFriends().contains(usersData.get(
+                            usernameProfile))) {
+                        usersData.get(usernameProfile).viewProfile();
+                    } else {
+                        System.out.println("### Error: You are not friends with this user. Please, try again.");
+                    }
+                    break;
+                case 2:
+                    String usernameToRemove = inputValidator.processUsernameInput();
+                    if (mainUser.getFriends().contains(usersData.get(
+                            usernameToRemove))) {
+                        mainUser.removeFriend(usersData.get(usernameToRemove));
+                    } else {
+                        System.out.println("### Error: You are not friends with this user. Please, try again.");
+                    }
+                    break;
+                case 3:
+                    String usernameFriendsList = inputValidator.processUsernameInput();
+                    if (mainUser.getFriends().contains(usersData.get(usernameFriendsList))) {
+                        usersData.get(usernameFriendsList).viewFriends();
+
+                    } else {
+                        System.out.println("### Error: You are not friends with this user. Please, try again.");
+                    }
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("### Error: Invalid choice. Please, try again.");
+                    isValid = false;
+                    break;
+            }
+        } while(true);
     }
 
     public static void main(String[] args) {

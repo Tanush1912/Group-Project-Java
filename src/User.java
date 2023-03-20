@@ -4,39 +4,39 @@ public class User {
     /**
      * Username
      */
-    private String username;
+    protected String username;
     /**
      * User's full name
      */
-    private String fullName;
+    protected String fullName;
     /**
      * User's bio
      */
-    private String bio;
+    protected String bio;
     /**
      * User's email
      */
-    private String email;
+    protected String email;
     /**
      * User's workplace
      */
-    private String workplace;
+    protected String workplace;
     /**
      * User's phone number
      */
-    private String phoneNumber;
+    protected String phoneNumber;
     /**
      * User's city
      */
-    private String city;
+    protected String city;
     /**
      * User's collection of posts
      */
-    private List<Post> posts;
+    protected List<Post> posts;
     /**
      * User's collection of friends
      */
-    private Set<User> friends;
+    protected Set<User> friends;
     
     /**
      * Constructor to create the user
@@ -130,6 +130,31 @@ public class User {
      * Method to display the user's information
      */
     public void viewProfile() {
-        // Display all the fields of the user in pretty format
+        System.out.println();
+        System.out.printf(" *** %s's Profile ***\n", username);
+        System.out.println(" - Full name: " + fullName);
+        System.out.println(" - Bio: " + bio);
+        System.out.println(" - Email: " + email);
+        System.out.println(" - Workplace: " + workplace);
+        System.out.println(" - Phone number: " + phoneNumber);
+        System.out.println(" - City: " + city);
+        System.out.printf(" - %s recently posted:\n", username);
+        for (Post post : posts) {
+            System.out.println("\t - " + post.getContent());
+        }
+
+        System.out.println("***");
+        System.out.println();
+    }
+
+    /**
+     * Method to display the user's friends
+     */
+    public void viewFriends() {
+        System.out.printf(" *** %s's friends ***\n", username);
+        for (User friend : friends) {
+            System.out.println(" - " + friend.getUsername());
+        }
+        System.out.println("***");
     }
 }
