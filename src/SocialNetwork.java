@@ -135,10 +135,10 @@ public class SocialNetwork {
     public void compareFriends(User userToCompare) {
         Set<User> commonFriends = new HashSet<>();
         Set<User> uncommonFriends = new HashSet<>();
-        for (User friend : mainUser.getFriends()) {
-            if (userToCompare.getFriends().contains(friend)) {
+        for (User friend : userToCompare.getFriends()) {
+            if (mainUser.getFriends().contains(friend)) {
                 commonFriends.add(friend);
-            } else {
+            } else if (!friend.getUsername().equals(mainUser.getUsername())) {
                 uncommonFriends.add(friend);
             }
         }

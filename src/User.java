@@ -50,7 +50,7 @@ public class User {
      * @param posts User's collection of posts
      * @param friends User's collection of friends
      */
-    public User(String username, String fullName, String email, String bio, String workplace, String city, String phoneNumber, List<Post> posts, Set<User> friends) {
+    public User(String username, String fullName, String email, String bio, String workplace, String city, String phoneNumber, List<Post> posts) {
         this.username = username;
         this.fullName = fullName;
         this.email = email;
@@ -59,7 +59,7 @@ public class User {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.posts = posts;
-        this.friends = friends;
+        this.friends = new HashSet<>();
     }
 
     /**
@@ -127,6 +127,15 @@ public class User {
     }
 
     /**
+     * Method to set the collection of posts
+     * 
+     * @param friends User's collection of posts to be set
+     */
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
+    }
+
+    /**
      * Method to display the user's information
      */
     public void viewProfile() {
@@ -138,12 +147,11 @@ public class User {
         System.out.println(" - Workplace: " + workplace);
         System.out.println(" - Phone number: " + phoneNumber);
         System.out.println(" - City: " + city);
-        System.out.printf(" - %s recently posted:\n", username);
+        System.out.printf(" - %s posted:\n", username);
         for (Post post : posts) {
-            System.out.println("\t - " + post.getContent());
+            System.out.printf("*** \"%s\" - posted on %s, %d users liked it\n", post.getContent(), post.getDate(), post.getNumberOfLikes());
         }
-
-        System.out.println("***");
+        System.out.println("******");
         System.out.println();
     }
 
@@ -156,5 +164,22 @@ public class User {
             System.out.println(" - " + friend.getUsername());
         }
         System.out.println("***");
+    }
+
+    /**
+     * Method to add a friend to the user's friends list
+     * 
+     * @param user The user to be added to friends list
+     */
+    public void addFriend(User user) {
+        friends.add(user);
+    }
+
+    /**
+     * Method to override the string representation of the user
+     */
+    @Override
+    public String toString() {
+        return username;
     }
 }

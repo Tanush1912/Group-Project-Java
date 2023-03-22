@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class MainUser extends User {
-    public MainUser(String username, String fullName, String bio, String email, String workplace, String phoneNumber, String city, List<Post> posts, Set<User> friends) {
-        super(username, fullName, bio, email, workplace, phoneNumber, city, posts, friends);
+    public MainUser(String username, String fullName, String bio, String email, String workplace, String phoneNumber, String city, List<Post> posts) {
+        super(username, fullName, bio, email, workplace, phoneNumber, city, posts);
     }
 
     /**
@@ -16,19 +16,19 @@ public class MainUser extends User {
                 setFullName(input);
                 break;
             case 2:
-                setBio(input);
+                setEmail(input);
                 break;
             case 3:
-                setEmail(input);
+                setBio(input);
                 break;
             case 4:
                 setWorkplace(input);
                 break;
             case 5:
-                setPhoneNumber(input);
+                setCity(input);
                 break;
             case 6:
-                setCity(input);
+                setPhoneNumber(input);
                 break;
             default:
                 break;

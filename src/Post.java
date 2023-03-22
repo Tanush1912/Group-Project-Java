@@ -1,5 +1,6 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Date;
 
 public class Post {
@@ -18,10 +19,11 @@ public class Post {
     /**
      * Date format for the post
      */
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     /**
      * Constructor to create the post
+     * 
      * @param content Content of the post
      * @param numberOfLikes Number of likes for the post
      * @param date Date of the post
@@ -43,5 +45,30 @@ public class Post {
      */
     public String getContent() {
         return content;
+    }
+
+    /**
+     * Method to get the number of likes for the post
+     * 
+     * @return Number of likes for the post
+     */
+    public int getNumberOfLikes() {
+        return numberOfLikes;
+    }
+
+    /**
+     * Method to get the date of the post
+     * 
+     * @return Date of the post
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * Method to add the like to the post
+     */
+    public void addLike() {
+        this.numberOfLikes += 1;
     }
 }
