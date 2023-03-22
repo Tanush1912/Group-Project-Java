@@ -54,9 +54,9 @@ public class SocialNetwork {
 
             String line;
             boolean isMainUser = true;
+            Map<String, Set<String>> friendsMap = new HashMap<>();
             while ((line = bufferedReader.readLine()) != null) {
-                if (line!="\n") {
-                    line = bufferedReader.readLine();
+                if (!line.isEmpty()) {
                     String username = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
                     line = bufferedReader.readLine();
                     String fullName = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
@@ -67,14 +67,14 @@ public class SocialNetwork {
                     line = bufferedReader.readLine();
                     String workplace = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
                     line = bufferedReader.readLine();
-                    String phoneNumber = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
-                    line = bufferedReader.readLine();
                     String city = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
+                    line = bufferedReader.readLine();
+                    String phoneNumber = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
 
                     line = bufferedReader.readLine();
                     List<Post> posts = new ArrayList<>();
                     String postsCollection = line.split(": \\[")[1].substring(0, line.split(": \\[")[1].length() - 1);
-                    for (String post : postsCollection.split(";")) {
+                    for (String post : postsCollection.split("; ")) {
                         String[] postInfo = post.split("/");
                         String content = postInfo[0].substring(1, postInfo[0].length()-1);
                         int likesNumber = Integer.parseInt(postInfo[1]);
@@ -82,23 +82,37 @@ public class SocialNetwork {
                         Post postObj = new Post(content, likesNumber, date);
                         posts.add(postObj);
                     }
-
+                    
                     line = bufferedReader.readLine();
-                    Set<User> friends = new HashSet<>();
+                    Set<String> friends = new HashSet<>();
                     String friendsCollection = line.split(": \\[")[1].substring(0, line.split(": \\[")[1].length() - 1);
                     for (String friend : friendsCollection.split(", ")) {
                         String friendUsername = friend.substring(1, friend.length()-1);
-                        friends.add(usersData.get(friendUsername));
+                        friends.add(friendUsername);
                     }
+                    friendsMap.put(username, friends);
 
                     if (isMainUser) {
-                        mainUser = new MainUser(username, fullName, bio, email, workplace, phoneNumber, city, posts, friends);
+                        mainUser = new MainUser(username, fullName, bio, email, workplace, phoneNumber, city, posts);
                         isMainUser = false;
                     }
-                    User user = new User(username, fullName, bio, email, workplace, phoneNumber, city, posts, friends);
+                    User user = new User(username, fullName, bio, email, workplace, phoneNumber, city, posts);
                     usersData.put(username, user);
-                    connectionsGraph.addUser(user);
                 }
+            }
+
+            for (String user : friendsMap.keySet()) {
+                for (String friend : friendsMap.get(user)) {
+                    User userToAdd = usersData.get(friend);
+                    usersData.get(user).addFriend(userToAdd);
+                    if (user.equals(mainUser.getUsername())) {
+                        mainUser.addFriend(userToAdd);
+                    }
+                }
+            }
+
+            for (User user : usersData.values()) {
+                connectionsGraph.addUser(user);
             }
         } catch (IOException e) {
             System.out.println("### Error! Unable to load the network data!");
