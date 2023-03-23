@@ -43,4 +43,14 @@ public class MainUser extends User {
     public void removeFriend(User user) {
         friends.remove(user);
     }
+
+    /**
+     * Method to write new post
+     * 
+     * @param content The content of the post
+     * @param numberOfLikes The number of likes for the post
+     */
+    public void writePost(String content, int numberOfLikes) {
+        posts.add(new Post(content, numberOfLikes));
+    }
 }

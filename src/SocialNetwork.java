@@ -1,6 +1,13 @@
 import java.util.*;
 import java.io.*;
+import java.text.*;
 
+/**
+ * Class to represent the functionality of the social network
+ * 
+ * @version 1.0
+ * @author D.Kecha, T.Govind
+ */
 public class SocialNetwork {
     /*
      * Hash map of users and their data
@@ -14,6 +21,10 @@ public class SocialNetwork {
      * Main user of the social network
      */
     private MainUser mainUser;
+    /**
+     * File name to store the social network data
+     */
+    final static String FILE_NAME = "../network-data.txt";
 
     /**
      * Default constructor to initiate the social network
@@ -47,9 +58,8 @@ public class SocialNetwork {
     public void loadNetwork() {
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
-        String fileName = "network-data.txt";
         try {
-            fileReader = new FileReader(fileName);
+            fileReader = new FileReader(FILE_NAME);
             bufferedReader = new BufferedReader(fileReader);
 
             String line;
@@ -93,10 +103,10 @@ public class SocialNetwork {
                     friendsMap.put(username, friends);
 
                     if (isMainUser) {
-                        mainUser = new MainUser(username, fullName, bio, email, workplace, phoneNumber, city, posts);
+                        mainUser = new MainUser(username, fullName, bio, email, workplace, city, phoneNumber, posts);
                         isMainUser = false;
                     }
-                    User user = new User(username, fullName, bio, email, workplace, phoneNumber, city, posts);
+                    User user = new User(username, fullName, bio, email, workplace, city, phoneNumber, posts);
                     usersData.put(username, user);
                 }
             }
@@ -125,6 +135,60 @@ public class SocialNetwork {
                 }
             }
         }
+    }
+
+    /**
+     * Method to save the social network data to the file
+     */ 
+    public void saveNetwork() {
+        FileOutputStream fileWriter = null;
+        PrintWriter writer = null;
+        try {
+            fileWriter = new FileOutputStream(FILE_NAME);
+            writer = new PrintWriter(fileWriter);
+
+            writeToFile(writer, mainUser);
+            for (User user : usersData.values()) {
+                if (!user.getUsername().equals(mainUser.getUsername())) {
+                    writeToFile(writer, user);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("### Error! Unable to save the network data!");
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
+    }
+
+    /**
+     * Method to write the entry with user data to the file
+     * 
+     * @param writer Reference to PrintWriter object to write to the file
+     * @param user User whose data to write to the file
+     */
+    public void writeToFile(PrintWriter writer, User user) {
+        writer.printf("\"Username\": \"%s\"\n", user.getUsername());
+        writer.printf("\"Full name\": \"%s\"\n", user.getFullName());
+        writer.printf("\"Email\": \"%s\"\n", user.getEmail());
+        writer.printf("\"Bio\": \"%s\"\n", user.getBio());
+        writer.printf("\"Workplace\": \"%s\"\n", user.getWorkplace());
+        writer.printf("\"City\": \"%s\"\n", user.getCity());
+        writer.printf("\"Phone number\": \"%s\"\n", user.getPhoneNumber());
+        String posts = "";
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        for (Post post : user.getPosts()) {
+            posts += "\"" + post.getContent() + "\"/" + post.getNumberOfLikes() + "/" + formatter.format(post.getDate()) + "; ";
+        }
+        writer.printf("\"Posts\": [%s]\n", posts.substring(0, posts.length() - 2));
+
+        String friends = "";
+        for (User friend : user.getFriends()) {
+            friends += "\"" + friend.getUsername() + "\", ";
+        }
+        writer.printf("\"Friends\": [%s]\n", friends.substring(0, friends.length() - 2));
+        writer.println();
     }
 
     /**

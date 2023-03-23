@@ -71,6 +71,62 @@ public class User {
     }
 
     /**
+     * Method to get the full name
+     * @return String representing the full name
+     */
+    public String getFullName() {
+        return fullName;
+    }
+
+    /**
+     * Method to get the bio
+     * @return String representing the bio
+     */
+    public String getBio() {
+        return bio;
+    }
+
+    /**
+     * Method to get the email
+     * @return String representing the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Method to get the workplace
+     * @return String representing the workplace
+     */
+    public String getWorkplace() {
+        return workplace;
+    }
+
+    /**
+     * Method to get the phone number
+     * @return String representing the phone number
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    /**
+     * Method to get the city
+     * @return String representing the city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * Method to get the collection of posts
+     * @return List of posts
+     */
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    /**
      * Method to get the collection of friends
      * @return Set of friends
      */

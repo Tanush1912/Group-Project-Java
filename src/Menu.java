@@ -1,4 +1,5 @@
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Class responsible for displaying the menu to the user
@@ -44,6 +45,8 @@ public class Menu {
         System.out.println(" - 1. View my profile");
         System.out.println(" - 2. Edit my profile");
         System.out.println(" - 3. View my list of friends");
+        System.out.println(" - 4. Save the social network");
+        System.out.println(" - 5. Write new post");
         System.out.println(" - 0. Sign out");
     }
 
@@ -64,6 +67,12 @@ public class Menu {
                     break;
                 case 3:
                     interactWithFriends();
+                    break;
+                case 4:
+                    socialNetwork.saveNetwork();
+                    break;
+                case 5:
+                    writeNewPost();
                     break;
                 case 0:
                     System.out.println("*** You have succesfully signed out! ***");
@@ -161,7 +170,18 @@ public class Menu {
                         break;
                 }
             } while(choice!=0);
-        }
+    }
+
+    public void writeNewPost() {
+        System.out.println("*** Type your new post: ");
+        String postContent = inputValidator.processStringInput();
+
+        Random rand = new Random();
+        int numberOfLikes = rand.nextInt(100) + 1;
+        mainUser.writePost(postContent, numberOfLikes);
+        System.out.println("*** Your post has been successfully published! ***");
+        System.out.printf(" - %d users like your post!\n", numberOfLikes);
+    }
 
     /**
      * Main method to launch the program

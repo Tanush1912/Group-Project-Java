@@ -38,6 +38,12 @@ public class Post {
         }
     }
 
+    public Post(String content, int numberOfLikes) {
+        this.content = content;
+        this.numberOfLikes = numberOfLikes;
+        this.date = new Date();
+    }
+
     /**
      * Method to get the content of the post
      * 
