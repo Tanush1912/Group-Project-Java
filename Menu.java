@@ -47,6 +47,7 @@ public class Menu {
         System.out.println(" - 3. View my list of friends");
         System.out.println(" - 4. Save the social network");
         System.out.println(" - 5. Write new post");
+        System.out.println(" - 6. View Recommended Friends");
         System.out.println(" - 0. Sign out");
     }
 
@@ -73,6 +74,9 @@ public class Menu {
                     break;
                 case 5:
                     writeNewPost();
+                    break;
+                case 6:
+                    socialNetwork.recommendAFriend();
                     break;
                 case 0:
                     System.out.println("*** You have succesfully signed out! ***");
@@ -130,7 +134,7 @@ public class Menu {
      */
     public void interactWithFriends() {
             mainUser.viewFriends();
-            System.out.println("*** Choose what you would like to do with your friends: \n - 1. View the profile of a friend \n - 2. Remove a friend \n - 3. View the friend's list of friends \n - 0. Back to main menu");
+            System.out.println("*** Choose what you would like to do with your friends: \n - 1. View the profile of a friend \n - 2. Remove a friend \n - 3. View the friend's list of friends \n - 4. Sort the List of Friends \n - 5. Filter the List of friends \n - 0. Back to main menu");
             int choice = -1;
             do {
                 choice = inputValidator.processChoiceInput();
@@ -163,6 +167,12 @@ public class Menu {
                             System.out.println("### Error: You are not friends with this user. Please, try again.");
                         }
                         break;
+                    case 4:
+                        sort();
+                        break;
+                    case 5:
+                        filter();
+                        break;
                     case 0:
                         break;
                     default:
@@ -194,6 +204,27 @@ public class Menu {
                     break;
             }
         } while(choice!=0);
+}
+
+public void filter(){
+    System.out.println("Choose how you would like to filter your friends list: \n - 1. By City \n - 2. By Workplace \n - 0. Back to main menu");
+    int choice = -1;
+    do {
+        choice = inputValidator.processChoiceInput();
+        switch(choice) {
+            case 1:
+                socialNetwork.filterFriendsListByCity();
+                break;
+            case 2:
+                socialNetwork.filterFriendsListByWorkplace();
+                break;
+            case 0:
+                break;
+            default:
+                System.out.println("### Error: Invalid choice. Please, try again.");
+                break;
+        }
+    } while(choice!=0);
 }
 
     public void writeNewPost() {

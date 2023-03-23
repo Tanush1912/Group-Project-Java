@@ -21,10 +21,11 @@ public class SocialNetwork {
      * Main user of the social network
      */
     private static MainUser mainUser;
+    private static User[] user;
     /**
      * File name to store the social network data
      */
-    final static String FILE_NAME = "../network-data.txt";
+    final static String FILE_NAME = "network-data.txt";
 
     /**
      * Default constructor to initiate the social network
@@ -258,35 +259,49 @@ public class SocialNetwork {
 }
 
     //method to filter friend list by city and print the list after filtering, with one username in oneline. Allow the User to enter the city name. Implement the method so that it can be called in the Menu Class
-    public static void filterFriendsListByCity() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the city name: ");
-        String city = scanner.nextLine();
-        List<User> filteredFriendsList = new ArrayList<>();
-        for (User friend : mainUser.getFriends()) {
-            if (friend.getcity().equals(city)) {
-                filteredFriendsList.add(friend);
+    public void filterFriendsListByCity() {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter the city name: ");
+            String city = scanner.nextLine();
+            List<User> filteredFriendsList = new ArrayList<>();
+            for (User friend : mainUser.getFriends()) {
+                if (friend.getcity().equals(city)) {
+                    filteredFriendsList.add(friend);
+                }
             }
-        }
-        System.out.println(" - Filtered friends list: " + filteredFriendsList);
-        scanner.close(); 
+            System.out.println(" - Filtered friends list: \n" + filteredFriendsList);
     }
 
     //method to filter friend list by workplace and print the list after filtering. Allow the User to enter the name of the workplace. Implement the method so that it can be called in the Menu Class
-    public static void filterFriendsListByWorkplace() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the workplace name: ");
-        String workplace = "";
-        if (scanner.hasNextLine()) {
-            workplace = scanner.nextLine();
-        }
-        List<User> filteredFriendsList = new ArrayList<>();
+    public void filterFriendsListByWorkplace() {
+            Scanner scanner = new Scanner(System.in); 
+            System.out.println("Enter the workplace name: ");
+            String workplace = "";
+            if (scanner.hasNextLine()) {
+                workplace = scanner.nextLine();
+            }
+            List<User> filteredFriendsList = new ArrayList<>();
+            for (User friend : mainUser.getFriends()) {
+                if (friend.getWorkplace().equals(workplace)) {
+                    filteredFriendsList.add(friend);
+                }
+            }
+            System.out.println(" - Filtered friends list: " + filteredFriendsList);
+    
+}
+
+    //a method that recommends a friend to the main user based on city and workplace. Implement the method so that it can be called in the Menu Class
+    public void recommendAFriend() {
+        List<User> recommendedFriends = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
-            if (friend.getWorkplace().equals(workplace)) {
-                filteredFriendsList.add(friend);
+            for (User user : user) {
+                if (user.getcity().equals(friend.getcity()) && user.getWorkplace().equals(friend.getWorkplace()) && !user.getUsername().equals(mainUser.getUsername()) && !mainUser.getFriends().contains(user)) {
+                    recommendedFriends.add(user);
+                }
             }
         }
-        System.out.println(" - Filtered friends list: " + filteredFriendsList);
-        scanner.close();
-    }
+        System.out.println(" - Recommended friends: " + recommendedFriends);
+    }    
+
 }
+
