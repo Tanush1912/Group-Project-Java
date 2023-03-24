@@ -215,7 +215,7 @@ public class SocialNetwork {
 
     // method to sort friends list by furst name and print the list after sorting.
     // Implement the method so that it can be called in Menu class
-    public static void sortFriendsListByFirstName() {
+    public void sortFriendsListByFirstName() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
             sortedFriendsList.add(friend);
@@ -232,7 +232,7 @@ public class SocialNetwork {
 
     // method to sort friends list by last name and print the list after sorting.
     // Implement the method so that it can be called in Menu class
-    public static void sortFriendsListByLastName() {
+    public void sortFriendsListByLastName() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
             sortedFriendsList.add(friend);
@@ -248,7 +248,7 @@ public class SocialNetwork {
 
     // method to sort friends list by number of friends and print the list after
     // sorting. Implement the method so that it can be called in Menu class
-    public static void sortFriendsListByNumberOfFriends() {
+    public void sortFriendsListByNumberOfFriends() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
             sortedFriendsList.add(friend);

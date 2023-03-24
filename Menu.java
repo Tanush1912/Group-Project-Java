@@ -193,13 +193,13 @@ public class Menu {
             choice = inputValidator.processChoiceInput();
             switch (choice) {
                 case 1:
-                    SocialNetwork.sortFriendsListByFirstName();
+                    socialNetwork.sortFriendsListByFirstName();
                     break;
                 case 2:
-                    SocialNetwork.sortFriendsListByLastName();
+                    socialNetwork.sortFriendsListByLastName();
                     break;
                 case 3:
-                    SocialNetwork.sortFriendsListByNumberOfFriends();
+                    socialNetwork.sortFriendsListByNumberOfFriends();
                     break;
                 case 0:
                     break;
