@@ -1,7 +1,3 @@
-import java.util.Map;
-import java.util.Random;
-import java.util.List;
-
 /**
  * Class responsible for displaying the menu to the user
  * 
@@ -21,10 +17,7 @@ public class Menu {
      * Object to provide access to the main user of the social network
      */
     private MainUser mainUser;
-    /**
-     * Object to provide access to the data of all the users in the social network
-     */
-    private Map<String, User> usersData;
+
 
     /**
      * Default constructor to initialise the fields necessary for menu and load the social network from file
@@ -34,50 +27,54 @@ public class Menu {
         socialNetwork.loadNetwork();
         inputValidator = new InputValidator();
         mainUser = socialNetwork.getMainUser();
-        usersData = socialNetwork.getUsersData();
     }
 
     /**
      * Method to display the main menu to the user
      */
-    public void displayMenu() {
-        System.out.println("*** Welcome to the Facebook! ***");
-        System.out.println("Please, choose one of the following options: ");
-        System.out.println(" - 1. View my profile");
-        System.out.println(" - 2. Edit my profile");
-        System.out.println(" - 3. View my list of friends");
-        System.out.println(" - 4. Save the social network");
-        System.out.println(" - 5. Write new post");
-        System.out.println(" - 6. Search posts by hashtag");
-        System.out.println(" - 0. Sign out");
+    public void displayMainMenu() {
+        System.out.println("*** Welcome to the BeNotReal! ***");
+        System.out.println("Please, select one the following options: ");
+        System.out.println(" -> 1. View my profile");
+        System.out.println(" -> 2. Edit my profile");
+        System.out.println(" -> 3. Manage my Friends");
+        System.out.println(" -> 4. View Recommended Friends");
+        System.out.println(" -> 5. Manage my Posts");
+        System.out.println(" -> 6. Search posts by Hashtag");
+        System.out.println(" -> 7. Update the social network");
+        System.out.println(" -> 0. Sign out");
     }
 
     /**
      * Method to process the option selected by the user
      */
     public void runMenu() {
-        int choice = -1; 
-        while (choice != 0) {
-            displayMenu();
+        int choice;
+        do {
+            displayMainMenu();
             choice = inputValidator.processChoiceInput();
             switch (choice) {
                 case 1:
                     mainUser.viewProfile();
                     break;
                 case 2:
-                    editMainUserProfile();
+                    editProfileMenu();
                     break;
                 case 3:
-                    interactWithFriends();
+                    manageFriendsMenu();
                     break;
-                case 4:
-                    socialNetwork.saveNetwork();
+                case 4: 
+                    socialNetwork.recommendFriends();
+                    socialNetwork.recommendFriendsByCityAndWorkplace();
                     break;
                 case 5:
-                    writeNewPost();
+                    managePostsMenu();
                     break;
                 case 6:
-                    searchForPost();
+                    socialNetwork.searchPostByHashtag(inputValidator);
+                    break;
+                case 7:
+                    socialNetwork.saveNetwork();
                     break;
                 case 0:
                     System.out.println("*** You have succesfully signed out! ***");
@@ -86,32 +83,10 @@ public class Menu {
                     System.out.println("### Error: Invalid choice. Please, try again.");
                     break;
             }
-        }
+        } while (choice != 0) ;
     }
 
-    /**
-     * Method to search for the posts by hashtag
-     */
-    public void searchForPost() {
-        System.out.println("*** Please, enter the hashtag you would like to search for: ");
-        String hashtag = inputValidator.processStringInput();
-        List<Post> posts = socialNetwork.searchByHashtag(hashtag);
-        if (posts.size() > 0) {
-            System.out.println("*** The following posts have been found: ");
-            for (Post post : posts) {
-                System.out.printf(" - \"%s\" | posted on %s | %d likes\n", post.getContent(), post.getFormattedDate(), post.getNumberOfLikes());
-            }
-            System.out.println("");
-            mainUser.likePost(inputValidator, posts);
-        } else {
-            System.out.printf("### Error: No posts found with the hashtag: %s!\n", hashtag);
-        }
-    }
-
-    /**
-     * Method to edit the main user's profile
-     */
-    public void editMainUserProfile() {
+    public void editProfileMenu() {
         System.out.println(
                 "*** Choose what information you would like to edit: \n - 1. Full name \n - 2. Email \n - 3. Bio \n - 4. Workplace \n - 5. City \n - 6. Phone number \n - 0. Exit");
         int editChoice = inputValidator.processChoiceInput();
@@ -149,74 +124,127 @@ public class Menu {
                     break;
             }
         } while (!isValid);
+
         if (editChoice != 0) {
             mainUser.editProfile(editChoice, input);
         }
     }
 
-    /**
-     * Method to interact with the friends of the main user and run queries on them
-     */
-    public void interactWithFriends() {
-            mainUser.viewFriends();
-            int choice = -1;
-            do {
-                System.out.println("*** Choose what you would like to do with your friends: \n - 1. View the profile of a friend \n - 2. Remove a friend \n - 3. View the friend's list of friends \n - 0. Back to main menu");
-                choice = inputValidator.processChoiceInput();
-                switch(choice) {
-                    case 1:
-                        String usernameProfile = inputValidator.processUsernameInput();
-                        User userViewProfile = usersData.get(usernameProfile);
-                        if (mainUser.getFriends().contains(userViewProfile)) {
-                            userViewProfile.viewProfile();
-                            mainUser.likePost(inputValidator, userViewProfile.getPosts());
-                        } else {
-                            System.out.println("### Error: You are not friends with this user. Please, try again.");
-                        }
-                        break;
-                    case 2:
-                        String usernameToRemove = inputValidator.processUsernameInput();
-                        if (mainUser.getFriends().contains(usersData.get(
-                                usernameToRemove))) {
-                            mainUser.removeFriend(usersData.get(usernameToRemove));
-                            System.out.println("### You have successfully removed this friend! ###");
-                        } else {
-                            System.out.println("### Error: You are not friends with this user. Please, try again.");
-                        }
-                        break;
-                    case 3:
-                        String usernameFriendsList = inputValidator.processUsernameInput();
-                        if (mainUser.getFriends().contains(usersData.get(usernameFriendsList))) {
-                            User userToView = usersData.get(usernameFriendsList);
-                            userToView.viewFriends();
-                            socialNetwork.compareFriends(userToView);
-                        } else {
-                            System.out.println("### Error: You are not friends with this user. Please, try again.");
-                        }
-                        break;
-                    case 0:
-                        break;
-                    default:
-                        System.out.println("### Error: Invalid choice. Please, try again.");
-                        break;
-                }
-            } while(choice!=0);
+    public void manageFriendsMenu() {
+        mainUser.viewFriends();
+        int choice;
+        do {
+            System.out.println(
+                    "*** Choose what you would like to do with your friends: \n - 1. View the profile of a friend \n - 2. Remove a friend \n - 3. View the friend's list of friends \n - 4. Sort the list of friends \n - 5. Filter the list of friends \n - 0. Back to main menu");
+            choice = inputValidator.processChoiceInput();
+            switch (choice) {
+                case 1:
+                    String usernameProfile = inputValidator.processUsernameInput();
+                    socialNetwork.manageFriends(choice, usernameProfile, inputValidator);
+                    break;
+                case 2:
+                    String usernameToRemove = inputValidator.processUsernameInput();
+                    socialNetwork.manageFriends(choice, usernameToRemove, inputValidator);
+                    break;
+                case 3:
+                    String usernameFriendsList = inputValidator.processUsernameInput();
+                    socialNetwork.manageFriends(choice, usernameFriendsList, inputValidator);
+                    break;
+                case 4:
+                    displaySortOptions();
+                    break;
+                case 5:
+                    displayFilterOptions();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("### Error: Invalid choice. Please, try again.");
+                    break;
+            }
+        } while (choice != 0);
     }
 
     /**
-     * Method to write a new post
+     * Method to display the options how to sort the friends list
      */
-    public void writeNewPost() {
-        System.out.println(" - Type your new post: ");
-        String postContent = inputValidator.processStringInput();
-        System.out.println(" - Type any hashtags you want to add to your post: ");
-        List<String> hashtags = inputValidator.processHashtagsInput();
+    public void displaySortOptions() {
+        System.out.println(
+                " - Please, choose how you would like to sort your friends list: \n - 1. By first name \n - 2. By last name \n - 3. By number of friends \n - 0. Back to sub menu");
+        int choice = inputValidator.processChoiceInput();
+        do {
+            switch (choice) {
+                case 1:
+                    socialNetwork.sortFriendsListByFirstName();
+                    break;
+                case 2:
+                    socialNetwork.sortFriendsListByLastName();
+                    break;
+                case 3:
+                    socialNetwork.sortFriendsListByNumberOfFriends();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("### Error: Invalid choice. Please, try again.");
+                    break;
+            }
+        } while (choice != 0);
+    }
 
-        Random rand = new Random();
-        int numberOfLikes = rand.nextInt(100) + 1;
-        mainUser.writePost(postContent, numberOfLikes, hashtags);
-        System.out.println("*** Your post has been successfully published! ***");
-        System.out.printf(" - %d users like your post!\n", numberOfLikes);
+
+    /**
+     * Method to display the options how to filter the friends list
+     */
+    public void displayFilterOptions() {
+        System.out.println(
+                " - Please, choose how you would like to filter your friends list: \n - 1. By City \n - 2. By Workplace \n - 0. Back to sub menu");
+        int choice = inputValidator.processChoiceInput();
+        do {
+            switch (choice) {
+                case 1:
+                    socialNetwork.filterFriendsListByCity(inputValidator);
+                    break;
+                case 2:
+                    socialNetwork.filterFriendsListByWorkplace(inputValidator);
+                    break;
+                case 0:
+                    break;
+            }
+        } while (choice != 0);
+    }
+
+    /**
+     * Method to display the options of managing the posts of the main user
+     */
+    public void managePostsMenu() {
+        mainUser.viewPosts();
+        int choice;
+        do {
+            System.out.println(
+                    " - Please, choose what you would like to do with your posts: \n - 1. Edit the post \n - 2. Write a new post \n - 3. Delete the post \n - 0. Back to main menu");
+            choice = inputValidator.processChoiceInput();
+            switch (choice) {
+                case 1:
+                    System.out.println(" - Choose the post you would like to edit");
+                    int postToEdit = inputValidator.processChoiceInput() - 1;
+                    mainUser.editPost(postToEdit, inputValidator);
+                    break;
+                case 2:
+                    mainUser.writePost(inputValidator);
+                    break;
+                case 3:
+                    System.out.println(" - Choose the post you would like to delete");
+                    int postToDelete = inputValidator.processChoiceInput() - 1;
+                    mainUser.deletePost(postToDelete);
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("### Error: Invalid choice. Please, try again.");
+                    break;
+            }
+        } while (choice != 0);
     }
 
     /**

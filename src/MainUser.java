@@ -6,7 +6,7 @@ public class MainUser extends User {
     }
 
     /**
-     * Method to edit the main user's profile
+     * Method to allow the main user to edit their profile
      * 
      * @param choice The choice of the user on what to edit
      */
@@ -36,52 +36,48 @@ public class MainUser extends User {
     }
 
     /**
-     * Method to remove a friend from the main user's friends list
+     * Method to allow the main user to write a new post
      * 
-     * @param user The user to be removed from friends list
+     * @param inputValidator Object to validate the input of the user
      */
-    public void removeFriend(User user) {
-        friends.remove(user);
+    public void writePost(InputValidator inputValidator) {
+        System.out.println(">>> Type your new post ");
+        String postContent = inputValidator.processStringInput();
+
+        System.out.println(">>> Type any hashtags that you want to add to your post ");
+        List<String> hashtags = inputValidator.processHashtagsInput();
+
+        Random rand = new Random();
+        int numberOfLikes = rand.nextInt(100) + 1;
+
+        System.out.println("*** Your post has been successfully published! ***");
+        System.out.printf(" - %d users like your post!\n", numberOfLikes);
+        posts.add(new Post(postContent, numberOfLikes, hashtags));
     }
 
     /**
-     * Method to write new post
+     * Method to allow the main user to edit the post
      * 
-     * @param content The content of the post
-     * @param numberOfLikes The number of likes for the post
-     * @param hashtags The hashtags for the post
+     * @param postIndex The index of the post to be edited
+     * @param inputValidator Object to validate the input of the user
      */
-    public void writePost(String content, int numberOfLikes, List<String> hashtags) {
-        posts.add(new Post(content, numberOfLikes, hashtags));
+    public void editPost(int postIndex, InputValidator inputValidator) {
+        System.out.println(">>> Type the new content of your post ");
+        String postContent = inputValidator.processStringInput();
+
+        System.out.println(">>> Type new hashtags that you want to add to your post ");
+        List<String> hashtags = inputValidator.processHashtagsInput();
+
+        posts.get(postIndex).setContent(postContent);
+        posts.get(postIndex).setHashtags(hashtags);
     }
 
     /**
-     * Method to like the post of another user
+     * Method to allow the main user to delete the post
      * 
-     * @param userToLike     User whose post will be liked
-     * @param inputValidator Object to validate the user's input
+     * @param postIndex The index of the post to be deleted
      */
-    public void likePost(User userToLike, InputValidator inputValidator) {
-        boolean isValid = true;
-        do {
-            System.out.println(" - Do you want to like any post of this user? (Y/N)");
-            String likeChoice = inputValidator.processStringInput();
-            if (likeChoice.equalsIgnoreCase("Y")) {
-                System.out.println(" - Enter the number of the post you want to like: ");
-                int postNumber = inputValidator.processChoiceInput() - 1;
-                try {
-                    userToLike.getPosts().get(postNumber).addLike();
-                    isValid = true;
-                    System.out.println("### You have successfully liked this post! ###");
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("### Error: This post does not exist! Please, try again.");
-                    isValid = false;
-                }
-            } else if (!likeChoice.equalsIgnoreCase("N")) {
-                System.out.println("### Error: Invalid choice. Please, try again.");
-                isValid = false;
-            }
-        } while (!isValid);
+    public void deletePost(int postIndex) {
+        posts.remove(postIndex);
     }
-
 }

@@ -107,9 +107,38 @@ public class Post {
     }
 
     /**
+     * Method to set the content of the post
+     * 
+     * @param content Content of the post
+     */
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    /**
+     * Method to set the collection of hashtags for the post
+     * 
+     * @param hashtags Collection of hashtags for the post
+     */
+    public void setHashtags(List<String> hashtags) {
+        this.hashtags = hashtags;
+    }
+
+    /**
      * Method to add the like to the post
      */
     public void addLike() {
         this.numberOfLikes += 1;
+    }
+
+    /**
+     * Method to represent the post as a string
+     * 
+     * @return String representation of the post
+     */
+    @Override
+    public String toString() {
+        String hashtagsString = hashtags.size() > 0 ? hashtags.toString() : "[No hashtags]";
+        return String.format("\"%s\" %s - posted on %s, %d users liked it", content, hashtagsString, getFormattedDate(), numberOfLikes);
     }
 }

@@ -196,7 +196,7 @@ public class User {
      */
     public void viewProfile() {
         System.out.println();
-        System.out.printf(" *** %s's Profile ***\n", username);
+        System.out.printf("*** Profile of %s ***\n", username);
         System.out.println(" - Full name: " + fullName);
         System.out.println(" - Bio: " + bio);
         System.out.println(" - Email: " + email);
@@ -204,16 +204,23 @@ public class User {
         System.out.println(" - Phone number: " + phoneNumber);
         System.out.println(" - City: " + city);
         System.out.printf(" - %s posted:\n", username);
-
-        String hashtags = "[No hashtags]";
-        for (int i = 0; i < posts.size(); i++) {
-            if (posts.get(i).getHashtags().size() > 0) {
-                hashtags = posts.get(i).getHashtags().toString();
-            }
-            System.out.printf("   %d. \"%s\" %s - posted on %s, %d users liked it\n", i+1, posts.get(i).getContent(), hashtags, posts.get(i).getFormattedDate(), posts.get(i).getNumberOfLikes());
-        }
+        viewPosts();
         System.out.println("******");
         System.out.println();
+    }
+
+    /**
+     * Method to display the user's posts
+     */
+    public void viewPosts() {
+        System.out.printf("\n*** Posts of %s ***\n", username);
+        if (posts.size() > 0) {
+            for (int i = 0; i < posts.size(); i++) {
+                System.out.printf("%2d. %s\n", i + 1, posts.get(i));
+            }
+        } else {
+            System.out.println("    - No posts yet");
+        }
     }
 
     /**
@@ -221,14 +228,14 @@ public class User {
      */
     public void viewFriends() {
         if (friends.size() > 0) {
-            System.out.printf(" *** %s's friends ***\n", username);
+            System.out.printf("\n*** Friends of %s ***\n", username);
             for (User friend : friends) {
                 System.out.println(" - " + friend.getUsername());
             }
-            System.out.println("***");
         } else {
             System.out.printf(" *** %s has no friends yet ***\n", username);
         }
+        System.out.println();
     }
 
     /**
@@ -238,6 +245,15 @@ public class User {
      */
     public void addFriend(User user) {
         friends.add(user);
+    }
+
+    /**
+     * Method to remove a friend from the main user's friends list
+     * 
+     * @param user The user to be removed from friends list
+     */
+    public void removeFriend(User user) {
+        friends.remove(user);
     }
 
     /**

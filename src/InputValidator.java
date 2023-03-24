@@ -79,7 +79,7 @@ public class InputValidator {
      * @return Username entered by the user
      */
     public String processUsernameInput() {
-        System.out.println(" - Please, enter the username: ");
+        System.out.println("\n>>> Please, enter the username: ");
         boolean isValid;
         String username = "";
         do {
@@ -100,7 +100,7 @@ public class InputValidator {
      * @return Choice entered by the user
      */
     public int processChoiceInput() {
-        System.out.println(" - Please, enter your choice: ");
+        System.out.println("\n>>> Please, enter your choice: ");
         boolean isValid;
         int choice = 0;
         do {
@@ -126,7 +126,7 @@ public class InputValidator {
      * @return String entered by the user
      */
     public String processStringInput() {
-        System.out.println(" - Please, provide the neccessary information: ");
+        System.out.println("\n>>> Please, provide the neccessary information: ");
         System.out.print(">>> ");
         String input = scanner.nextLine();
         return input;
@@ -144,15 +144,15 @@ public class InputValidator {
         do {
             isValid = true;
             hashtags = new ArrayList<String>();
-            System.out.println(" - Please, enter the list of hashtags separated by space: ");
+            System.out.println(">>> Please, enter the list of hashtags separated by space: ");
             System.out.print(">>> ");
             String hashtag = scanner.nextLine();
             try {
                 for (String tag : hashtag.split(" ")) {
                     if (isValidHashtag(tag)) {
                         hashtags.add(tag);
-                    } else {
-                        System.out.println("### Error: Hashtags can contain only lowercased letters, numbers, underscores, and dashes.");
+                    } else if (!tag.isEmpty()) {
+                        System.out.println("### Error: Invalid format of hashtag!");
                         isValid = false;
                     }
                 } 
