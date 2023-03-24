@@ -101,6 +101,8 @@ public class Menu {
             for (Post post : posts) {
                 System.out.printf(" - \"%s\" | posted on %s | %d likes\n", post.getContent(), post.getFormattedDate(), post.getNumberOfLikes());
             }
+            System.out.println("");
+            mainUser.likePost(inputValidator, posts);
         } else {
             System.out.printf("### Error: No posts found with the hashtag: %s!\n", hashtag);
         }
@@ -142,9 +144,14 @@ public class Menu {
                         isValid = true;
                     }
                     break;
+                case 0:
+                    isValid = true;
+                    break;
             }
         } while (!isValid);
-        mainUser.editProfile(editChoice, input);
+        if (editChoice != 0) {
+            mainUser.editProfile(editChoice, input);
+        }
     }
 
     /**
@@ -162,7 +169,7 @@ public class Menu {
                         User userViewProfile = usersData.get(usernameProfile);
                         if (mainUser.getFriends().contains(userViewProfile)) {
                             userViewProfile.viewProfile();
-                            mainUser.likePost(userViewProfile, inputValidator);
+                            mainUser.likePost(inputValidator, userViewProfile.getPosts());
                         } else {
                             System.out.println("### Error: You are not friends with this user. Please, try again.");
                         }
@@ -196,6 +203,9 @@ public class Menu {
             } while(choice!=0);
     }
 
+    /**
+     * Method to write a new post
+     */
     public void writeNewPost() {
         System.out.println(" - Type your new post: ");
         String postContent = inputValidator.processStringInput();
