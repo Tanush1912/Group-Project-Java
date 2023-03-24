@@ -256,8 +256,4 @@ public class User {
     public String toString() {
         return username;
     }
-
-    public Object getcity() {
-        return city;
-    }
 }

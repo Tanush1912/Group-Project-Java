@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Class responsible for processing and validating input of the main user
@@ -58,6 +61,18 @@ public class InputValidator {
         String pattern = "^[+]?[0-9]{10,13}$";
         return phoneNumber.matches(pattern);
     }
+
+    /**
+     * Method to check whether the hashtag complies with the requirements
+     * 
+     * @param hashtag Hashtag to be validated
+     * @return Boolean representing whether the hashtag is valid or not
+     */
+    public boolean isValidHashtag(String hashtag) {
+        String pattern = "^#[a-z0-9_-]*$";
+        return hashtag.matches(pattern);
+    }
+
 
     /**
      * Method to process the input of username from the user
@@ -121,6 +136,12 @@ public class InputValidator {
         return input;
     }
 
+    /**
+     * Method to process the City Name input from the user
+     * @param scanner
+     * @return String entered by the user
+     */
+
     public String getCityName(Scanner scanner) {
         String city = null;
         boolean isValidInput = false;
@@ -138,4 +159,39 @@ public class InputValidator {
         return city;
     }
 
+    /**
+     * Method to process the input of hashtags for the post from the user
+     * 
+     * @return List of hashtags entered by the user
+     */
+    public List<String> processHashtagsInput() {
+        System.out.println(" - Hashtags must start with \"#\". Press \"Enter\" to skip.");
+        List<String> hashtags;
+        boolean isValid;
+        do {
+            isValid = true;
+            hashtags = new ArrayList<String>();
+            System.out.println(" - Please, enter the list of hashtags separated by space: ");
+            System.out.print(">>> ");
+            String hashtag = scanner.nextLine();
+            try {
+                for (String tag : hashtag.split(" ")) {
+                    if (isValidHashtag(tag)) {
+                        hashtags.add(tag);
+                    } else {
+                        System.out.println("### Error: Hashtags can contain only lowercased letters, numbers, underscores, and dashes.");
+                        isValid = false;
+                    }
+                } 
+            } catch (PatternSyntaxException e) {
+                System.out.println("### Error: Hashtags must be separated by space!");
+                isValid = false;
+            }
+        } while(!isValid);
+
+        return hashtags;
+    }
+
+    
 }
+

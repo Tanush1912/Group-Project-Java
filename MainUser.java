@@ -55,7 +55,39 @@ public class MainUser extends User {
      * @param content The content of the post
      * @param numberOfLikes The number of likes for the post
      */
-    public void writePost(String content, int numberOfLikes) {
-        posts.add(new Post(content, numberOfLikes));
+    public void writePost(String content, int numberOfLikes, List<String> hashtags) {
+        posts.add(new Post(content, numberOfLikes, hashtags));
+    }
+
+    /**
+     * Method to like the post of another user
+     * 
+     * @param userToLike     User whose post will be liked
+     * @param inputValidator Object to validate the user's input
+     */
+    public void likePost(User userToLike, InputValidator inputValidator) {
+        boolean isValid = true;
+        do {
+            System.out.println(" - Do you want to like any post of this user? (Y/N)");
+            String likeChoice = inputValidator.processStringInput();
+            if (likeChoice.equalsIgnoreCase("Y")) {
+                System.out.println(" - Enter the number of the post you want to like: ");
+                int postNumber = inputValidator.processChoiceInput() - 1;
+                try {
+                    userToLike.getPosts().get(postNumber).addLike();
+                    isValid = true;
+                    System.out.println("### You have successfully liked this post! ###");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("### Error: This post does not exist! Please, try again.");
+                    isValid = false;
+                }
+            } else if (!likeChoice.equalsIgnoreCase("N")) {
+                System.out.println("### Error: Invalid choice. Please, try again.");
+                isValid = false;
+            }
+        } while (!isValid);
+    }
+
+    public void likePost(InputValidator inputValidator, List<Post> posts) {
     }
 }

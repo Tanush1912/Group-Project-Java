@@ -86,10 +86,15 @@ public class SocialNetwork {
                     String postsCollection = line.split(": \\[")[1].substring(0, line.split(": \\[")[1].length() - 1);
                     for (String post : postsCollection.split("; ")) {
                         String[] postInfo = post.split("/");
-                        String content = postInfo[0].substring(1, postInfo[0].length() - 1);
+                        String content = postInfo[0].substring(1, postInfo[0].length()-1);
                         int likesNumber = Integer.parseInt(postInfo[1]);
                         String date = postInfo[2];
-                        Post postObj = new Post(content, likesNumber, date);
+                        List<String> hashtags = new ArrayList<>();
+                        String hashtagsString = postInfo[3].substring(1, postInfo[3].length() - 1);
+                        for (String hashtag : hashtagsString.split(", ")) {
+                            hashtags.add(hashtag);
+                        }
+                        Post postObj = new Post(content, likesNumber, date, hashtags);
                         posts.add(postObj);
                     }
 
@@ -213,8 +218,29 @@ public class SocialNetwork {
         System.out.println(" - Users you may want to add to your friends: " + uncommonFriends);
     }
 
-    // method to sort friends list by furst name and print the list after sorting.
-    // Implement the method so that it can be called in Menu class
+    /**
+     * Method to search for the post of the users by the given hashtag
+     * 
+     * @param hashtag Hashtag to search for
+     * @return List of posts with the given hashtag
+     */
+    public List<Post> searchByHashtag(String hashtag) {
+        List<Post> posts = new ArrayList<>();
+        for (User user : usersData.values()) {
+            for (Post post : user.getPosts()) {
+                if (post.getHashtags().contains(hashtag)) {
+                    posts.add(post);
+                }
+            }
+        }
+        return posts;
+    }
+
+    /**
+     * Method to sort friends list by first name and print the list after sorting.
+     * 
+     * @param mainUser Main user whose friends list to sort
+     */
     public void sortFriendsListByFirstName() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
@@ -230,8 +256,11 @@ public class SocialNetwork {
 
     }
 
-    // method to sort friends list by last name and print the list after sorting.
-    // Implement the method so that it can be called in Menu class
+    /**
+     * Method to sort friends list by last name and print the list after sorting.
+     * 
+     * @param mainUser Main user whose friends list to sort
+     */
     public void sortFriendsListByLastName() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
@@ -246,8 +275,11 @@ public class SocialNetwork {
         System.out.println(" - Sorted friends list: " + sortedFriendsList);
     }
 
-    // method to sort friends list by number of friends and print the list after
-    // sorting. Implement the method so that it can be called in Menu class
+    /**
+     * Method to sort friends list by number of friends and print the list after
+     * 
+     * @param mainUser Main user whose friends list to sort
+    */ 
     public void sortFriendsListByNumberOfFriends() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
@@ -263,24 +295,28 @@ public class SocialNetwork {
 
     }
 
-    // method to filter friend list by city and print the list after filtering, with
-    // one username in oneline. Allow the User to enter the city name. Implement the
-    // method so that it can be called in the Menu Class
+    /**
+     * Method to filter friend list by city and print the list after filtering
+     * 
+     * @param mainUser Main user whose friends list to filter
+     */
     public void filterFriendsListByCity() {
         InputValidator inputValidator = new InputValidator();
         String city = inputValidator.getCityName(new Scanner(System.in));
         List<User> filteredFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
-            if (friend.getcity().equals(city)) {
+            if (friend.getCity().equals(city)) {
                 filteredFriendsList.add(friend);
             }
         }
         System.out.println(" - Filtered friends list: \n" + filteredFriendsList);
     }
 
-    // method to filter friend list by workplace and print the list after filtering.
-    // Allow the User to enter the name of the workplace. Implement the method so
-    // that it can be called in the Menu Class
+    /**
+     * Method to filter friend list by workplace and print the list after filtering
+     * 
+     * @param mainUser Main user whose friends list to filter
+     */
     public void filterFriendsListByWorkplace() {
         InputValidator inputValidator = new InputValidator();
         String workplace = inputValidator.processStringInput();
@@ -293,9 +329,11 @@ public class SocialNetwork {
         System.out.println(" - Filtered friends list: " + filteredFriendsList);
     }
 
-    // a method that recommends friends to the main user based on the number of
-    // common friends. Implement the method so that it can be called in the Menu
-    // Class
+    /**
+     * Method to recommend friends to the main user based on common friends 
+     * 
+     * @param mainUser friend's friend list to recommend friends to the main user
+     */
     public void recommendFriends() {
         Set<User> recommendedFriends = new HashSet<>();
         for (User friend : mainUser.getFriends()) {
@@ -311,10 +349,12 @@ public class SocialNetwork {
         }
     }
 
-    // A method that uses the mainusers friends friend list to recommend friends to
-    // the main user. It then compares the city and workplace of those users with
-    // the city and workplace of the mainuser. So the recommended user cannot be a
-    // stranger. Implement the method so that it can be called in the Menu Class
+    /**
+     * Method to recommend friends to the main user based on common friends, city and workplace. Strangers will
+     * not be recommeneded even if users share same city
+     * 
+     * @param mainUser friend's friend list to recommend friends to the main user, compare mainUser city and workplace to recommened list of friends 
+     */
     public void recommendFriendsBasedOnCityAndWorkplace() {
         Set<User> recommendedFriends = new HashSet<>();
         for (User friend : mainUser.getFriends()) {
@@ -339,4 +379,20 @@ public class SocialNetwork {
         System.out.println(" - Recommended friends with the same workplace: " + recommendedFriendsWithSameWorkplace);
 
     }
+
+    /**
+     * 
+    public void editPost() {
+        InputValidator inputValidator = new InputValidator();
+        System.out.println("Enter the post id you want to edit: ");
+        int postId = inputValidator.processIntInput();
+        System.out.println("Enter the new text: ");
+        String newText = inputValidator.processStringInput();
+        for (Post post : mainUser.getPosts()) {
+            if (post.getPostId() == postId) {
+                post.setText(newText);
+            }
+        }
+    }
+    */
 }

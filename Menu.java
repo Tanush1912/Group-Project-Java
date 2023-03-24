@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -46,9 +47,10 @@ public class Menu {
         System.out.println(" - 1. View my profile");
         System.out.println(" - 2. Edit my profile");
         System.out.println(" - 3. View my list of friends");
-        System.out.println(" - 4. Save the social network");
-        System.out.println(" - 5. Write new post");
-        System.out.println(" - 6. View Recommended Friends");
+        System.out.println(" - 4. View Recommended Friends");
+        System.out.println(" - 5. Manage my Posts");
+        System.out.println(" - 6. Search posts by hashtag");
+        System.out.println(" - 7. Save the social network");
         System.out.println(" - 0. Sign out");
     }
 
@@ -71,14 +73,19 @@ public class Menu {
                     interactWithFriends();
                     break;
                 case 4:
-                    socialNetwork.saveNetwork();
+                socialNetwork.recommendFriends();
+                    socialNetwork.recommendFriendsBasedOnCityAndWorkplace();
+                    
                     break;
                 case 5:
                     writeNewPost();
+                    //managePosts();
                     break;
                 case 6:
-                    socialNetwork.recommendFriends();
-                    socialNetwork.recommendFriendsBasedOnCityAndWorkplace();
+                    searchForPost();
+                    break;
+                case 7:
+                    socialNetwork.saveNetwork();
                     break;
                 case 0:
                     System.out.println("*** You have succesfully signed out! ***");
@@ -88,6 +95,48 @@ public class Menu {
                     break;
             }
         }
+    }
+
+    /**
+     * Method to search for the posts by hashtag
+     */
+    public void searchForPost() {
+        System.out.println("*** Please, enter the hashtag you would like to search for: ");
+        String hashtag = inputValidator.processStringInput();
+        List<Post> posts = socialNetwork.searchByHashtag(hashtag);
+        if (posts.size() > 0) {
+            System.out.println("*** The following posts have been found: ");
+            for (Post post : posts) {
+                System.out.printf(" - \"%s\" | posted on %s | %d likes\n", post.getContent(), post.getFormattedDate(), post.getNumberOfLikes());
+            }
+            System.out.println("");
+            mainUser.likePost(inputValidator, posts);
+        } else {
+            System.out.printf("### Error: No posts found with the hashtag: %s!\n", hashtag);
+        }
+    }
+
+    //A menu for manage posts with 3 options 1. write new post 2. edit posts 3. back to main menu
+    public void managePosts() {
+        System.out.println(
+                "*** Choose what you would like to do with your posts: \n - 1. Write new post \n - 2. Edit posts \n - 0. Back to main menu");
+        int choice = -1;
+        do {
+            choice = inputValidator.processChoiceInput();
+            switch (choice) {
+                case 1:
+                    writeNewPost();
+                    break;
+                case 2:
+                    break;
+                case 0:
+                    System.out.println("*** You have succesfully signed out! ***");
+                    break;
+                default:
+                    System.out.println("### Error: Invalid choice. Please, try again.");
+                    break;
+            }
+        } while (choice != 0);
     }
 
     /**
@@ -232,13 +281,18 @@ public class Menu {
         } while (choice != 0);
     }
 
+    /**
+     * Method to write a new post
+     */
     public void writeNewPost() {
-        System.out.println("*** Type your new post: ");
+        System.out.println(" - Type your new post: ");
         String postContent = inputValidator.processStringInput();
+        System.out.println(" - Type any hashtags you want to add to your post: ");
+        List<String> hashtags = inputValidator.processHashtagsInput();
 
         Random rand = new Random();
         int numberOfLikes = rand.nextInt(100) + 1;
-        mainUser.writePost(postContent, numberOfLikes);
+        mainUser.writePost(postContent, numberOfLikes, hashtags);
         System.out.println("*** Your post has been successfully published! ***");
         System.out.printf(" - %d users like your post!\n", numberOfLikes);
     }
