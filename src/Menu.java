@@ -1,5 +1,6 @@
 import java.util.Map;
 import java.util.Random;
+import java.util.List;
 
 /**
  * Class responsible for displaying the menu to the user
@@ -47,6 +48,7 @@ public class Menu {
         System.out.println(" - 3. View my list of friends");
         System.out.println(" - 4. Save the social network");
         System.out.println(" - 5. Write new post");
+        System.out.println(" - 6. Search posts by hashtag");
         System.out.println(" - 0. Sign out");
     }
 
@@ -74,6 +76,9 @@ public class Menu {
                 case 5:
                     writeNewPost();
                     break;
+                case 6:
+                    searchForPost();
+                    break;
                 case 0:
                     System.out.println("*** You have succesfully signed out! ***");
                     break;
@@ -81,6 +86,23 @@ public class Menu {
                     System.out.println("### Error: Invalid choice. Please, try again.");
                     break;
             }
+        }
+    }
+
+    /**
+     * Method to search for the posts by hashtag
+     */
+    public void searchForPost() {
+        System.out.println("*** Please, enter the hashtag you would like to search for: ");
+        String hashtag = inputValidator.processStringInput();
+        List<Post> posts = socialNetwork.searchByHashtag(hashtag);
+        if (posts.size() > 0) {
+            System.out.println("*** The following posts have been found: ");
+            for (Post post : posts) {
+                System.out.printf(" - \"%s\" | posted on %s | %d likes\n", post.getContent(), post.getFormattedDate(), post.getNumberOfLikes());
+            }
+        } else {
+            System.out.printf("### Error: No posts found with the hashtag: %s!\n", hashtag);
         }
     }
 
@@ -130,16 +152,17 @@ public class Menu {
      */
     public void interactWithFriends() {
             mainUser.viewFriends();
-            System.out.println("*** Choose what you would like to do with your friends: \n - 1. View the profile of a friend \n - 2. Remove a friend \n - 3. View the friend's list of friends \n - 0. Back to main menu");
             int choice = -1;
             do {
+                System.out.println("*** Choose what you would like to do with your friends: \n - 1. View the profile of a friend \n - 2. Remove a friend \n - 3. View the friend's list of friends \n - 0. Back to main menu");
                 choice = inputValidator.processChoiceInput();
                 switch(choice) {
                     case 1:
                         String usernameProfile = inputValidator.processUsernameInput();
-                        if (mainUser.getFriends().contains(usersData.get(
-                                usernameProfile))) {
-                            usersData.get(usernameProfile).viewProfile();
+                        User userViewProfile = usersData.get(usernameProfile);
+                        if (mainUser.getFriends().contains(userViewProfile)) {
+                            userViewProfile.viewProfile();
+                            mainUser.likePost(userViewProfile, inputValidator);
                         } else {
                             System.out.println("### Error: You are not friends with this user. Please, try again.");
                         }
@@ -149,6 +172,7 @@ public class Menu {
                         if (mainUser.getFriends().contains(usersData.get(
                                 usernameToRemove))) {
                             mainUser.removeFriend(usersData.get(usernameToRemove));
+                            System.out.println("### You have successfully removed this friend! ###");
                         } else {
                             System.out.println("### Error: You are not friends with this user. Please, try again.");
                         }
@@ -173,12 +197,14 @@ public class Menu {
     }
 
     public void writeNewPost() {
-        System.out.println("*** Type your new post: ");
+        System.out.println(" - Type your new post: ");
         String postContent = inputValidator.processStringInput();
+        System.out.println(" - Type any hashtags you want to add to your post: ");
+        List<String> hashtags = inputValidator.processHashtagsInput();
 
         Random rand = new Random();
         int numberOfLikes = rand.nextInt(100) + 1;
-        mainUser.writePost(postContent, numberOfLikes);
+        mainUser.writePost(postContent, numberOfLikes, hashtags);
         System.out.println("*** Your post has been successfully published! ***");
         System.out.printf(" - %d users like your post!\n", numberOfLikes);
     }

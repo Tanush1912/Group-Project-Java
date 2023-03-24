@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.util.regex.PatternSyntaxException;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *  Class responsible for processing and validating input of the main user
@@ -22,6 +25,7 @@ public class InputValidator {
     /**
      * Method to check whether the username complies with the requirements
      * @param username Username to be validated
+     * @return Boolean representing whether the username is valid or not
      */
     public boolean isValidUsername(String username) {
         String pattern = "^[a-zA-Z0-9_-]{3,20}$";
@@ -31,6 +35,7 @@ public class InputValidator {
     /**
      * Method to check whether the full name complies with the requirements
      * @param fullName Full name to be validated
+     * @return Boolean representing whether the full name is valid or not
      */
     public boolean isValidFullName(String fullName) {
         String pattern = "^[a-zA-Z]+\\s+[a-zA-Z]+$";
@@ -40,6 +45,7 @@ public class InputValidator {
     /**
      * Method to check whether the email complies with the requirements
      * @param email Email to be validated
+     * @return Boolean representing whether the email is valid or not
      */
     public boolean isValidEmail(String email) {
         String pattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
@@ -49,10 +55,22 @@ public class InputValidator {
     /**
      * Method to check whether the phone number complies with the requirements
      * @param phoneNumber Phone number to be validated
+     * @return Boolean representing whether the phone number is valid or not
      */
     public boolean isValidPhoneNumber(String phoneNumber) {
         String pattern = "^[+]?[0-9]{10,13}$";
         return phoneNumber.matches(pattern);
+    }
+
+    /**
+     * Method to check whether the hashtag complies with the requirements
+     * 
+     * @param hashtag Hashtag to be validated
+     * @return Boolean representing whether the hashtag is valid or not
+     */
+    public boolean isValidHashtag(String hashtag) {
+        String pattern = "^#[a-z0-9_-]*$";
+        return hashtag.matches(pattern);
     }
 
     /**
@@ -108,9 +126,42 @@ public class InputValidator {
      * @return String entered by the user
      */
     public String processStringInput() {
-        System.out.println(" - Please, enter the value: ");
+        System.out.println(" - Please, provide the neccessary information: ");
         System.out.print(">>> ");
         String input = scanner.nextLine();
         return input;
+    }
+
+    /**
+     * Method to process the input of hashtags for the post from the user
+     * 
+     * @return List of hashtags entered by the user
+     */
+    public List<String> processHashtagsInput() {
+        System.out.println(" - Hashtags must start with \"#\". Press \"Enter\" to skip.");
+        List<String> hashtags;
+        boolean isValid;
+        do {
+            isValid = true;
+            hashtags = new ArrayList<String>();
+            System.out.println(" - Please, enter the list of hashtags separated by space: ");
+            System.out.print(">>> ");
+            String hashtag = scanner.nextLine();
+            try {
+                for (String tag : hashtag.split(" ")) {
+                    if (isValidHashtag(tag)) {
+                        hashtags.add(tag);
+                    } else {
+                        System.out.println("### Error: Hashtags can contain only lowercased letters, numbers, underscores, and dashes.");
+                        isValid = false;
+                    }
+                } 
+            } catch (PatternSyntaxException e) {
+                System.out.println("### Error: Hashtags must be separated by space!");
+                isValid = false;
+            }
+        } while(!isValid);
+
+        return hashtags;
     }
 }

@@ -24,7 +24,7 @@ public class SocialNetwork {
     /**
      * File name to store the social network data
      */
-    final static String FILE_NAME = "../network-data.txt";
+    private final static String FILE_NAME = "../network-data.txt";
 
     /**
      * Default constructor to initiate the social network
@@ -89,16 +89,23 @@ public class SocialNetwork {
                         String content = postInfo[0].substring(1, postInfo[0].length()-1);
                         int likesNumber = Integer.parseInt(postInfo[1]);
                         String date = postInfo[2];
-                        Post postObj = new Post(content, likesNumber, date);
+                        List<String> hashtags = new ArrayList<>();
+                        String hashtagsString = postInfo[3].substring(1, postInfo[3].length() - 1);
+                        for (String hashtag : hashtagsString.split(", ")) {
+                            hashtags.add(hashtag);
+                        }
+                        Post postObj = new Post(content, likesNumber, date, hashtags);
                         posts.add(postObj);
                     }
                     
                     line = bufferedReader.readLine();
                     Set<String> friends = new HashSet<>();
                     String friendsCollection = line.split(": \\[")[1].substring(0, line.split(": \\[")[1].length() - 1);
-                    for (String friend : friendsCollection.split(", ")) {
-                        String friendUsername = friend.substring(1, friend.length()-1);
-                        friends.add(friendUsername);
+                    if (!friendsCollection.isEmpty()) {
+                        for (String friend : friendsCollection.split(", ")) {
+                            String friendUsername = friend.substring(1, friend.length()-1);
+                            friends.add(friendUsername);
+                        }
                     }
                     friendsMap.put(username, friends);
 
@@ -179,7 +186,7 @@ public class SocialNetwork {
         String posts = "";
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         for (Post post : user.getPosts()) {
-            posts += "\"" + post.getContent() + "\"/" + post.getNumberOfLikes() + "/" + formatter.format(post.getDate()) + "; ";
+            posts += String.format("\"%s\"/%d/%s/%s; ", post.getContent(), post.getNumberOfLikes(), formatter.format(post.getDate()), post.getHashtags());
         }
         writer.printf("\"Posts\": [%s]\n", posts.substring(0, posts.length() - 2));
 
@@ -198,15 +205,33 @@ public class SocialNetwork {
      */
     public void compareFriends(User userToCompare) {
         Set<User> commonFriends = new HashSet<>();
-        Set<User> uncommonFriends = new HashSet<>();
+        Set<User> unknownFriends = new HashSet<>();
         for (User friend : userToCompare.getFriends()) {
             if (mainUser.getFriends().contains(friend)) {
                 commonFriends.add(friend);
             } else if (!friend.getUsername().equals(mainUser.getUsername())) {
-                uncommonFriends.add(friend);
+                unknownFriends.add(friend);
             }
         }
         System.out.println(" - Friends you have in common: " + commonFriends);
-        System.out.println(" - Users you may want to add to your friends: " + uncommonFriends);
+        System.out.println(" - Users you may want to add to your friends: " + unknownFriends);
+    }
+
+    /**
+     * Method to search for the post of the users by the given hashtag
+     * 
+     * @param hashtag Hashtag to search for
+     * @return List of posts with the given hashtag
+     */
+    public List<Post> searchByHashtag(String hashtag) {
+        List<Post> posts = new ArrayList<>();
+        for (User user : usersData.values()) {
+            for (Post post : user.getPosts()) {
+                if (post.getHashtags().contains(hashtag)) {
+                    posts.add(post);
+                }
+            }
+        }
+        return posts;
     }
 }

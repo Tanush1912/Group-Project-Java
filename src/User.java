@@ -204,8 +204,13 @@ public class User {
         System.out.println(" - Phone number: " + phoneNumber);
         System.out.println(" - City: " + city);
         System.out.printf(" - %s posted:\n", username);
-        for (Post post : posts) {
-            System.out.printf("*** \"%s\" - posted on %s, %d users liked it\n", post.getContent(), post.getDate(), post.getNumberOfLikes());
+
+        String hashtags = "[No hashtags]";
+        for (int i = 0; i < posts.size(); i++) {
+            if (posts.get(i).getHashtags().size() > 0) {
+                hashtags = posts.get(i).getHashtags().toString();
+            }
+            System.out.printf("   %d. \"%s\" %s - posted on %s, %d users liked it\n", i+1, posts.get(i).getContent(), hashtags, posts.get(i).getFormattedDate(), posts.get(i).getNumberOfLikes());
         }
         System.out.println("******");
         System.out.println();
@@ -215,11 +220,15 @@ public class User {
      * Method to display the user's friends
      */
     public void viewFriends() {
-        System.out.printf(" *** %s's friends ***\n", username);
-        for (User friend : friends) {
-            System.out.println(" - " + friend.getUsername());
+        if (friends.size() > 0) {
+            System.out.printf(" *** %s's friends ***\n", username);
+            for (User friend : friends) {
+                System.out.println(" - " + friend.getUsername());
+            }
+            System.out.println("***");
+        } else {
+            System.out.printf(" *** %s has no friends yet ***\n", username);
         }
-        System.out.println("***");
     }
 
     /**
