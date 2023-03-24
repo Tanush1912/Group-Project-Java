@@ -1,69 +1,70 @@
-"username": "main123"
-"fullName": "John Smith"
-"email": "john.smith123@gmail.com"
-"bio": "I am a software developer"
-"workplace": "Google"
-"city": "New York"
-"phoneNumber": "+1 123 456 789"
-"posts": ["I love writing code in Java"/5/14-5-2020; "Yesterday I went to the gym"/21/17-10-2019]
-"friends": ["jim78", "jane1232", "bobsmith000", "fitnessguru", "musicL0ver789"]
+"Username": "main123"
+"Full name": "John Smith"
+"Email": "I am a software developer"
+"Bio": "john.smith123@gmail.com"
+"Workplace": "Google"
+"City": "New York"
+"Phone number": "+1 123 456 789"
+"Posts": ["I love writing code in Java"/5/14-05-2020/[#coding]; "Yesterday I went to the gym"/21/17-10-2019/[#sport, #workout]; "Have you watched recent Lakers game? It is unbelievable!"/95/23-03-2023/[#sport, #nba]]
+"Friends": ["jane1232", "jim78", "fitnessguru", "musicL0ver789"]
 
-"username": "jim78"
-"fullName": "Jim Johnson"
-"email": "jimjohnson99@yahoo.com"
-"bio": "I am a huge sports fan"
-"workplace": "ESPN"
-"city": "Los Angeles"
-"phoneNumber": "+1 987 654 3210"
-"posts": ["The Lakers are looking strong this season"/94/4-2-2022; "I can't wait for the next NFL game"/56/12-10-2021]
-"friends": ["jane1232", "bobsmith000", "main123", "maTT444", "fitnessguru"]
+"Username": "maTT444"
+"Full name": "Lily Nguyen"
+"Email": "I am a book lover"
+"Bio": "lilynguyen123@hotmail.com"
+"Workplace": "Librarian"
+"City": "Seattle"
+"Phone number": "+1 206 777 7777""
+"Posts": ["Just finished reading a great novel"/42/15-06-2017/[]; "Can't wait to start my next book"/54/01-08-2019/[#book, #reading]]
+"Friends": ["jim78", "bobsmith000", "musicL0ver789"]
 
-"username": "bobsmith000"
-"fullName": "Bob Smith"
-"email": "bob123@gmail.com"
-"bio": "I love traveling and exploring new places"
-"workplace": "Freelance Writer"
-"city": "San Francisco"
-"phoneNumber": "+1 555 555 5555"
-"posts": ["I just got back from an amazing trip to Japan"/32/9-4-2018; "Next stop, Europe!"/67/1-1-2023]
-"friends": ["maTT444", "jim78", "main123", "musicL0ver789", "jane1232", "fitnessguru"]
+"Username": "fitnessguru"
+"Full name": "Jessica Davis"
+"Email": "I am a certified personal trainer and fitness enthusiast"
+"Bio": "jessicadavis@gmail.com"
+"Workplace": "Gym owner"
+"City": "Miami"
+"Phone number": "+1 305 123 4567"
+"Posts": ["Tips for a great workout"/245/15-06-2020/[#sport, #workout]; "My favorite protein shake recipe"/220/16-06-2022/[#food, #health]]
+"Friends": []
 
-"username": "musicL0ver789"
-"fullName": "Emily Chen"
-"email": "emilychen789@hotmail.com"
-"bio": "I am a music enthusiast"
-"workplace": "Spotify"
-"city": "Toronto"
-"phoneNumber": "+1 416 123 4567"
-"posts": ["Can't wait for the next music festival"/12/1-7-2021]
-"friends": ["main123", "bobsmith000", "maTT444"]
+"Username": "bobsmith000"
+"Full name": "Bob Smith"
+"Email": "I love traveling and exploring new places"
+"Bio": "bob123@gmail.com"
+"Workplace": "Freelance Writer"
+"City": "San Francisco"
+"Phone number": "+1 555 555 5555"
+"Posts": ["I just got back from an amazing trip to Japan"/32/09-04-2018/[#travel, #world]; "Next stop, Europe!"/67/01-01-2023/[#travel, #europe]]
+"Friends": ["jane1232", "jim78", "maTT444", "fitnessguru", "main123", "musicL0ver789"]
 
-"username": "jane1232"
-"fullName": "Jane Kim"
-"email": "janek6@gmail.com"
-"bio": "I love trying new foods and restaurants"
-"workplace": "Food Blogger"
-"city": "Chicago"
-"phoneNumber": "+1 312 555 5555"
-"posts": ["The ramen at this new place is amazing"/160/8-9-2022; "I just tried the best pizza in town"/190/15-3-2023; "What do you think about sushi?"/78/6-3-2022]
-"friends": ["jim78", "main123", "bobsmith000", "fitnessguru"]
+"Username": "jim78"
+"Full name": "Jim Johnson"
+"Email": "I am a huge sports fan"
+"Bio": "jimjohnson99@yahoo.com"
+"Workplace": "ESPN"
+"City": "Los Angeles"
+"Phone number": "+1 987 654 3210"
+"Posts": ["The Lakers are looking strong this season"/94/04-02-2022/[#sport, #nba]; "I can't wait for the next NFL game"/56/12-10-2021/[#sport]]
+"Friends": ["jane1232", "bobsmith000", "maTT444", "fitnessguru", "main123"]
 
-"username": "maTT444"
-"fullName": "Lily Nguyen"
-"email": "lilynguyen123@hotmail.com"
-"bio": "I am a book lover"
-"workplace": "Librarian"
-"city": "Seattle"
-"phoneNumber": "+1 206 777 7777",
-"posts": ["Just finished reading a great novel"/42/15-6-2017; "Can't wait to start my next book"/54/1-8-2019]
-"friends": ["musicL0ver789", "jim78", "bobsmith000"]
+"Username": "jane1232"
+"Full name": "Jane Kim"
+"Email": "I love trying new foods and restaurants"
+"Bio": "janek6@gmail.com"
+"Workplace": "Food Blogger"
+"City": "Chicago"
+"Phone number": "+1 312 555 5555"
+"Posts": ["The ramen at this new place is amazing"/160/08-09-2022/[#food]; "I just tried the best pizza in town"/190/15-03-2023/[#food]; "What do you think about sushi?"/78/06-03-2022/[]]
+"Friends": ["jim78", "bobsmith000", "fitnessguru", "main123"]
 
-"username": "fitnessguru"
-"fullName": "Jessica Davis"
-"email": "jessicadavis@gmail.com"
-"bio": "I am a certified personal trainer and fitness enthusiast"
-"workplace": "Gym owner"
-"city": "Miami"
-"phoneNumber": "+1 305 123 4567"
-"posts": ["Tips for a great workout"/245/15-6-2020; "My favorite protein shake recipe"/220/16-6-2022]
-"friends": ["jim78", "jane1232", "bobsmith000", "main123"]
+"Username": "musicL0ver789"
+"Full name": "Emily Chen"
+"Email": "I am a music enthusiast"
+"Bio": "emilychen789@hotmail.com"
+"Workplace": "Spotify"
+"City": "Toronto"
+"Phone number": "+1 416 123 4567"
+"Posts": ["Can't wait for the next music festival"/12/01-07-2021/[#music]]
+"Friends": ["bobsmith000", "maTT444", "main123"]
+
