@@ -21,7 +21,6 @@ public class SocialNetwork {
      * Main user of the social network
      */
     private static MainUser mainUser;
-    private static User[] user;
     /**
      * File name to store the social network data
      */
@@ -72,7 +71,7 @@ public class SocialNetwork {
                     line = bufferedReader.readLine();
                     String fullName = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
                     line = bufferedReader.readLine();
-                    String email = line.split(":")[1].substring(2, line.split(":")[1].length() - 1); 
+                    String email = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
                     line = bufferedReader.readLine();
                     String bio = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
                     line = bufferedReader.readLine();
@@ -87,18 +86,18 @@ public class SocialNetwork {
                     String postsCollection = line.split(": \\[")[1].substring(0, line.split(": \\[")[1].length() - 1);
                     for (String post : postsCollection.split("; ")) {
                         String[] postInfo = post.split("/");
-                        String content = postInfo[0].substring(1, postInfo[0].length()-1);
+                        String content = postInfo[0].substring(1, postInfo[0].length() - 1);
                         int likesNumber = Integer.parseInt(postInfo[1]);
                         String date = postInfo[2];
                         Post postObj = new Post(content, likesNumber, date);
                         posts.add(postObj);
                     }
-                    
+
                     line = bufferedReader.readLine();
                     Set<String> friends = new HashSet<>();
                     String friendsCollection = line.split(": \\[")[1].substring(0, line.split(": \\[")[1].length() - 1);
                     for (String friend : friendsCollection.split(", ")) {
-                        String friendUsername = friend.substring(1, friend.length()-1);
+                        String friendUsername = friend.substring(1, friend.length() - 1);
                         friends.add(friendUsername);
                     }
                     friendsMap.put(username, friends);
@@ -140,7 +139,7 @@ public class SocialNetwork {
 
     /**
      * Method to save the social network data to the file
-     */ 
+     */
     public void saveNetwork() {
         FileOutputStream fileWriter = null;
         PrintWriter writer = null;
@@ -167,7 +166,7 @@ public class SocialNetwork {
      * Method to write the entry with user data to the file
      * 
      * @param writer Reference to PrintWriter object to write to the file
-     * @param user User whose data to write to the file
+     * @param user   User whose data to write to the file
      */
     public void writeToFile(PrintWriter writer, User user) {
         writer.printf("\"Username\": \"%s\"\n", user.getUsername());
@@ -180,7 +179,8 @@ public class SocialNetwork {
         String posts = "";
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         for (Post post : user.getPosts()) {
-            posts += "\"" + post.getContent() + "\"/" + post.getNumberOfLikes() + "/" + formatter.format(post.getDate()) + "; ";
+            posts += "\"" + post.getContent() + "\"/" + post.getNumberOfLikes() + "/" + formatter.format(post.getDate())
+                    + "; ";
         }
         writer.printf("\"Posts\": [%s]\n", posts.substring(0, posts.length() - 2));
 
@@ -193,9 +193,11 @@ public class SocialNetwork {
     }
 
     /**
-     * Method to compare the friends of the main user with the friends of another user
+     * Method to compare the friends of the main user with the friends of another
+     * user
      * 
-     * @param userToCompare User whose friends to compare with the main user's friends
+     * @param userToCompare User whose friends to compare with the main user's
+     *                      friends
      */
     public void compareFriends(User userToCompare) {
         Set<User> commonFriends = new HashSet<>();
@@ -211,7 +213,8 @@ public class SocialNetwork {
         System.out.println(" - Users you may want to add to your friends: " + uncommonFriends);
     }
 
-    //method to sort friends list by furst name and print the list after sorting. Implement the method so that it can be called in Menu class
+    // method to sort friends list by furst name and print the list after sorting.
+    // Implement the method so that it can be called in Menu class
     public static void sortFriendsListByFirstName() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
@@ -225,9 +228,10 @@ public class SocialNetwork {
         });
         System.out.println(" - Sorted friends list: " + sortedFriendsList);
 
-}
+    }
 
-    //method to sort friends list by last name and print the list after sorting. Implement the method so that it can be called in Menu class
+    // method to sort friends list by last name and print the list after sorting.
+    // Implement the method so that it can be called in Menu class
     public static void sortFriendsListByLastName() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
@@ -240,9 +244,10 @@ public class SocialNetwork {
             }
         });
         System.out.println(" - Sorted friends list: " + sortedFriendsList);
-}
+    }
 
-    //method to sort friends list by number of friends and print the list after sorting. Implement the method so that it can be called in Menu class
+    // method to sort friends list by number of friends and print the list after
+    // sorting. Implement the method so that it can be called in Menu class
     public static void sortFriendsListByNumberOfFriends() {
         List<User> sortedFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
@@ -256,52 +261,82 @@ public class SocialNetwork {
         });
         System.out.println(" - Sorted friends list: " + sortedFriendsList);
 
-}
-
-    //method to filter friend list by city and print the list after filtering, with one username in oneline. Allow the User to enter the city name. Implement the method so that it can be called in the Menu Class
-    public void filterFriendsListByCity() {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter the city name: ");
-            String city = scanner.nextLine();
-            List<User> filteredFriendsList = new ArrayList<>();
-            for (User friend : mainUser.getFriends()) {
-                if (friend.getcity().equals(city)) {
-                    filteredFriendsList.add(friend);
-                }
-            }
-            System.out.println(" - Filtered friends list: \n" + filteredFriendsList);
     }
 
-    //method to filter friend list by workplace and print the list after filtering. Allow the User to enter the name of the workplace. Implement the method so that it can be called in the Menu Class
-    public void filterFriendsListByWorkplace() {
-            Scanner scanner = new Scanner(System.in); 
-            System.out.println("Enter the workplace name: ");
-            String workplace = "";
-            if (scanner.hasNextLine()) {
-                workplace = scanner.nextLine();
-            }
-            List<User> filteredFriendsList = new ArrayList<>();
-            for (User friend : mainUser.getFriends()) {
-                if (friend.getWorkplace().equals(workplace)) {
-                    filteredFriendsList.add(friend);
-                }
-            }
-            System.out.println(" - Filtered friends list: " + filteredFriendsList);
-    
-}
-
-    //a method that recommends a friend to the main user based on city and workplace. Implement the method so that it can be called in the Menu Class
-    public void recommendAFriend() {
-        List<User> recommendedFriends = new ArrayList<>();
+    // method to filter friend list by city and print the list after filtering, with
+    // one username in oneline. Allow the User to enter the city name. Implement the
+    // method so that it can be called in the Menu Class
+    public void filterFriendsListByCity() {
+        InputValidator inputValidator = new InputValidator();
+        String city = inputValidator.getCityName(new Scanner(System.in));
+        List<User> filteredFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
-            for (User user : user) {
-                if (user.getcity().equals(friend.getcity()) && user.getWorkplace().equals(friend.getWorkplace()) && !user.getUsername().equals(mainUser.getUsername()) && !mainUser.getFriends().contains(user)) {
-                    recommendedFriends.add(user);
+            if (friend.getcity().equals(city)) {
+                filteredFriendsList.add(friend);
+            }
+        }
+        System.out.println(" - Filtered friends list: \n" + filteredFriendsList);
+    }
+
+    // method to filter friend list by workplace and print the list after filtering.
+    // Allow the User to enter the name of the workplace. Implement the method so
+    // that it can be called in the Menu Class
+    public void filterFriendsListByWorkplace() {
+        InputValidator inputValidator = new InputValidator();
+        String workplace = inputValidator.processStringInput();
+        List<User> filteredFriendsList = new ArrayList<>();
+        for (User friend : mainUser.getFriends()) {
+            if (friend.getWorkplace().equals(workplace)) {
+                filteredFriendsList.add(friend);
+            }
+        }
+        System.out.println(" - Filtered friends list: " + filteredFriendsList);
+    }
+
+    // a method that recommends friends to the main user based on the number of
+    // common friends. Implement the method so that it can be called in the Menu
+    // Class
+    public void recommendFriends() {
+        Set<User> recommendedFriends = new HashSet<>();
+        for (User friend : mainUser.getFriends()) {
+            for (User friendOfFriend : friend.getFriends()) {
+                if (friendOfFriend != null && !mainUser.getFriends().contains(friendOfFriend)
+                        && !friendOfFriend.getUsername().equals(mainUser.getUsername())) {
+                    recommendedFriends.add(friendOfFriend);
                 }
             }
         }
-        System.out.println(" - Recommended friends: " + recommendedFriends);
-    }    
+        if (!recommendedFriends.isEmpty()) {
+            System.out.println(" - Recommended friends: " + recommendedFriends);
+        }
+    }
 
+    // A method that uses the mainusers friends friend list to recommend friends to
+    // the main user. It then compares the city and workplace of those users with
+    // the city and workplace of the mainuser. So the recommended user cannot be a
+    // stranger. Implement the method so that it can be called in the Menu Class
+    public void recommendFriendsBasedOnCityAndWorkplace() {
+        Set<User> recommendedFriends = new HashSet<>();
+        for (User friend : mainUser.getFriends()) {
+            for (User friendOfFriend : friend.getFriends()) {
+                if (friendOfFriend != null && !mainUser.getFriends().contains(friendOfFriend)
+                        && !friendOfFriend.getUsername().equals(mainUser.getUsername())) {
+                    recommendedFriends.add(friendOfFriend);
+                }
+            }
+        }
+        Set<User> recommendedFriendsWithSameCity = new HashSet<>();
+        Set<User> recommendedFriendsWithSameWorkplace = new HashSet<>();
+        for (User recommendedFriend : recommendedFriends) {
+            if (recommendedFriend.getCity().equals(mainUser.getCity())) {
+                recommendedFriendsWithSameCity.add(recommendedFriend);
+            }
+            if (recommendedFriend.getWorkplace().equals(mainUser.getWorkplace())) {
+                recommendedFriendsWithSameWorkplace.add(recommendedFriend);
+            }
+        }
+        System.out.println(" - Recommended friends with the same city: " + recommendedFriendsWithSameCity);
+        System.out.println(" - Recommended friends with the same workplace: " + recommendedFriendsWithSameWorkplace);
+
+    }
 }
-

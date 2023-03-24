@@ -20,24 +20,11 @@ public class Graph {
 
     /**
      * Add a user to the graph
-     * @param user User to be added
+     * 
+     * @param user    User to be added
      * @param friends Set of friends of the user
      */
     public void addUser(User user) {
         graph.put(user, user.getFriends());
     }
-
-    // /**
-    //  * Display the list of common friends with the user selected by username
-    //  * 
-    //  * @param username Username of the user whose common friends are to be displayed
-    //  */
-    // public void displayCommonFriends(String username) {
-    //     Set<User> friends = graph.get(username);
-    //     for (User friend : friends) {
-    //         if (friends.contains(...)) {  // list of main user's friends
-    //             System.out.println(friend.getUsername());
-    //         }
-    //     }
-    // }
 }

@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 /**
- *  Class responsible for processing and validating input of the main user
+ * Class responsible for processing and validating input of the main user
  * 
- *  @version 1.0
- *  @author D.Kecha, T.Govind
+ * @version 1.0
+ * @author D.Kecha, T.Govind
  */
 public class InputValidator {
     /*
@@ -21,6 +21,7 @@ public class InputValidator {
 
     /**
      * Method to check whether the username complies with the requirements
+     * 
      * @param username Username to be validated
      */
     public boolean isValidUsername(String username) {
@@ -30,6 +31,7 @@ public class InputValidator {
 
     /**
      * Method to check whether the full name complies with the requirements
+     * 
      * @param fullName Full name to be validated
      */
     public boolean isValidFullName(String fullName) {
@@ -39,6 +41,7 @@ public class InputValidator {
 
     /**
      * Method to check whether the email complies with the requirements
+     * 
      * @param email Email to be validated
      */
     public boolean isValidEmail(String email) {
@@ -48,6 +51,7 @@ public class InputValidator {
 
     /**
      * Method to check whether the phone number complies with the requirements
+     * 
      * @param phoneNumber Phone number to be validated
      */
     public boolean isValidPhoneNumber(String phoneNumber) {
@@ -70,9 +74,10 @@ public class InputValidator {
             isValid = isValidUsername(username);
 
             if (!isValid) {
-                System.out.println("### Error: Username must be between 3 and 20 characters long and can contain only letters, numbers, underscores and dashes.");
+                System.out.println(
+                        "### Error: Username must be between 3 and 20 characters long and can contain only letters, numbers, underscores and dashes.");
             }
-        } while(!isValid);
+        } while (!isValid);
         return username;
     }
 
@@ -95,15 +100,17 @@ public class InputValidator {
                 }
                 isValid = true;
             } catch (NumberFormatException e) {
-                System.out.println("### Error: Please, enter a valid choice."); 
+                System.out.println("### Error: Please, enter a valid choice.");
                 isValid = false;
             }
-        } while(!isValid);
+        } while (!isValid);
         return choice;
     }
 
     /**
      * Method to process the input of any string from the user
+     * 
+     * @param scanner2
      * 
      * @return String entered by the user
      */
@@ -113,4 +120,22 @@ public class InputValidator {
         String input = scanner.nextLine();
         return input;
     }
+
+    public String getCityName(Scanner scanner) {
+        String city = null;
+        boolean isValidInput = false;
+        while (!isValidInput) {
+            System.out.println("Enter the city name: ");
+            System.out.print(">>> ");
+            String input = scanner.nextLine();
+            if (input.trim().isEmpty()) {
+                System.out.println("City name cannot be empty. Please try again.");
+            } else {
+                city = input.trim();
+                isValidInput = true;
+            }
+        }
+        return city;
+    }
+
 }

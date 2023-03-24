@@ -37,20 +37,22 @@ public class User {
      * User's collection of friends
      */
     protected Set<User> friends;
-    
+
     /**
      * Constructor to create the user
-     * @param username Username
-     * @param fullName User's full name
-     * @param email User's email
-     * @param bio User's bio
-     * @param workplace User's workplace
-     * @param city User's city
+     * 
+     * @param username    Username
+     * @param fullName    User's full name
+     * @param email       User's email
+     * @param bio         User's bio
+     * @param workplace   User's workplace
+     * @param city        User's city
      * @param phoneNumber User's phone number
-     * @param posts User's collection of posts
-     * @param friends User's collection of friends
+     * @param posts       User's collection of posts
+     * @param friends     User's collection of friends
      */
-    public User(String username, String fullName, String email, String bio, String workplace, String city, String phoneNumber, List<Post> posts) {
+    public User(String username, String fullName, String email, String bio, String workplace, String city,
+            String phoneNumber, List<Post> posts) {
         this.username = username;
         this.fullName = fullName;
         this.email = email;
@@ -64,6 +66,7 @@ public class User {
 
     /**
      * Method to get the username
+     * 
      * @return String representing the username
      */
     public String getUsername() {
@@ -72,6 +75,7 @@ public class User {
 
     /**
      * Method to get the full name
+     * 
      * @return String representing the full name
      */
     public String getFullName() {
@@ -80,6 +84,7 @@ public class User {
 
     /**
      * Method to get the bio
+     * 
      * @return String representing the bio
      */
     public String getBio() {
@@ -88,6 +93,7 @@ public class User {
 
     /**
      * Method to get the email
+     * 
      * @return String representing the email
      */
     public String getEmail() {
@@ -96,6 +102,7 @@ public class User {
 
     /**
      * Method to get the workplace
+     * 
      * @return String representing the workplace
      */
     public String getWorkplace() {
@@ -104,6 +111,7 @@ public class User {
 
     /**
      * Method to get the phone number
+     * 
      * @return String representing the phone number
      */
     public String getPhoneNumber() {
@@ -112,6 +120,7 @@ public class User {
 
     /**
      * Method to get the city
+     * 
      * @return String representing the city
      */
     public String getCity() {
@@ -120,6 +129,7 @@ public class User {
 
     /**
      * Method to get the collection of posts
+     * 
      * @return List of posts
      */
     public List<Post> getPosts() {
@@ -128,6 +138,7 @@ public class User {
 
     /**
      * Method to get the collection of friends
+     * 
      * @return Set of friends
      */
     public Set<User> getFriends() {
@@ -136,6 +147,7 @@ public class User {
 
     /**
      * Method to set the full name
+     * 
      * @param fullName User's full name to be set
      */
     public void setFullName(String fullName) {
@@ -144,6 +156,7 @@ public class User {
 
     /**
      * Method to set the bio
+     * 
      * @param bio User's bio to be set
      */
     public void setBio(String bio) {
@@ -152,6 +165,7 @@ public class User {
 
     /**
      * Method to set the email
+     * 
      * @param email User's email to be set
      */
     public void setEmail(String email) {
@@ -160,6 +174,7 @@ public class User {
 
     /**
      * Method to set the workplace
+     * 
      * @param workplace User's workplace to be set
      */
     public void setWorkplace(String workplace) {
@@ -168,6 +183,7 @@ public class User {
 
     /**
      * Method to set the phone number
+     * 
      * @param phoneNumber User's phone number to be set
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -176,6 +192,7 @@ public class User {
 
     /**
      * Method to set the city
+     * 
      * @param city User's city to be set
      */
     public void setCity(String city) {
@@ -205,7 +222,8 @@ public class User {
         System.out.println(" - City: " + city);
         System.out.printf(" - %s posted:\n", username);
         for (Post post : posts) {
-            System.out.printf("*** \"%s\" - posted on %s, %d users liked it\n", post.getContent(), post.getDate(), post.getNumberOfLikes());
+            System.out.printf("*** \"%s\" - posted on %s, %d users liked it\n", post.getContent(), post.getDate(),
+                    post.getNumberOfLikes());
         }
         System.out.println("******");
         System.out.println();
