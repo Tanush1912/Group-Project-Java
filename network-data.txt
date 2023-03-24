@@ -12,11 +12,11 @@
 "fullName": "Jim Johnson"
 "email": "jimjohnson99@yahoo.com"
 "bio": "I am a huge sports fan"
-"workplace": "Google"
-"city": "New York"
+"workplace": "ESPN"
+"city": "Los Angeles"
 "phoneNumber": "+1 987 654 3210"
 "posts": ["The Lakers are looking strong this season"/94/4-2-2022; "I can't wait for the next NFL game"/56/12-10-2021]
-"friends": ["maTT444"]
+"friends": ["jane1232", "bobsmith000", "main123", "maTT444", "fitnessguru"]
 
 "username": "bobsmith000"
 "fullName": "Bob Smith"
@@ -26,7 +26,7 @@
 "city": "San Francisco"
 "phoneNumber": "+1 555 555 5555"
 "posts": ["I just got back from an amazing trip to Japan"/32/9-4-2018; "Next stop, Europe!"/67/1-1-2023]
-"friends": ["maTT444", "main123", "musicL0ver789", "jane1232", "fitnessguru"]
+"friends": ["maTT444", "jim78", "main123", "musicL0ver789", "jane1232", "fitnessguru"]
 
 "username": "musicL0ver789"
 "fullName": "Emily Chen"
@@ -46,14 +46,14 @@
 "city": "Chicago"
 "phoneNumber": "+1 312 555 5555"
 "posts": ["The ramen at this new place is amazing"/160/8-9-2022; "I just tried the best pizza in town"/190/15-3-2023; "What do you think about sushi?"/78/6-3-2022]
-"friends": ["main123", "bobsmith000", "fitnessguru"]
+"friends": ["jim78", "main123", "bobsmith000", "fitnessguru"]
 
 "username": "maTT444"
 "fullName": "Lily Nguyen"
 "email": "lilynguyen123@hotmail.com"
 "bio": "I am a book lover"
 "workplace": "Librarian"
-"city": "New York"
+"city": "Seattle"
 "phoneNumber": "+1 206 777 7777",
 "posts": ["Just finished reading a great novel"/42/15-6-2017; "Can't wait to start my next book"/54/1-8-2019]
 "friends": ["musicL0ver789", "jim78", "bobsmith000"]
@@ -66,7 +66,4 @@
 "city": "Miami"
 "phoneNumber": "+1 305 123 4567"
 "posts": ["Tips for a great workout"/245/15-6-2020; "My favorite protein shake recipe"/220/16-6-2022]
-"friends": ["jane1232", "bobsmith000", "main123"]
-
-
-
+"friends": ["jim78", "jane1232", "bobsmith000", "main123"]
