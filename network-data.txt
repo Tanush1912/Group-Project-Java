@@ -2,11 +2,21 @@
 "Full name": "John Smith"
 "Email": "I am a software developer"
 "Bio": "john.smith123@gmail.com"
-"Workplace": "Google"
+"Workplace": "Apple"
 "City": "New York"
 "Phone number": "+1 123 456 789"
-"Posts": ["I love writing code in Java"/5/14-05-2020/[#coding]; "Yesterday I went to the gym"/21/17-10-2019/[#sport, #workout]; "Have you watched recent Lakers game? It is unbelievable!"/95/23-03-2023/[#sport, #nba]]
-"Friends": ["jane1232", "jim78", "fitnessguru", "musicL0ver789", "artgalore", "techgeek", "animalLover"]
+"Posts": ["I love writing code in Java"/5/14-05-2020/[#coding]; "Yesterday I went to the gym"/21/17-10-2019/[#sport, #workout]; "Have you watched recent Lakers game? It is unbelievable!"/95/23-03-2023/[#sport, #nba]; "I cannot believe what GPT4 can do! This is something beyond my understanding"/72/25-03-2023/[#ai, #machine_learning, #gpt]]
+"Friends": ["jane1232", "jim78", "artgalore", "musicL0ver789", "techgeek", "fitnessguru", "animalLover", "daviD", "mark-dev", "traveleR", "ai_geek"]
+
+"Username": "artgalore"
+"Full name": "Rachel Kim"
+"Email": "I am an art history student"
+"Bio": "rachelkimart@gmail.com"
+"Workplace": "The Metropolitan Museum of Art"
+"City": "New York"
+"Phone number": "+1 917 555 5555"
+"Posts": ["Just saw an amazing exhibition on the Impressionists"/54/28-02-2023/[#art, #impressionism]; "What's your favorite art museum?"/41/20-02-2023/[#art]]
+"Friends": ["jane1232", "main123", "daviD", "tomSPORTS", "alex_photographer"]
 
 "Username": "maTT444"
 "Full name": "Lily Nguyen"
@@ -16,7 +26,7 @@
 "City": "Seattle"
 "Phone number": "+1 206 777 7777""
 "Posts": ["Just finished reading a great novel"/42/15-06-2017/[]; "Can't wait to start my next book"/54/01-08-2019/[#book, #reading]]
-"Friends": ["jim78", "bobsmith000", "musicL0ver789", "foodie4life", "travelbug"]
+"Friends": ["jim78", "bobsmith000", "musicL0ver789", "foodie4life", "travelbug", "karen_Pet12", "alex_photographer", "mark-dev", "yogaYasmin"]
 
 "Username": "fitnessguru"
 "Full name": "Jessica Davis"
@@ -36,37 +46,7 @@
 "City": "San Francisco"
 "Phone number": "+1 555 555 5555"
 "Posts": ["I just got back from an amazing trip to Japan"/32/09-04-2018/[#travel, #world]; "Next stop, Europe!"/67/01-01-2023/[#travel, #europe]]
-"Friends": ["jane1232", "jim78", "maTT444", "fitnessguru", "main123", "musicL0ver789", "techgeek"]
-
-"Username": "jim78"
-"Full name": "Jim Johnson"
-"Email": "I am a huge sports fan"
-"Bio": "jimjohnson99@yahoo.com"
-"Workplace": "ESPN"
-"City": "Los Angeles"
-"Phone number": "+1 987 654 3210"
-"Posts": ["The Lakers are looking strong this season"/94/04-02-2022/[#sport, #nba]; "I can't wait for the next NFL game"/56/12-10-2021/[#sport]]
-"Friends": ["jane1232", "bobsmith000", "maTT444", "fitnessguru", "main123", "techgeek", "animalLover"]
-
-"Username": "jane1232"
-"Full name": "Jane Kim"
-"Email": "I love trying new foods and restaurants"
-"Bio": "janek6@gmail.com"
-"Workplace": "Yelp"
-"City": "Chicago"
-"Phone number": "+1 312 555 5555"
-"Posts": ["The ramen at this new place is amazing"/160/08-09-2022/[#food]; "I just tried the best pizza in town"/190/15-03-2023/[#food]; "What do you think about sushi?"/78/06-03-2022/[]]
-"Friends": ["jim78", "bobsmith000", "fitnessguru", "main123", "foodie4life", "artgalore", "travelbug"]
-
-"Username": "musicL0ver789"
-"Full name": "Emily Chen"
-"Email": "I am a music enthusiast"
-"Bio": "emilychen789@hotmail.com"
-"Workplace": "Spotify"
-"City": "Toronto"
-"Phone number": "+1 416 123 4567"
-"Posts": ["Can't wait for the next music festival"/12/01-07-2021/[#music]]
-"Friends": ["bobsmith000", "maTT444", "main123", "foodie4life"]
+"Friends": ["jane1232", "jim78", "main123", "musicL0ver789", "maTT444", "techgeek", "fitnessguru", "traveleR", "ai_geek", "georgeW00"]
 
 "Username": "foodie4life"
 "Full name": "Samantha Lee"
@@ -76,27 +56,27 @@
 "City": "New York"
 "Phone number": "+1 212 555 1234"
 "Posts": ["Just made an amazing lasagna from scratch"/102/05-03-2023/[#food, #cooking]; "Can't wait to try this new recipe for banana bread"/72/15-02-2023/[#food, #baking]]
-"Friends": ["jane1232", "musicL0ver789", "maTT444", "animalLover"]
+"Friends": ["jane1232", "musicL0ver789", "maTT444", "animalLover", "emilyQueen", "karen_Pet12", "traveleR"]
 
-"Username": "artgalore"
-"Full name": "Rachel Kim"
-"Email": "I am an art history student"
-"Bio": "rachelkimart@gmail.com"
-"Workplace": "The Metropolitan Museum of Art"
-"City": "New York"
-"Phone number": "+1 917 555 5555"
-"Posts": ["Just saw an amazing exhibition on the Impressionists"/53/28-02-2023/[#art, #impressionism]; "What's your favorite art museum?"/41/20-02-2023/[#art]]
-"Friends": ["jane1232", "main123"]
+"Username": "animalLover"
+"Full name": "Emma Johnson"
+"Email": "I am a veterinary technician"
+"Bio": "emmajohnsonvet@gmail.com"
+"Workplace": "Main Veterinary Clinic"
+"City": "Denver"
+"Phone number": "+1 303 555 5555"
+"Posts": ["I love all animals, but especially dogs and cats"/81/13-02-2023/[#animals]; "What's your favorite animal?""/29/06-02-2023/[]]
+"Friends": ["jim78", "main123", "foodie4life", "karen_Pet12"]
 
-"Username": "techgeek"
-"Full name": "Kevin Chen"
-"Email": "I love all things technology"
-"Bio": "kevinchen987@gmail.com"
-"Workplace": "Google"
-"City": "San Francisco"
-"Phone number": "+1 415 555 5555"
-"Posts": ["Excited to try out the new iPhone"/17/10-03-2023/[#technology, #iphone]; "Just bought a new gaming laptop"/29/01-03-2023/[#technology, #gaming]]
-"Friends": ["bobsmith000", "main123", "jim78", "techgeek"]
+"Username": "jim78"
+"Full name": "Jim Johnson"
+"Email": "I am a huge sports fan"
+"Bio": "jimjohnson99@yahoo.com"
+"Workplace": "ESPN"
+"City": "Los Angeles"
+"Phone number": "+1 987 654 3210"
+"Posts": ["The Lakers are looking strong this season"/94/04-02-2022/[#sport, #nba]; "I can't wait for the next NFL game"/56/12-10-2021/[#sport]]
+"Friends": ["jane1232", "bobsmith000", "main123", "maTT444", "techgeek", "fitnessguru", "animalLover", "emilyQueen", "tomSPORTS", "alex_photographer", "sarah-books"]
 
 "Username": "travelbug"
 "Full name": "Sarah Wilson"
@@ -106,14 +86,164 @@
 "City": "Sydney"
 "Phone number": "+61 2 555 5555"
 "Posts": ["Just got back from an amazing trip to Bali"/64/25-02-2023/[#travel, #bali]; "Next stop, Japan!"/36/18-02-2023/[#travel, #japan]]
-"Friends": ["jane1232", "techgeek", "maTT444"]
+"Friends": ["jane1232", "maTT444", "techgeek", "emilyQueen", "karen_Pet12", "olivia_saves_nature"]
 
-"Username": "animalLover"
-"Full name": "Emma Johnson"
-"Email": "I am a veterinary technician"
-"Bio": "emmajohnsonvet@gmail.com"
-"Workplace": "Main Veterinary Clinic"
-"City": "Denver"
-"Phone number": "+1 303 555 5555"
-"Posts": ["I love all animals, but especially dogs and cats"/81/13-02-2023/[#animals]; "What's your favorite animal?" /29/06-02-2023/[]]
-"Friends": ["main123", "jim78", "foodie4life"]
+"Username": "jane1232"
+"Full name": "Jane Kim"
+"Email": "I love trying new foods and restaurants"
+"Bio": "janek6@gmail.com"
+"Workplace": "Yelp"
+"City": "Chicago"
+"Phone number": "+1 312 555 5555"
+"Posts": ["The ramen at this new place is amazing"/160/08-09-2022/[#food]; "I just tried the best pizza in town"/190/15-03-2023/[#food]; "What do you think about sushi?"/78/06-03-2022/[]]
+"Friends": ["jim78", "bobsmith000", "artgalore", "main123", "fitnessguru", "foodie4life", "travelbug", "daviD", "tomSPORTS", "georgeW00"]
+
+"Username": "techgeek"
+"Full name": "Kevin Chen"
+"Email": "I love all things technology"
+"Bio": "kevinchen987@gmail.com"
+"Workplace": "Google"
+"City": "San Francisco"
+"Phone number": "+1 415 555 5555"
+"Posts": ["Excited to try out the new iPhone"/17/10-03-2023/[#technology, #iphone]; "Just bought a new gaming laptop"/29/01-03-2023/[#technology, #gaming]]
+"Friends": ["jim78", "bobsmith000", "main123", "tomSPORTS"]
+
+"Username": "musicL0ver789"
+"Full name": "Emily Chen"
+"Email": "I am a music enthusiast"
+"Bio": "emilychen789@hotmail.com"
+"Workplace": "Spotify"
+"City": "Toronto"
+"Phone number": "+1 416 123 4567"
+"Posts": ["Can't wait for the next music festival"/12/01-07-2021/[#music]]
+"Friends": ["bobsmith000", "main123", "maTT444", "foodie4life", "daviD", "tomSPORTS", "olivia_saves_nature"]
+
+"Username": "daviD"
+"Full name": "David Kim"
+"Email": "I am a professional pianist"
+"Bio": "davidkim404@gmail.com"
+"Workplace": "NY High School"
+"City": "New York"
+"Phone number": "+1 646 123 4567"
+"Posts": ["Practicing for my upcoming concert"/27/18-03-2023/[#music, #piano]; "What's your favorite classical piece?"/43/10-03-2023/[#music, #classical]]
+"Friends": ["jane1232", "main123", "artgalore", "musicL0ver789", "olivia_saves_nature"]
+
+"Username": "emilyQueen"
+"Full name": "Emily Park"
+"Email": "I am a makeup artist"
+"Bio": "emilypark@gmail.com"
+"Workplace": "Sephora"
+"City": "Los Angeles"
+"Phone number": "+1 213 555 5555"
+"Posts": ["Check out this new lipstick shade!"/72/22-03-2023/[#beauty, #makeup]; "Tips for a perfect winged eyeliner"/31/14-03-2023/[#beauty, #makeup, #tips]]
+"Friends": ["jim78", "foodie4life", "travelbug", "mark-dev", "yogaYasmin"]
+
+"Username": "tom-SPORTS"
+"Full name": "Tom Johnson"
+"Email": "I am a die-hard sports fan"
+"Bio": "tomjohnson@gmail.com"
+"Workplace": "ESPN"
+"City": "Chicago"
+"Phone number": "+1 312 555 5555"
+"Posts": []
+"Friends": ["jane1232", "jim78", "artgalore", "musicL0ver789", "techgeek", "sarah-books"]
+
+"Username": "karen_Pet12"
+"Full name": "Karen Lee"
+"Email": "I am an animal rights activist"
+"Bio": "karenlee@gmail.com"
+"Workplace": "PETA"
+"City": "Seattle"
+"Phone number": "+1 206 123 4567"
+"Posts": []
+"Friends": ["maTT444", "foodie4life", "travelbug", "animalLover"]
+
+"Username": "alex_photographer"
+"Full name": "Alex Wong"
+"Email": "I am a professional photographer"
+"Bio": "alexwong@gmail.com"
+"Workplace": "National Geographic"
+"City": "San Francisco"
+"Phone number": "+1 415 123 4567"
+"Posts": ["Check out my latest landscape shot!"/82/12-03-2023/[#photography, #landscape]; "What's your favorite photography genre?"/54/08-03-2023/[#photography]]
+"Friends": ["jim78", "artgalore", "maTT444", "mark-dev"]
+
+"Username": "mark-dev"
+"Full name": "Mark Zuckerberg"
+"Email": "I am a software engineer and technology enthusiast"
+"Bio": "alexchen.dev@gmail.com"
+"Workplace": "Google"
+"City": "San Francisco"
+"Phone number": "+1 415 555 5555"
+"Posts": ["Just attended a great talk on AI and ethics"/92/08-03-2023/[#ai, #ethics]; "What's your favorite programming language?"/54/01-03-2023/[#coding]; "Can't wait to try out the new MacBook Pro!"/67/28-02-2023/[#tech, #apple]]
+"Friends": ["alex_photographer", "main123", "emilyQueen", "maTT444", "ai_geek"]
+
+"Username": "olivia_saves_nature"
+"Full name": "Olivia Parker"
+"Email": "olivia.parker@hotmail.com"
+"Bio": "Environmental activist"
+"Workplace": "Greenpeace"
+"City": "San Francisco"
+"Phone number": "+1 456 789 0123"
+"Posts": ["Just volunteered at a local beach clean-up, let's all do our part to protect our planet!"/98/05-03-2023/[#environment]; "I'm so inspired by the work of Jane Goodall, who's your environmental hero?"/52/12-03-2023/[#environment]]
+"Friends": ["musicL0ver789", "sarah-books", "travelbug", "daviD"]
+
+"Username": "sarah-books"
+"Full name": "Sarah Lee"
+"Email": "sarah.lee@gmail.com"
+"Bio": "Bookworm and literature lover"
+"Workplace": "Freelance"
+"City": "Chicago"
+"Phone number": "+1 789 012 3456"
+"Posts": ["Just finished reading War and Peace, what a masterpiece!"/87/03-03-2023/[#books, #literature]; "Can't wait to dive into my next book, any recommendations?"/35/18-03-2023/[#books, #reading]]
+"Friends": ["olivia_saves_nature", "tomSPORTS", "jim78", "mikeMike012", "yogaYasmin"]
+
+"Username": "mikeMike012"
+"Full name": "Mike Johnson"
+"Email": "mike.johnson@gmail.com"
+"Bio": "Personal trainer"
+"Workplace": "Puregym"
+"City": "London"
+"Phone number": "+1 234 567 8901"
+"Posts": ["Eating healthy is just as important as exercise, what's your favorite healthy snack?"/65/16-03-2023/[#food, #health]]
+"Friends": ["sarah-books", "traveleR", "yogaYasmin"]
+
+"Username": "traveleR"
+"Full name": "Alex Jones"
+"Email": "alexjones@gmail.com"
+"Bio": "Travel enthusiast, exploring the world one place at a time"
+"Workplace": "Freelance"
+"City": "Los Angeles"
+"Phone number": "+1 123 456 7890"
+"Posts": ["Just visited the beautiful city of Tokyo!"/71/21-03-2023/[#travel, #japan]; "Can't wait to go on my next adventure!"/42/12-03-2023/[]]
+"Friends": ["main123", "bobsmith000", "foodie4life", "georgeW00", "mikeMike012"]
+
+"Username": "yogaYasmin"
+"Full name": "Yasmin Patel"
+"Email": "yasminyoga@gmail.com"
+"Bio": "Yoga instructor, health enthusiast"
+"Workplace": "Bikram Yoga"
+"City": "San Francisco"
+"Phone number": "+1 555 555 5555"
+"Posts": ["Namaste! Just finished a great yoga class."/54/17-03-2023/[#yoga, #fitness]; "What are your favorite yoga poses?"/67/10-03-2023/[#yoga]]
+"Friends": ["sarah-books", "emilyQueen", "maTT444", "mikeMike012"]
+
+"Username": "ai_geek"
+"Full name": "Ryan Kim"
+"Email": "ryankim@gmail.com"
+"Bio": "AI researcher, technology enthusiast"
+"Workplace": "Google"
+"City": "Mountain View"
+"Phone number": "+1 123 456 7890"
+"Posts": ["Exciting times in the world of AI!"/82/22-03-2023/[#ai, #technology]; "Just finished reading an amazing book on AI and ethics."/67/19-03-2023/[#ai, #ethics, #reading]]
+"Friends": ["mark-dev", "bobsmith000", "main123", "georgeW00"]
+
+"Username": "georgeW00"
+"Full name": "George Washington"
+"Email": "georgewashington@gmail.com"
+"Bio": "History enthusiast, political junkie"
+"Workplace": "US Government"
+"City": "Washington, D.C."
+"Phone number": "+1 202 555 5555"
+"Posts": ["What a time to be alive!"/42/20-03-2023/[]; "Remembering the Founding Fathers."/54/17-03-2023/[#history, #politics]]
+"Friends": ["jane1232", "bobsmith000", "ai_geek", "traveleR"]
