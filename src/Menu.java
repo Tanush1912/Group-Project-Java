@@ -26,14 +26,50 @@ public class Menu {
         socialNetwork = new SocialNetwork();
         socialNetwork.loadNetwork();
         inputValidator = new InputValidator();
-        mainUser = socialNetwork.getMainUser();
+    }
+
+    /**
+     * Method to display the login menu to the user
+     */
+    private void displaySignInMenu() {
+        System.out.println("\n*** Welcome to the BeNotReal! ***\n");
+        System.out.println(" - Please, select one the following options: ");
+        System.out.println(" -> 1. Login");
+        System.out.println(" -> 0. Exit the network");
+    }
+
+    /**
+     * Method to process the options in the sign-in menu selected by the user
+     */
+    private void processSignInMenu() {
+        int choice;
+        int maxChoice = 1;
+        do {
+            displaySignInMenu();
+            choice = inputValidator.processChoiceInput(maxChoice);
+            switch (choice) {
+                case 1:
+                    socialNetwork.signIn(inputValidator);
+                    if (socialNetwork.getMainUser() != null) {
+                        mainUser = socialNetwork.getMainUser();
+                        processMainMenu();
+                    }
+                    break;
+                case 0:
+                    System.out.println("*** Thank you for using BeNotReal! Exiting the network... ***");
+                    break;
+                default:
+                    System.out.println("### Error: Invalid choice. Please, try again.");
+                    break;
+            }
+        } while (choice != 0);
     }
 
     /**
      * Method to display the main menu to the user
      */
     public void displayMainMenu() {
-        System.out.println("\n*** Welcome to the BeNotReal! ***\n");
+        System.out.println("\n*** Main Menu ***\n");
         System.out.println(" - Please, select one the following options: ");
         System.out.println(" -> 1. View my Profile");
         System.out.println(" -> 2. Edit my Profile");
@@ -46,9 +82,9 @@ public class Menu {
     }
 
     /**
-     * Method to process the option selected by the user
+     * Method to process the option in the main menu selected by the user
      */
-    public void runMenu() {
+    public void processMainMenu() {
         int choice;
         int maxChoice = 7;
         do {
@@ -78,7 +114,7 @@ public class Menu {
                     socialNetwork.saveNetwork();
                     break;
                 case 0:
-                    System.out.println("*** You have succesfully signed out! ***");
+                    manageSignOutMenu();
                     break;
                 default:
                     System.out.println("### Error: Invalid choice. Please, try again.");
@@ -87,17 +123,42 @@ public class Menu {
         } while (choice != 0) ;
     }
 
+    /**
+     * Method to display the sign-out menu to the user
+     */
+    public void manageSignOutMenu() {
+        boolean isValid = true;
+        do {
+            System.out.println("\n -> Are you sure you want to sign out? (Y/N) ");
+            String signOutChoice = inputValidator.processStringInput();
+            if (signOutChoice.equalsIgnoreCase("Y")) {
+                socialNetwork.signOut();
+                mainUser = null;
+                isValid = true;
+            } else if (signOutChoice.equalsIgnoreCase("N")) {
+                processMainMenu();
+                isValid = true;
+            } else {
+                System.out.println("### Error: Invalid choice. Please, try again.");
+                isValid = false;
+            }
+        } while (!isValid);
+    }
+
     public void editProfileMenu() {
         System.out.println(
-                "\n -> Select what information you would like to edit: \n - 1. Full name \n - 2. Email \n - 3. Bio \n - 4. Workplace \n - 5. City \n - 6. Phone number \n - 0. Exit");
-        int maxChoice = 6;
-        int editChoice = inputValidator.processChoiceInput(maxChoice);
+                "\n -> Select what information you would like to edit: \n - 1. Password \n - 2. Full name \n - 3. Email \n - 4. Bio \n - 5. Workplace \n - 6. City \n - 7. Phone number \n - 0. Back to Main Menu");
+        int maxChoice = 7;
+        int editChoice; 
         String input = "";
         boolean isValid = true;
         do {
-            input = inputValidator.processStringInput();
+            editChoice = inputValidator.processChoiceInput(maxChoice);
+            if (editChoice != 0) {
+                input = inputValidator.processStringInput();
+            }
             switch (editChoice) {
-                case 1:
+                case 2:
                     if (!inputValidator.isValidFullName(input)) {
                         System.out.println("### Error: Invalid full name. Please, try again.");
                         isValid = false;
@@ -105,7 +166,7 @@ public class Menu {
                         isValid = true;
                     }
                     break;
-                case 2:
+                case 3:
                     if (!inputValidator.isValidEmail(input)) {
                         System.out.println("### Error: Invalid email. Please, try again.");
                         isValid = false;
@@ -113,7 +174,7 @@ public class Menu {
                         isValid = true;
                     }
                     break;
-                case 6:
+                case 7:
                     if (!inputValidator.isValidPhoneNumber(input)) {
                         System.out.println("### Error: Invalid phone number. Please, try again.");
                         isValid = false;
@@ -263,6 +324,6 @@ public class Menu {
      */
     public static void main(String[] args) {
         Menu menu = new Menu();
-        menu.runMenu();
+        menu.processSignInMenu();
     }
 }

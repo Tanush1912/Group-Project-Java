@@ -12,6 +12,10 @@ public class User {
      */
     protected String username;
     /**
+     * User's password
+     */
+    protected String password;
+    /**
      * User's full name
      */
     protected String fullName;
@@ -47,6 +51,7 @@ public class User {
     /**
      * Constructor to create the user
      * @param username Username
+     * @param password User's password
      * @param fullName User's full name
      * @param email User's email
      * @param bio User's bio
@@ -56,8 +61,9 @@ public class User {
      * @param posts User's collection of posts
      * @param friends User's collection of friends
      */
-    public User(String username, String fullName, String email, String bio, String workplace, String city, String phoneNumber, List<Post> posts) {
+    public User(String username, String password, String fullName, String email, String bio, String workplace, String city, String phoneNumber, List<Post> posts) {
         this.username = username;
+        this.password = password;
         this.fullName = fullName;
         this.email = email;
         this.bio = bio;
@@ -74,6 +80,14 @@ public class User {
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Method to get the password
+     * @return String representing the password
+     */
+    public String getPassword() {
+        return password;
     }
 
     /**
@@ -138,6 +152,14 @@ public class User {
      */
     public Set<User> getFriends() {
         return friends;
+    }
+
+    /**
+     * Method to set the password
+     * @param password Password to be set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**

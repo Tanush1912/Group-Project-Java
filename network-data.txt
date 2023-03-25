@@ -1,4 +1,5 @@
 "Username": "main123"
+"Password": "Pass1230"
 "Full name": "John Smith"
 "Email": "I am a software developer"
 "Bio": "john.smith123@gmail.com"
@@ -9,6 +10,7 @@
 "Friends": ["jane1232", "jim78", "artgalore", "musicL0ver789", "techgeek", "fitnessguru", "animalLover", "daviD", "mark-dev", "traveleR", "ai_geek"]
 
 "Username": "artgalore"
+"Password": "hello123"
 "Full name": "Rachel Kim"
 "Email": "I am an art history student"
 "Bio": "rachelkimart@gmail.com"
@@ -19,6 +21,7 @@
 "Friends": ["jane1232", "main123", "daviD", "tomSPORTS", "alex_photographer"]
 
 "Username": "maTT444"
+"Password": "matt123"
 "Full name": "Lily Nguyen"
 "Email": "I am a book lover"
 "Bio": "lilynguyen123@hotmail.com"
@@ -29,6 +32,7 @@
 "Friends": ["jim78", "bobsmith000", "musicL0ver789", "foodie4life", "travelbug", "karen_Pet12", "alex_photographer", "mark-dev", "yogaYasmin"]
 
 "Username": "fitnessguru"
+"Password": "guru777"
 "Full name": "Jessica Davis"
 "Email": "I am a certified personal trainer and fitness enthusiast"
 "Bio": "jessicadavis@gmail.com"
@@ -39,6 +43,7 @@
 "Friends": []
 
 "Username": "bobsmith000"
+"Password": "smitHHH"
 "Full name": "Bob Smith"
 "Email": "I love traveling and exploring new places"
 "Bio": "bob123@gmail.com"
@@ -49,6 +54,7 @@
 "Friends": ["jane1232", "jim78", "main123", "musicL0ver789", "maTT444", "techgeek", "fitnessguru", "traveleR", "ai_geek", "georgeW00"]
 
 "Username": "foodie4life"
+"Password": "f004Lif3"
 "Full name": "Samantha Lee"
 "Email": "I love cooking and baking"
 "Bio": "samlee@gmail.com"
@@ -59,6 +65,7 @@
 "Friends": ["jane1232", "musicL0ver789", "maTT444", "animalLover", "emilyQueen", "karen_Pet12", "traveleR"]
 
 "Username": "animalLover"
+"Password": "emma223@!"
 "Full name": "Emma Johnson"
 "Email": "I am a veterinary technician"
 "Bio": "emmajohnsonvet@gmail.com"
@@ -69,6 +76,7 @@
 "Friends": ["jim78", "main123", "foodie4life", "karen_Pet12"]
 
 "Username": "jim78"
+"Password": "jimmyjohn222"
 "Full name": "Jim Johnson"
 "Email": "I am a huge sports fan"
 "Bio": "jimjohnson99@yahoo.com"
@@ -79,6 +87,7 @@
 "Friends": ["jane1232", "bobsmith000", "main123", "maTT444", "techgeek", "fitnessguru", "animalLover", "emilyQueen", "tomSPORTS", "alex_photographer", "sarah-books"]
 
 "Username": "travelbug"
+"Password": "travel123"
 "Full name": "Sarah Wilson"
 "Email": "I love traveling and exploring new cultures"
 "Bio": "sarahwilsontravel@gmail.com"
@@ -89,6 +98,7 @@
 "Friends": ["jane1232", "maTT444", "techgeek", "emilyQueen", "karen_Pet12", "olivia_saves_nature"]
 
 "Username": "jane1232"
+"Password": "coolPassword444"
 "Full name": "Jane Kim"
 "Email": "I love trying new foods and restaurants"
 "Bio": "janek6@gmail.com"
@@ -99,6 +109,7 @@
 "Friends": ["jim78", "bobsmith000", "artgalore", "main123", "fitnessguru", "foodie4life", "travelbug", "daviD", "tomSPORTS", "georgeW00"]
 
 "Username": "techgeek"
+"Password": "kevinTech!!!"
 "Full name": "Kevin Chen"
 "Email": "I love all things technology"
 "Bio": "kevinchen987@gmail.com"
@@ -109,6 +120,7 @@
 "Friends": ["jim78", "bobsmith000", "main123", "tomSPORTS"]
 
 "Username": "musicL0ver789"
+"Password": "emilyMusicCC"
 "Full name": "Emily Chen"
 "Email": "I am a music enthusiast"
 "Bio": "emilychen789@hotmail.com"
@@ -119,6 +131,7 @@
 "Friends": ["bobsmith000", "main123", "maTT444", "foodie4life", "daviD", "tomSPORTS", "olivia_saves_nature"]
 
 "Username": "daviD"
+"Password": "davidKim33@3"
 "Full name": "David Kim"
 "Email": "I am a professional pianist"
 "Bio": "davidkim404@gmail.com"
@@ -129,6 +142,7 @@
 "Friends": ["jane1232", "main123", "artgalore", "musicL0ver789", "olivia_saves_nature"]
 
 "Username": "emilyQueen"
+"Password": "emPark00!!"
 "Full name": "Emily Park"
 "Email": "I am a makeup artist"
 "Bio": "emilypark@gmail.com"
@@ -138,7 +152,8 @@
 "Posts": ["Check out this new lipstick shade!"/72/22-03-2023/[#beauty, #makeup]; "Tips for a perfect winged eyeliner"/31/14-03-2023/[#beauty, #makeup, #tips]]
 "Friends": ["jim78", "foodie4life", "travelbug", "mark-dev", "yogaYasmin"]
 
-"Username": "tom-SPORTS"
+"Username": "tomSPORTS"
+"Password": "password777"
 "Full name": "Tom Johnson"
 "Email": "I am a die-hard sports fan"
 "Bio": "tomjohnson@gmail.com"
@@ -149,6 +164,7 @@
 "Friends": ["jane1232", "jim78", "artgalore", "musicL0ver789", "techgeek", "sarah-books"]
 
 "Username": "karen_Pet12"
+"Password": "kaRRenLEE123"
 "Full name": "Karen Lee"
 "Email": "I am an animal rights activist"
 "Bio": "karenlee@gmail.com"
@@ -159,6 +175,7 @@
 "Friends": ["maTT444", "foodie4life", "travelbug", "animalLover"]
 
 "Username": "alex_photographer"
+"Password": "alex000_!"
 "Full name": "Alex Wong"
 "Email": "I am a professional photographer"
 "Bio": "alexwong@gmail.com"
@@ -169,6 +186,7 @@
 "Friends": ["jim78", "artgalore", "maTT444", "mark-dev"]
 
 "Username": "mark-dev"
+"Password": "markkkkGoogle123"
 "Full name": "Mark Zuckerberg"
 "Email": "I am a software engineer and technology enthusiast"
 "Bio": "alexchen.dev@gmail.com"
@@ -179,6 +197,7 @@
 "Friends": ["alex_photographer", "main123", "emilyQueen", "maTT444", "ai_geek"]
 
 "Username": "olivia_saves_nature"
+"Password": "oliviaParker123"
 "Full name": "Olivia Parker"
 "Email": "olivia.parker@hotmail.com"
 "Bio": "Environmental activist"
@@ -189,6 +208,7 @@
 "Friends": ["musicL0ver789", "sarah-books", "travelbug", "daviD"]
 
 "Username": "sarah-books"
+"Password": "new_password_456"
 "Full name": "Sarah Lee"
 "Email": "sarah.lee@gmail.com"
 "Bio": "Bookworm and literature lover"
@@ -199,6 +219,7 @@
 "Friends": ["olivia_saves_nature", "tomSPORTS", "jim78", "mikeMike012", "yogaYasmin"]
 
 "Username": "mikeMike012"
+"Password": "do_not_forget_123"
 "Full name": "Mike Johnson"
 "Email": "mike.johnson@gmail.com"
 "Bio": "Personal trainer"
@@ -209,6 +230,7 @@
 "Friends": ["sarah-books", "traveleR", "yogaYasmin"]
 
 "Username": "traveleR"
+"Password": "trav3L3R@123"
 "Full name": "Alex Jones"
 "Email": "alexjones@gmail.com"
 "Bio": "Travel enthusiast, exploring the world one place at a time"
@@ -219,6 +241,7 @@
 "Friends": ["main123", "bobsmith000", "foodie4life", "georgeW00", "mikeMike012"]
 
 "Username": "yogaYasmin"
+"Password": "namaste444!"
 "Full name": "Yasmin Patel"
 "Email": "yasminyoga@gmail.com"
 "Bio": "Yoga instructor, health enthusiast"
@@ -229,6 +252,7 @@
 "Friends": ["sarah-books", "emilyQueen", "maTT444", "mikeMike012"]
 
 "Username": "ai_geek"
+"Password": "ai_geek_123"
 "Full name": "Ryan Kim"
 "Email": "ryankim@gmail.com"
 "Bio": "AI researcher, technology enthusiast"
@@ -239,6 +263,7 @@
 "Friends": ["mark-dev", "bobsmith000", "main123", "georgeW00"]
 
 "Username": "georgeW00"
+"Password": "WWW123!!!"
 "Full name": "George Washington"
 "Email": "georgewashington@gmail.com"
 "Bio": "History enthusiast, political junkie"

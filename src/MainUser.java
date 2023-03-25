@@ -7,8 +7,22 @@ import java.util.*;
  * @author D.Kecha, T.Govind
  */
 public class MainUser extends User {
-    public MainUser(String username, String fullName, String bio, String email, String workplace, String phoneNumber, String city, List<Post> posts) {
-        super(username, fullName, bio, email, workplace, phoneNumber, city, posts);
+    /**
+     * Constructor to create the main user
+     * 
+     * @param username Username
+     * @param password User's password
+     * @param fullName User's full name
+     * @param bio User's bio
+     * @param email User's email
+     * @param workplace User's workplace
+     * @param phoneNumber User's phone number
+     * @param city User's city
+     * @param posts User's collection of posts
+     */
+    public MainUser(String username, String password, String fullName, String email, String bio, String workplace,
+            String city, String phoneNumber, List<Post> posts) {
+        super(username, password, fullName, email, bio, workplace, city, phoneNumber, posts);
     }
 
     /**
@@ -19,24 +33,25 @@ public class MainUser extends User {
     public void editProfile(int choice, String input) {
         switch (choice) {
             case 1:
-                setFullName(input);
+                setPassword(input);
                 break;
             case 2:
-                setEmail(input);
+                setFullName(input);
                 break;
             case 3:
-                setBio(input);
+                setEmail(input);
                 break;
             case 4:
-                setWorkplace(input);
+                setBio(input);
                 break;
             case 5:
-                setCity(input);
+                setWorkplace(input);
                 break;
             case 6:
-                setPhoneNumber(input);
+                setCity(input);
                 break;
-            default:
+            case 7:
+                setPhoneNumber(input);
                 break;
         }
     }

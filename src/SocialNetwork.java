@@ -49,11 +49,12 @@ public class SocialNetwork {
             bufferedReader = new BufferedReader(fileReader);
 
             String line;
-            boolean isMainUser = true;
             Map<String, Set<String>> friendsMap = new HashMap<>();
             while ((line = bufferedReader.readLine()) != null) {
                 if (!line.isEmpty()) {
                     String username = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
+                    line = bufferedReader.readLine();
+                    String password = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
                     line = bufferedReader.readLine();
                     String fullName = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
                     line = bufferedReader.readLine();
@@ -96,12 +97,7 @@ public class SocialNetwork {
                         }
                     }
                     friendsMap.put(username, friends);
-
-                    if (isMainUser) {
-                        mainUser = new MainUser(username, fullName, bio, email, workplace, city, phoneNumber, posts);
-                        isMainUser = false;
-                    }
-                    User user = new User(username, fullName, bio, email, workplace, city, phoneNumber, posts);
+                    User user = new User(username, password, fullName, bio, email, workplace, city, phoneNumber, posts);
                     usersData.put(username, user);
                 }
             }
@@ -110,19 +106,16 @@ public class SocialNetwork {
                 for (String friend : friendsMap.get(user)) {
                     User userToAdd = usersData.get(friend);
                     usersData.get(user).addFriend(userToAdd);
-                    if (user.equals(mainUser.getUsername())) {
-                        mainUser.addFriend(userToAdd);
-                    }
                 }
             }
         } catch (IOException e) {
-            System.out.println("### Error! Unable to load the network data!");
+            System.out.println("### Error: Unable to load the network data!");
         } finally {
             if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-                    System.out.println("### Error! Unable to close the network data file!");
+                    System.out.println("### Error: Unable to close the network data file!");
                 }
             }
         }
@@ -138,15 +131,16 @@ public class SocialNetwork {
             fileWriter = new FileOutputStream(FILE_NAME);
             writer = new PrintWriter(fileWriter);
 
-            writeToFile(writer, mainUser);
+            // writeToFile(writer, mainUser);
             for (User user : usersData.values()) {
-                if (!user.getUsername().equals(mainUser.getUsername())) {
-                    writeToFile(writer, user);
-                }
+                // if (!user.getUsername().equals(mainUser.getUsername())) {
+                //     writeToFile(writer, user);
+                // }
+                writeToFile(writer, user);
             }
             System.out.println("*** Network data has been saved successfully! ***");
         } catch (IOException e) {
-            System.out.println("### Error! Unable to save the network data!");
+            System.out.println("### Error: Unable to save the network data!");
         } finally {
             if (writer != null) {
                 writer.close();
@@ -202,8 +196,23 @@ public class SocialNetwork {
                 unknownFriends.add(friend);
             }
         }
-        System.out.println(" - Friends you have in common: " + commonFriends);
-        System.out.println(" - Users you may want to add to your friends: " + unknownFriends);
+        System.out.println("\n*** Friends you have in common: ");
+        if (commonFriends.isEmpty()) {
+            System.out.println(" -> No common friends!");
+        } else {
+            for (User friend : commonFriends) {
+                System.out.println(" -> " + friend.getUsername());
+            }
+        }
+
+        System.out.println("\n*** People you may want to add to your friends: ");
+        if (unknownFriends.isEmpty()) {
+            System.out.println(" -> No unknown friends!");
+        } else {
+            for (User friend : unknownFriends) {
+                System.out.printf(" -> %s (%d friends in common)\n", friend.getUsername(), calculateNumberOfCommonFriends(friend));
+            }
+        }
         return unknownFriends;
     }
 
@@ -228,7 +237,7 @@ public class SocialNetwork {
                         isValid = false;
                     } else if (users.contains(userToAdd)) {
                         mainUser.addFriend(userToAdd);
-                        System.out.println("*** You have successfully added " + userToAdd + " to your friends list! ***");
+                        System.out.printf("*** You have successfully added %s (%s) to your friends list! ***\n", userToAdd, userToAdd.getFullName());
                         isValid = true;
                     } else {
                         System.out.println("### Error: Invalid username. Please, try again.");
@@ -487,7 +496,7 @@ public class SocialNetwork {
         List<User> recommendedFriends = getRecommendedFriendsList();
         if (!recommendedFriends.isEmpty()) {
             recommendedFriends = sortByNumberOfCommonFriends(recommendedFriends);
-            System.out.println("*** Users you may know ***");
+            System.out.println("*** People you may know ***");
             for (int i = 0; i < recommendedFriends.size(); i++) {
                 User recommendedFriend = recommendedFriends.get(i);
                 System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
@@ -517,7 +526,7 @@ public class SocialNetwork {
         if (recommendedFriendsWithSameCity.isEmpty()) {
             System.out.printf("\n*** No recommended friends who live in %s ***\n", mainUser.getCity());
         } else {
-            System.out.printf("\n*** Users who also live in %s ***\n", mainUser.getCity());
+            System.out.printf("\n*** People who also live in %s ***\n", mainUser.getCity());
             for (int i = 0; i < recommendedFriendsWithSameCity.size(); i++) {
                 User recommendedFriend = recommendedFriendsWithSameCity.get(i);
                 System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
@@ -527,7 +536,7 @@ public class SocialNetwork {
         if (recommendedFriendsWithSameWorkplace.isEmpty()) {
             System.out.printf("\n*** No recommended friends who work in %s ***\n", mainUser.getWorkplace());
         } else {
-            System.out.printf("\n*** Users who also work in %s ***\n", mainUser.getWorkplace());
+            System.out.printf("\n*** People who also work in %s ***\n", mainUser.getWorkplace());
             for (int i = 0; i < recommendedFriendsWithSameWorkplace.size(); i++) {
                 User recommendedFriend = recommendedFriendsWithSameWorkplace.get(i);
                 System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
@@ -565,5 +574,47 @@ public class SocialNetwork {
             }
         });
         return friendsList;
+    }
+
+    /**
+     * Method to validate the user's credentials
+     * 
+     * @param username Username of the user
+     * @param password Password of the user
+     * @return Boolean representing whether the user's credentials are valid or not
+     */
+    public boolean validateUser(String username, String password) {
+        if (usersData.containsKey(username)) {
+            User user = usersData.get(username);
+            if (user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Method to allow the user to sign in
+     */
+    public void signIn(InputValidator inputValidator) {
+        String username = inputValidator.processUsernameInput();
+        System.out.println("\n -> Enter the password: ");
+        String password = inputValidator.processStringInput();
+        if (validateUser(username, password)) {
+            User user = usersData.get(username);
+            mainUser = new MainUser(user.getUsername(), user.getPassword(), user.getFullName(), user.getEmail(), user.getBio(), user.getWorkplace(), user.getCity(), user.getPhoneNumber(), user.getPosts());
+            mainUser.setFriends(user.getFriends());
+            System.out.printf("\n*** Welcome, %s! You have successfully signed in! ***\n", mainUser.getUsername());
+        } else {
+            System.out.println("### Error: Incorrect username or password! Please, try again.");
+        }
+    }
+
+    /**
+     * Method to allow the user to sign out
+     */
+    public void signOut() {
+        mainUser = null;
+        System.out.println("*** You have successfully signed out! ***");
     }
 }
