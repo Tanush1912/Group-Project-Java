@@ -3,7 +3,7 @@ import java.io.*;
 import java.text.*;
 
 /**
- * Class to represent the functionality of the social network
+ * Class responsible for the functionality of the social network
  * 
  * @version 1.0
  * @author D.Kecha, T.Govind
@@ -144,6 +144,7 @@ public class SocialNetwork {
                     writeToFile(writer, user);
                 }
             }
+            System.out.println("*** Network data has been saved successfully! ***");
         } catch (IOException e) {
             System.out.println("### Error! Unable to save the network data!");
         } finally {
@@ -215,11 +216,11 @@ public class SocialNetwork {
     public void addNewFriend(InputValidator inputValidator, Set<User> users) {
         boolean isValid = true;
         do {
-            System.out.println("\n - Do you want anyone to your friend list? (Y/N)");
+            System.out.println("\n -> Do you want anyone to your friend list? (Y/N)");
             String addFriendChoice = inputValidator.processStringInput();
             if (addFriendChoice.equalsIgnoreCase("Y")) {
                 if (users.size() > 1) {
-                    System.out.println(" - Enter the username whom you want to add as a friend: ");
+                    System.out.println(" -> Enter the username whom you want to add as a friend: ");
                     String usernameToAdd = inputValidator.processUsernameInput();
                     User userToAdd = usersData.get(usernameToAdd);
                     if (mainUser.getFriends().contains(userToAdd)) {
@@ -227,7 +228,7 @@ public class SocialNetwork {
                         isValid = false;
                     } else if (users.contains(userToAdd)) {
                         mainUser.addFriend(userToAdd);
-                        System.out.println(" - You have successfully added " + userToAdd + " to your friends list!");
+                        System.out.println("*** You have successfully added " + userToAdd + " to your friends list! ***");
                         isValid = true;
                     } else {
                         System.out.println("### Error: Invalid username. Please, try again.");
@@ -241,6 +242,8 @@ public class SocialNetwork {
             } else if (!addFriendChoice.equalsIgnoreCase("N")) {
                 System.out.println("### Error: Invalid choice. Please, try again.");
                 isValid = false;
+            } else {
+                isValid = true;
             }
         } while (!isValid);
     }
@@ -254,11 +257,11 @@ public class SocialNetwork {
     public void likePost(InputValidator inputValidator, List<Post> postsList) {
         boolean isValid = true;
         do {
-            System.out.println("\n - Do you want to like any post of this user? (Y/N)");
+            System.out.println("\n -> Do you want to like any post? (Y/N)");
             String likeChoice = inputValidator.processStringInput();
             if (likeChoice.equalsIgnoreCase("Y")) {
-                System.out.println(">>> Enter the number of the post you want to like");
-                int postNumber = inputValidator.processChoiceInput() - 1;
+                System.out.println("\n -> Enter the number of the post you want to like");
+                int postNumber = inputValidator.processChoiceInput(postsList.size()) - 1;
                 try {
                     postsList.get(postNumber).addLike();
                     isValid = true;
@@ -270,6 +273,8 @@ public class SocialNetwork {
             } else if (!likeChoice.equalsIgnoreCase("N")) {
                 System.out.println("### Error: Invalid choice. Please, try again.");
                 isValid = false;
+            } else {
+                isValid = true;
             }
         } while (!isValid);
     }
@@ -295,7 +300,7 @@ public class SocialNetwork {
                 case 2:
                     if (mainUser.getFriends().contains(userToInteract)) {
                         mainUser.removeFriend(userToInteract);
-                        System.out.println("### You have successfully removed this friend! ###");
+                        System.out.println("*** You have successfully removed this friend! ***");
                     } else {
                         System.out.println("### Error: You are not friends with this user. Please, try again.");
                     }
@@ -320,16 +325,20 @@ public class SocialNetwork {
      */
     public void searchPostByHashtag(InputValidator inputValidator) {
         List<String> hashtags = inputValidator.processHashtagsInput();
-        List<Post> posts = filterPosts(hashtags);
-        if (posts.size() > 0) {
-            System.out.println("*** The following posts have been found: ");
-            for (int i = 0; i < posts.size(); i++) {
-                System.out.printf("%2d. %s\n", i + 1, posts.get(i));
-            }
-            System.out.println();
-            likePost(inputValidator, posts);
+        if (hashtags.size() == 0) {
+            System.out.println("### Error: No hashtags have been entered!");
         } else {
-            System.out.printf("### Error: No posts found with the hashtag: %s!\n", hashtags);
+            List<Post> posts = filterPosts(hashtags);
+            if (posts.size() > 0) {
+                System.out.println("*** The following posts have been found: ");
+                for (int i = 0; i < posts.size(); i++) {
+                    System.out.printf("%2d. %s\n", i + 1, posts.get(i));
+                }
+                System.out.println();
+                likePost(inputValidator, posts);
+            } else {
+                System.out.printf("### Error: No posts found with the hashtag: %s!\n", hashtags);
+            }
         }
     }
 
@@ -362,8 +371,12 @@ public class SocialNetwork {
                 return user1.getFullName().compareTo(user2.getFullName());
             }
         });
-        System.out.println(" - Sorted friends list: " + sortedFriendsList);
 
+        System.out.println("*** Sorted by the first name ***");
+        for (int i = 0; i < sortedFriendsList.size(); i++) {
+            User friend = sortedFriendsList.get(i);
+            System.out.printf("%2d. %s (%s)\n", i + 1, friend, friend.getFullName());
+        }
     }
 
     /**
@@ -377,13 +390,18 @@ public class SocialNetwork {
                 return user1.getFullName().split(" ")[1].compareTo(user2.getFullName().split(" ")[1]);
             }
         });
-        System.out.println(" - Sorted friends list: " + sortedFriendsList);
+
+        System.out.println("*** Sorted by the last name ***");
+        for (int i = 0; i < sortedFriendsList.size(); i++) {
+            User friend = sortedFriendsList.get(i);
+            System.out.printf("%2d. %s (%s)\n", i + 1, friend, friend.getFullName());
+        }    
     }
 
     /**
-     * Method to sort friends list by number of friends and print the list after
+     * Method to sort friends list by total number of friends and print the list after
      */
-    public void sortFriendsListByNumberOfFriends() {
+    public void sortFriendsListByTotalNumberOfFriends() {
         List<User> sortedFriendsList = new ArrayList<>(mainUser.getFriends());
         Collections.sort(sortedFriendsList, new Comparator<User>() {
             @Override
@@ -391,8 +409,12 @@ public class SocialNetwork {
                 return user1.getFriends().size() - user2.getFriends().size();
             }
         });
-        System.out.println(" - Sorted friends list: " + sortedFriendsList);
 
+        System.out.println("*** Sorted by the total number of friends ***");
+        for (int i = 0; i < sortedFriendsList.size(); i++) {
+            User friend = sortedFriendsList.get(i);
+            System.out.printf("%2d. %s has %d friends\n", i + 1, friend, friend.getFriends().size());
+        }
     }
 
     /**
@@ -408,7 +430,13 @@ public class SocialNetwork {
                 filteredFriendsList.add(friend);
             }
         }
-        System.out.println(" - Filtered friends list: \n" + filteredFriendsList);
+
+        filteredFriendsList = sortByNumberOfCommonFriends(filteredFriendsList);
+        System.out.printf("*** Friends who live in %s ***\n", city);
+        for (int i = 0; i < filteredFriendsList.size(); i++) {
+            User friend = filteredFriendsList.get(i);
+            System.out.printf("%2d. %s (%d friends in common)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+        }
     }
 
     /**
@@ -424,24 +452,48 @@ public class SocialNetwork {
                 filteredFriendsList.add(friend);
             }
         }
-        System.out.println(" - Filtered friends list: " + filteredFriendsList);
+
+        filteredFriendsList = sortByNumberOfCommonFriends(filteredFriendsList);
+        System.out.printf("*** Friends who work in %s ***\n", workplace);
+        for (int i = 0; i < filteredFriendsList.size(); i++) {
+            User friend = filteredFriendsList.get(i);
+            System.out.printf("%2d. %s (%d friends in common)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+        }
+    }
+
+    /**
+     * Method to get the recommended friends list
+     * 
+     * @return List of recommended friends
+     */
+    public List<User> getRecommendedFriendsList() {
+        List<User> recommendedFriends = new ArrayList<>();
+        for (User friend : mainUser.getFriends()) {
+            for (User friendOfFriend : friend.getFriends()) {
+                if (friendOfFriend != null && !mainUser.getFriends().contains(friendOfFriend)
+                        && !friendOfFriend.getUsername().equals(mainUser.getUsername())
+                        && !recommendedFriends.contains(friendOfFriend)) {
+                    recommendedFriends.add(friendOfFriend);
+                }
+            }
+        }
+        return recommendedFriends;
     }
 
     /**
      * Method to recommend friends to the main user based on common friends
      */
     public void recommendFriends() {
-        Set<User> recommendedFriends = new HashSet<>();
-        for (User friend : mainUser.getFriends()) {
-            for (User friendOfFriend : friend.getFriends()) {
-                if (friendOfFriend != null && !mainUser.getFriends().contains(friendOfFriend)
-                        && !friendOfFriend.getUsername().equals(mainUser.getUsername())) {
-                    recommendedFriends.add(friendOfFriend);
-                }
-            }
-        }
+        List<User> recommendedFriends = getRecommendedFriendsList();
         if (!recommendedFriends.isEmpty()) {
-            System.out.println(" - Recommended friends: " + recommendedFriends);
+            recommendedFriends = sortByNumberOfCommonFriends(recommendedFriends);
+            System.out.println("*** Users you may know ***");
+            for (int i = 0; i < recommendedFriends.size(); i++) {
+                User recommendedFriend = recommendedFriends.get(i);
+                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
+            }
+        } else {
+            System.out.println("*** No recommended friends yet ***");
         }
     }
 
@@ -450,17 +502,9 @@ public class SocialNetwork {
      * and workplace. Strangers will not be recommeneded even if users share same city
      */
     public void recommendFriendsByCityAndWorkplace() {
-        Set<User> recommendedFriends = new HashSet<>();
-        for (User friend : mainUser.getFriends()) {
-            for (User friendOfFriend : friend.getFriends()) {
-                if (friendOfFriend != null && !mainUser.getFriends().contains(friendOfFriend)
-                        && !friendOfFriend.getUsername().equals(mainUser.getUsername())) {
-                    recommendedFriends.add(friendOfFriend);
-                }
-            }
-        }
-        Set<User> recommendedFriendsWithSameCity = new HashSet<>();
-        Set<User> recommendedFriendsWithSameWorkplace = new HashSet<>();
+        List<User> recommendedFriends = getRecommendedFriendsList();
+        List<User> recommendedFriendsWithSameCity = new ArrayList<>();
+        List<User> recommendedFriendsWithSameWorkplace = new ArrayList<>();
         for (User recommendedFriend : recommendedFriends) {
             if (recommendedFriend.getCity().equals(mainUser.getCity())) {
                 recommendedFriendsWithSameCity.add(recommendedFriend);
@@ -469,13 +513,30 @@ public class SocialNetwork {
                 recommendedFriendsWithSameWorkplace.add(recommendedFriend);
             }
         }
-        System.out.println(" - Recommended friends with the same city: " + recommendedFriendsWithSameCity);
-        System.out.println(" - Recommended friends with the same workplace: " + recommendedFriendsWithSameWorkplace);
+
+        if (recommendedFriendsWithSameCity.isEmpty()) {
+            System.out.printf("\n*** No recommended friends who live in %s ***\n", mainUser.getCity());
+        } else {
+            System.out.printf("\n*** Users who also live in %s ***\n", mainUser.getCity());
+            for (int i = 0; i < recommendedFriendsWithSameCity.size(); i++) {
+                User recommendedFriend = recommendedFriendsWithSameCity.get(i);
+                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
+            }
+        }
+
+        if (recommendedFriendsWithSameWorkplace.isEmpty()) {
+            System.out.printf("\n*** No recommended friends who work in %s ***\n", mainUser.getWorkplace());
+        } else {
+            System.out.printf("\n*** Users who also work in %s ***\n", mainUser.getWorkplace());
+            for (int i = 0; i < recommendedFriendsWithSameWorkplace.size(); i++) {
+                User recommendedFriend = recommendedFriendsWithSameWorkplace.get(i);
+                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
+            }
+        }
     }
 
     /**
-     * Method to calculate the number of common friends between the main user and
-     * the given user
+     * Method to calculate the number of common friends between the main user and the given user
      * 
      * @param user User to compare with the main user
      * @return Number of common friends
@@ -490,18 +551,19 @@ public class SocialNetwork {
         return numberOfCommonFriends;
     }
 
-    // /**
-    //  * Method to sort the list of friends by number of common friends between them and the main user
-    //  * 
-    //  * @param friendsList List of friends to sort
-    //  */
-    // public List<User> sortFriendsListByNumberOfCommonFriends(List<User> friendsList) {
-    //     Collections.sort(friendsList, new Comparator<User>() {
-    //         @Override
-    //         public int compare(User mainUser, User user) {
-    //             return mainUser.getFriends().size() - user.getFriends().size();
-    //         }
-    //     });
-    //     return friendsList;
-    // }
+    /**
+     * Method to sort the list of friends by number of common friends between them and the main user
+     * 
+     * @param friendsList List of friends to sort
+     * @return Sorted list of friends by number of common friends
+     */
+    public List<User> sortByNumberOfCommonFriends(List<User> friendsList) {
+        Collections.sort(friendsList, new Comparator<User>() {
+            @Override
+            public int compare(User user1, User user2) {
+                return calculateNumberOfCommonFriends(user2) - calculateNumberOfCommonFriends(user1);
+            }
+        });
+        return friendsList;
+    }
 }

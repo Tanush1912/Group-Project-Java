@@ -5,6 +5,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+
+/**
+ * Class to represent a post
+ * 
+ * @version 1.0
+ * @author D.Kecha, T.Govind
+ */
 public class Post {
     /**
      * Content of the post

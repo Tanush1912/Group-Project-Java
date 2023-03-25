@@ -33,14 +33,14 @@ public class Menu {
      * Method to display the main menu to the user
      */
     public void displayMainMenu() {
-        System.out.println("*** Welcome to the BeNotReal! ***");
-        System.out.println("Please, select one the following options: ");
-        System.out.println(" -> 1. View my profile");
-        System.out.println(" -> 2. Edit my profile");
+        System.out.println("\n*** Welcome to the BeNotReal! ***\n");
+        System.out.println(" - Please, select one the following options: ");
+        System.out.println(" -> 1. View my Profile");
+        System.out.println(" -> 2. Edit my Profile");
         System.out.println(" -> 3. Manage my Friends");
         System.out.println(" -> 4. View Recommended Friends");
         System.out.println(" -> 5. Manage my Posts");
-        System.out.println(" -> 6. Search posts by Hashtag");
+        System.out.println(" -> 6. Search Posts by Hashtag");
         System.out.println(" -> 7. Update the social network");
         System.out.println(" -> 0. Sign out");
     }
@@ -50,9 +50,10 @@ public class Menu {
      */
     public void runMenu() {
         int choice;
+        int maxChoice = 7;
         do {
             displayMainMenu();
-            choice = inputValidator.processChoiceInput();
+            choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
                     mainUser.viewProfile();
@@ -88,8 +89,9 @@ public class Menu {
 
     public void editProfileMenu() {
         System.out.println(
-                "*** Choose what information you would like to edit: \n - 1. Full name \n - 2. Email \n - 3. Bio \n - 4. Workplace \n - 5. City \n - 6. Phone number \n - 0. Exit");
-        int editChoice = inputValidator.processChoiceInput();
+                "\n -> Select what information you would like to edit: \n - 1. Full name \n - 2. Email \n - 3. Bio \n - 4. Workplace \n - 5. City \n - 6. Phone number \n - 0. Exit");
+        int maxChoice = 6;
+        int editChoice = inputValidator.processChoiceInput(maxChoice);
         String input = "";
         boolean isValid = true;
         do {
@@ -127,16 +129,18 @@ public class Menu {
 
         if (editChoice != 0) {
             mainUser.editProfile(editChoice, input);
+            System.out.println("*** Your profile has been successfully updated! ***");
         }
     }
 
     public void manageFriendsMenu() {
-        mainUser.viewFriends();
         int choice;
         do {
+            mainUser.viewFriends();
             System.out.println(
-                    "*** Choose what you would like to do with your friends: \n - 1. View the profile of a friend \n - 2. Remove a friend \n - 3. View the friend's list of friends \n - 4. Sort the list of friends \n - 5. Filter the list of friends \n - 0. Back to main menu");
-            choice = inputValidator.processChoiceInput();
+                    "\n -> Select what you would like to do with your friends: \n - 1. View Profile of my Friend \n - 2. Remove my Friend \n - 3. View my Friend's List of Friends \n - 4. Sort my Friends \n - 5. Filter my Friends \n - 0. Back to Main Menu");
+            int maxChoice = 5;
+            choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
                     String usernameProfile = inputValidator.processUsernameInput();
@@ -169,10 +173,12 @@ public class Menu {
      * Method to display the options how to sort the friends list
      */
     public void displaySortOptions() {
-        System.out.println(
-                " - Please, choose how you would like to sort your friends list: \n - 1. By first name \n - 2. By last name \n - 3. By number of friends \n - 0. Back to sub menu");
-        int choice = inputValidator.processChoiceInput();
+        int choice;
+        int maxChoice = 3;
         do {
+            System.out.println(
+                    "\n -> Select how you would like to sort your friends list: \n - 1. By First name \n - 2. By Last name \n - 3. By Number of friends \n - 0. Back to Sub Menu");
+            choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
                     socialNetwork.sortFriendsListByFirstName();
@@ -181,7 +187,7 @@ public class Menu {
                     socialNetwork.sortFriendsListByLastName();
                     break;
                 case 3:
-                    socialNetwork.sortFriendsListByNumberOfFriends();
+                    socialNetwork.sortFriendsListByTotalNumberOfFriends();
                     break;
                 case 0:
                     break;
@@ -197,10 +203,12 @@ public class Menu {
      * Method to display the options how to filter the friends list
      */
     public void displayFilterOptions() {
-        System.out.println(
-                " - Please, choose how you would like to filter your friends list: \n - 1. By City \n - 2. By Workplace \n - 0. Back to sub menu");
-        int choice = inputValidator.processChoiceInput();
+        int choice;
+        int maxChoice = 2;
         do {
+            System.out.println(
+                    "\n -> Select how you would like to filter your friends list: \n - 1. By City \n - 2. By Workplace \n - 0. Back to Sub Menu");
+            choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
                     socialNetwork.filterFriendsListByCity(inputValidator);
@@ -218,16 +226,17 @@ public class Menu {
      * Method to display the options of managing the posts of the main user
      */
     public void managePostsMenu() {
-        mainUser.viewPosts();
         int choice;
         do {
+            mainUser.viewPosts();
             System.out.println(
-                    " - Please, choose what you would like to do with your posts: \n - 1. Edit the post \n - 2. Write a new post \n - 3. Delete the post \n - 0. Back to main menu");
-            choice = inputValidator.processChoiceInput();
+                    "\n -> Select what you would like to do with your posts: \n - 1. Edit Post \n - 2. Write New Post \n - 3. Delete Post \n - 0. Back to Main Menu");
+            int maxChoice = 3;
+            choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
                     System.out.println(" - Choose the post you would like to edit");
-                    int postToEdit = inputValidator.processChoiceInput() - 1;
+                    int postToEdit = inputValidator.processChoiceInput(mainUser.getPosts().size()) - 1;
                     mainUser.editPost(postToEdit, inputValidator);
                     break;
                 case 2:
@@ -235,7 +244,7 @@ public class Menu {
                     break;
                 case 3:
                     System.out.println(" - Choose the post you would like to delete");
-                    int postToDelete = inputValidator.processChoiceInput() - 1;
+                    int postToDelete = inputValidator.processChoiceInput(mainUser.getPosts().size()) - 1;
                     mainUser.deletePost(postToDelete);
                     break;
                 case 0:

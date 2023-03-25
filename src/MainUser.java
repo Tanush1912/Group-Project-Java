@@ -1,5 +1,11 @@
 import java.util.*;
 
+/**
+ * Class to represent the main user (currently logged-in user)
+ * 
+ * @version 1.0
+ * @author D.Kecha, T.Govind
+ */
 public class MainUser extends User {
     public MainUser(String username, String fullName, String bio, String email, String workplace, String phoneNumber, String city, List<Post> posts) {
         super(username, fullName, bio, email, workplace, phoneNumber, city, posts);
@@ -41,18 +47,18 @@ public class MainUser extends User {
      * @param inputValidator Object to validate the input of the user
      */
     public void writePost(InputValidator inputValidator) {
-        System.out.println(">>> Type your new post ");
+        System.out.println("\n-> Type your new post ");
         String postContent = inputValidator.processStringInput();
 
-        System.out.println(">>> Type any hashtags that you want to add to your post ");
+        System.out.println("\n-> Type any hashtags that you want to add to your post ");
         List<String> hashtags = inputValidator.processHashtagsInput();
 
         Random rand = new Random();
         int numberOfLikes = rand.nextInt(100) + 1;
 
-        System.out.println("*** Your post has been successfully published! ***");
-        System.out.printf(" - %d users like your post!\n", numberOfLikes);
         posts.add(new Post(postContent, numberOfLikes, hashtags));
+        System.out.println("\n*** Your post has been successfully published! ***");
+        System.out.printf(" - %d users like your post!\n", numberOfLikes);
     }
 
     /**
@@ -62,14 +68,15 @@ public class MainUser extends User {
      * @param inputValidator Object to validate the input of the user
      */
     public void editPost(int postIndex, InputValidator inputValidator) {
-        System.out.println(">>> Type the new content of your post ");
+        System.out.println("\n-> Type the new content of your post ");
         String postContent = inputValidator.processStringInput();
 
-        System.out.println(">>> Type new hashtags that you want to add to your post ");
+        System.out.println("\n-> Type new hashtags that you want to add to your post ");
         List<String> hashtags = inputValidator.processHashtagsInput();
 
         posts.get(postIndex).setContent(postContent);
         posts.get(postIndex).setHashtags(hashtags);
+        System.out.println("\n*** Your post has been successfully updated! ***");
     }
 
     /**

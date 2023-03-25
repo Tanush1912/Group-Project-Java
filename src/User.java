@@ -1,5 +1,11 @@
 import java.util.*;
 
+/**
+ * Class to represent a user
+ * 
+ * @version 1.0
+ * @author D.Kecha, T.Govind
+ */
 public class User {
     /**
      * Username
@@ -230,7 +236,7 @@ public class User {
         if (friends.size() > 0) {
             System.out.printf("\n*** Friends of %s ***\n", username);
             for (User friend : friends) {
-                System.out.println(" - " + friend.getUsername());
+                System.out.println(" -> " + friend.getUsername());
             }
         } else {
             System.out.printf(" *** %s has no friends yet ***\n", username);

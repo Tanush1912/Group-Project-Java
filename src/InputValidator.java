@@ -97,9 +97,11 @@ public class InputValidator {
     /**
      * Method to process the input of choice from the user
      * 
+     * @param maxChoice Maximum choice available to the user
      * @return Choice entered by the user
      */
-    public int processChoiceInput() {
+    public int processChoiceInput(int maxChoice) {
+        int minChoice = 0;
         System.out.println("\n>>> Please, enter your choice: ");
         boolean isValid;
         int choice = 0;
@@ -107,8 +109,7 @@ public class InputValidator {
             System.out.print(">>> ");
             try {
                 choice = Integer.parseInt(scanner.nextLine());
-                // Check if the choice is within the range of options
-                if (choice < 0 || choice > 9) {
+                if (choice < minChoice || choice > maxChoice) {
                     throw new NumberFormatException();
                 }
                 isValid = true;
@@ -161,7 +162,6 @@ public class InputValidator {
                 isValid = false;
             }
         } while(!isValid);
-
         return hashtags;
     }
 }
