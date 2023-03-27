@@ -102,7 +102,8 @@ public class Menu {
                     break;
                 case 4: 
                     socialNetwork.recommendFriends();
-                    socialNetwork.recommendFriendsByCityAndWorkplace();
+                    socialNetwork.recommendFriendsByCity();
+                    socialNetwork.recommendFriendsByWorkplace();
                     break;
                 case 5:
                     managePostsMenu();
@@ -124,7 +125,7 @@ public class Menu {
     }
 
     /**
-     * Method to display the sign-out menu to the user
+     * Method to display the sign-out menu to the user and process their choice
      */
     public void manageSignOutMenu() {
         boolean isValid = true;
@@ -145,14 +146,17 @@ public class Menu {
         } while (!isValid);
     }
 
+    /**
+     * Method to display the edit profile menu to the user and process their choice
+     */
     public void editProfileMenu() {
-        System.out.println(
-                "\n -> Select what information you would like to edit: \n - 1. Password \n - 2. Full name \n - 3. Email \n - 4. Bio \n - 5. Workplace \n - 6. City \n - 7. Phone number \n - 0. Back to Main Menu");
         int maxChoice = 7;
         int editChoice; 
         String input = "";
         boolean isValid = true;
         do {
+            System.out.println(
+                    "\n -> Select what information you would like to edit: \n - 1. Password \n - 2. Full name \n - 3. Email \n - 4. Bio \n - 5. Workplace \n - 6. City \n - 7. Phone number \n - 0. Back to Main Menu");
             editChoice = inputValidator.processChoiceInput(maxChoice);
             if (editChoice != 0) {
                 input = inputValidator.processStringInput();
@@ -194,6 +198,9 @@ public class Menu {
         }
     }
 
+    /**
+     * Method to display the options of managing the friend list to the user and process their choice
+     */
     public void manageFriendsMenu() {
         int choice;
         do {

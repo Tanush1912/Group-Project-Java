@@ -131,11 +131,7 @@ public class SocialNetwork {
             fileWriter = new FileOutputStream(FILE_NAME);
             writer = new PrintWriter(fileWriter);
 
-            // writeToFile(writer, mainUser);
             for (User user : usersData.values()) {
-                // if (!user.getUsername().equals(mainUser.getUsername())) {
-                //     writeToFile(writer, user);
-                // }
                 writeToFile(writer, user);
             }
             System.out.println("*** Network data has been saved successfully! ***");
@@ -217,7 +213,7 @@ public class SocialNetwork {
     }
 
     /**
-     * Method to add a friend
+     * Method to manage the logic of adding a friend
      * 
      * @param inputValidator Object to validate the user's input
      * @param users Collection of users to choose from
@@ -441,10 +437,14 @@ public class SocialNetwork {
         }
 
         filteredFriendsList = sortByNumberOfCommonFriends(filteredFriendsList);
-        System.out.printf("*** Friends who live in %s ***\n", city);
-        for (int i = 0; i < filteredFriendsList.size(); i++) {
-            User friend = filteredFriendsList.get(i);
-            System.out.printf("%2d. %s (%d friends in common)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+        if (filteredFriendsList.size() > 0) {
+            System.out.printf("*** Friends who live in %s ***\n", city);
+            for (int i = 0; i < filteredFriendsList.size(); i++) {
+                User friend = filteredFriendsList.get(i);
+                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+            }
+        } else {
+            System.out.printf("*** Unfortunately, no friends have been found living in %s ***\n", city);
         }
     }
 
@@ -463,10 +463,14 @@ public class SocialNetwork {
         }
 
         filteredFriendsList = sortByNumberOfCommonFriends(filteredFriendsList);
-        System.out.printf("*** Friends who work in %s ***\n", workplace);
-        for (int i = 0; i < filteredFriendsList.size(); i++) {
-            User friend = filteredFriendsList.get(i);
-            System.out.printf("%2d. %s (%d friends in common)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+        if (filteredFriendsList.size() > 0) {
+            System.out.printf("*** Friends who work in %s ***\n", workplace);
+            for (int i = 0; i < filteredFriendsList.size(); i++) {
+                User friend = filteredFriendsList.get(i);
+                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+            }
+        } else {
+            System.out.printf("*** Unfortunately, no friends have been found working in %s ***\n", workplace);
         }
     }
 
@@ -507,19 +511,15 @@ public class SocialNetwork {
     }
 
     /**
-     * Method to recommend friends to the main user based on common friends, city,
-     * and workplace. Strangers will not be recommeneded even if users share same city
+     * Method to recommend friends to the main user based on common friends and city 
+     * Strangers will not be recommended even if users share same city
      */
-    public void recommendFriendsByCityAndWorkplace() {
+    public void recommendFriendsByCity() {
         List<User> recommendedFriends = getRecommendedFriendsList();
         List<User> recommendedFriendsWithSameCity = new ArrayList<>();
-        List<User> recommendedFriendsWithSameWorkplace = new ArrayList<>();
         for (User recommendedFriend : recommendedFriends) {
             if (recommendedFriend.getCity().equals(mainUser.getCity())) {
                 recommendedFriendsWithSameCity.add(recommendedFriend);
-            }
-            if (recommendedFriend.getWorkplace().equals(mainUser.getWorkplace())) {
-                recommendedFriendsWithSameWorkplace.add(recommendedFriend);
             }
         }
 
@@ -532,6 +532,20 @@ public class SocialNetwork {
                 System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
             }
         }
+    }
+
+    /**
+     * Method to recommend friends to the main user based on common friends and workplace. 
+     * Strangers will not be recommended even if users share same workplace
+     */
+    public void recommendFriendsByWorkplace() {
+        List<User> recommendedFriends = getRecommendedFriendsList();
+        List<User> recommendedFriendsWithSameWorkplace = new ArrayList<>();
+        for (User recommendedFriend : recommendedFriends) {
+            if (recommendedFriend.getWorkplace().equals(mainUser.getWorkplace())) {
+                recommendedFriendsWithSameWorkplace.add(recommendedFriend);
+            }
+        }
 
         if (recommendedFriendsWithSameWorkplace.isEmpty()) {
             System.out.printf("\n*** No recommended friends who work in %s ***\n", mainUser.getWorkplace());
@@ -539,7 +553,8 @@ public class SocialNetwork {
             System.out.printf("\n*** People who also work in %s ***\n", mainUser.getWorkplace());
             for (int i = 0; i < recommendedFriendsWithSameWorkplace.size(); i++) {
                 User recommendedFriend = recommendedFriendsWithSameWorkplace.get(i);
-                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
+                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend,
+                        calculateNumberOfCommonFriends(recommendedFriend));
             }
         }
     }
