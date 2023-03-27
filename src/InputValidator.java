@@ -82,8 +82,12 @@ public class InputValidator {
         boolean isValid;
         String username = "";
         do {
+            System.out.println("\n -> Press \"Enter\" to skip.");
             System.out.print(">>> ");
             username = scanner.nextLine();
+            if (username.isEmpty()) {
+                break;
+            }
             isValid = isValidUsername(username);
 
             if (!isValid) {
@@ -105,8 +109,14 @@ public class InputValidator {
         int choice = 0;
         do {
             System.out.print("\n>>> ");
+            String input = scanner.nextLine();
+            if (input.isEmpty()) {
+                choice = -1;
+                break;
+            }
+
             try {
-                choice = Integer.parseInt(scanner.nextLine());
+                choice = Integer.parseInt(input);
                 if (choice < minChoice || choice > maxChoice) {
                     throw new NumberFormatException();
                 }
@@ -125,6 +135,7 @@ public class InputValidator {
      * @return String entered by the user
      */
     public String processStringInput() {
+        System.out.println("\n -> Press \"Enter\" to skip.");
         System.out.print(">>> ");
         String input = scanner.nextLine();
         return input;

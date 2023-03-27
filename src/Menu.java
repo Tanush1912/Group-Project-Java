@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /**
  * Class responsible for displaying the menu to the user
  * 
@@ -104,6 +106,7 @@ public class Menu {
                     socialNetwork.recommendFriends();
                     socialNetwork.recommendFriendsByCity();
                     socialNetwork.recommendFriendsByWorkplace();
+                    socialNetwork.addNewFriend(inputValidator, new HashSet<>(socialNetwork.getRecommendedFriendsList()));
                     break;
                 case 5:
                     managePostsMenu();
@@ -136,7 +139,7 @@ public class Menu {
                 socialNetwork.signOut();
                 mainUser = null;
                 isValid = true;
-            } else if (signOutChoice.equalsIgnoreCase("N")) {
+            } else if (signOutChoice.equalsIgnoreCase("N") || signOutChoice.isEmpty()) {
                 processMainMenu();
                 isValid = true;
             } else {
@@ -158,10 +161,19 @@ public class Menu {
             System.out.println(
                     "\n -> Select what information you would like to edit: \n - 1. Password \n - 2. Full name \n - 3. Email \n - 4. Bio \n - 5. Workplace \n - 6. City \n - 7. Phone number \n - 0. Back to Main Menu");
             editChoice = inputValidator.processChoiceInput(maxChoice);
+            if (editChoice == -1) {
+                break;
+            }
+
             if (editChoice != 0) {
                 System.out.println(" -> Please, enter the new information: ");
                 input = inputValidator.processStringInput();
             }
+            
+            if (input.isEmpty() && editChoice != 0) {
+                break;
+            }
+
             switch (editChoice) {
                 case 2:
                     if (!inputValidator.isValidFullName(input)) {
@@ -215,17 +227,23 @@ public class Menu {
                 case 1:
                     System.out.println("\n -> Please, enter the username of the user whose profile you want to view:");
                     String usernameProfile = inputValidator.processUsernameInput();
-                    socialNetwork.manageFriends(choice, usernameProfile, inputValidator);
+                    if (!usernameProfile.isEmpty()) {
+                        socialNetwork.manageFriends(choice, usernameProfile, inputValidator);
+                    }
                     break;
                 case 2:
                     System.out.println("\n -> Please, enter the username of the user whom you want to remove from your friend list:");
                     String usernameToRemove = inputValidator.processUsernameInput();
-                    socialNetwork.manageFriends(choice, usernameToRemove, inputValidator);
+                    if (!usernameToRemove.isEmpty()) {
+                        socialNetwork.manageFriends(choice, usernameToRemove, inputValidator);
+                    }
                     break;
                 case 3:
                     System.out.println("\n -> Please, enter the username of the user whose friend list you want to view:");
                     String usernameFriendsList = inputValidator.processUsernameInput();
-                    socialNetwork.manageFriends(choice, usernameFriendsList, inputValidator);
+                    if (!usernameFriendsList.isEmpty()) {
+                        socialNetwork.manageFriends(choice, usernameFriendsList, inputValidator);
+                    }
                     break;
                 case 4:
                     displaySortOptions();
@@ -308,17 +326,24 @@ public class Menu {
             choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
-                    System.out.println(" -> Pleasse, choose the post you would like to edit");
-                    int postToEdit = inputValidator.processChoiceInput(mainUser.getPosts().size()) - 1;
-                    mainUser.editPost(postToEdit, inputValidator);
+                    System.out.println(" -> Please, choose the post you would like to edit");
+                    System.out.println("\n -> Press \"Enter\" to skip.");
+                    int inputChoice1 = inputValidator.processChoiceInput(mainUser.getPosts().size());
+                    if (inputChoice1 != -1) {
+                        int postToEdit = inputChoice1 - 1;
+                        mainUser.editPost(postToEdit, inputValidator);
+                    }
                     break;
                 case 2:
                     mainUser.writePost(inputValidator);
                     break;
                 case 3:
                     System.out.println(" -> Please, choose the post you would like to delete");
-                    int postToDelete = inputValidator.processChoiceInput(mainUser.getPosts().size()) - 1;
-                    mainUser.deletePost(postToDelete);
+                    int inputChoice2 = inputValidator.processChoiceInput(mainUser.getPosts().size());
+                    if (inputChoice2 != -1) {
+                        int postToDelete = inputValidator.processChoiceInput(mainUser.getPosts().size()) - 1;
+                        mainUser.deletePost(postToDelete);
+                    }
                     break;
                 case 0:
                     break;

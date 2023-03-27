@@ -10,54 +10,12 @@ public class MainUser extends User {
     /**
      * Constructor to create the main user
      * 
-     * @param username Username
-     * @param password User's password
-     * @param fullName User's full name
-     * @param bio User's bio
-     * @param email User's email
-     * @param workplace User's workplace
-     * @param phoneNumber User's phone number
-     * @param city User's city
-     * @param posts User's collection of posts
+     * @param user User object
      */
-    public MainUser(String username, String password, String fullName, String bio, String email, String workplace, String city, String phoneNumber, List<Post> posts) {
-        super(username, password, fullName, bio, email, workplace, city, phoneNumber, posts);
-    }
-
     public MainUser(User user) {
         super(user.getUsername(), user.getPassword(), user.getFullName(), user.getBio(), user.getEmail(), user.getWorkplace(), user.getCity(), user.getPhoneNumber(), user.getPosts());
+        this.friends = user.getFriends();
     }
-
-    // /**
-    //  * Method to allow the main user to edit their profile
-    //  * 
-    //  * @param choice The choice of the user on what to edit
-    //  */
-    // public void editProfile(int choice, String input) {
-    //     switch (choice) {
-    //         case 1:
-    //             setPassword(input);
-    //             break;
-    //         case 2:
-    //             setFullName(input);
-    //             break;
-    //         case 3:
-    //             setEmail(input);
-    //             break;
-    //         case 4:
-    //             setBio(input);
-    //             break;
-    //         case 5:
-    //             setWorkplace(input);
-    //             break;
-    //         case 6:
-    //             setCity(input);
-    //             break;
-    //         case 7:
-    //             setPhoneNumber(input);
-    //             break;
-    //     }
-    // }
 
     /**
      * Method to allow the main user to write a new post
@@ -68,15 +26,17 @@ public class MainUser extends User {
         System.out.println("\n-> Type your new post ");
         String postContent = inputValidator.processStringInput();
 
-        System.out.println("\n-> Type any hashtags that you want to add to your post ");
-        List<String> hashtags = inputValidator.processHashtagsInput();
+        if (!postContent.isEmpty()) {
+            System.out.println("\n-> Type any hashtags that you want to add to your post ");
+            List<String> hashtags = inputValidator.processHashtagsInput();
 
-        Random rand = new Random();
-        int numberOfLikes = rand.nextInt(100) + 1;
+            Random rand = new Random();
+            int numberOfLikes = rand.nextInt(100) + 1;
 
-        posts.add(new Post(postContent, numberOfLikes, hashtags));
-        System.out.println("\n*** Your post has been successfully published! ***");
-        System.out.printf(" - %d users like your post!\n", numberOfLikes);
+            posts.add(new Post(postContent, numberOfLikes, hashtags));
+            System.out.println("\n*** Your post has been successfully published! ***");
+            System.out.printf(" - %d users like your post!\n", numberOfLikes);
+        }
     }
 
     /**
@@ -88,13 +48,15 @@ public class MainUser extends User {
     public void editPost(int postIndex, InputValidator inputValidator) {
         System.out.println("\n-> Please, type the new content of your post:");
         String postContent = inputValidator.processStringInput();
+        
+        if (!postContent.isEmpty()) {
+            System.out.println("\n-> Please, type new hashtags that you want to add to your post");
+            List<String> hashtags = inputValidator.processHashtagsInput();
 
-        System.out.println("\n-> Please, type new hashtags that you want to add to your post");
-        List<String> hashtags = inputValidator.processHashtagsInput();
-
-        posts.get(postIndex).setContent(postContent);
-        posts.get(postIndex).setHashtags(hashtags);
-        System.out.println("\n*** Your post has been successfully updated! ***");
+            posts.get(postIndex).setContent(postContent);
+            posts.get(postIndex).setHashtags(hashtags);
+            System.out.println("\n*** Your post has been successfully updated! ***");
+        }
     }
 
     /**

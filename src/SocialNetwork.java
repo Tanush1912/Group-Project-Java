@@ -20,7 +20,7 @@ public class SocialNetwork {
     /**
      * File name to store the social network data
      */
-    private final static String FILE_NAME = "../network-data.txt";
+    private final static String FILE_NAME = "network-data.txt";
 
     /**
      * Default constructor to initiate the social network
@@ -213,12 +213,7 @@ public class SocialNetwork {
         }
 
         usersData.put(userToUpdate.getUsername(), userToUpdate);
-        updateMainUser(userToUpdate);
-    }
-
-    public void updateMainUser(User user) {
-        mainUser = new MainUser(user);
-        mainUser.setFriends(user.getFriends());
+        mainUser = new MainUser(userToUpdate);
     }
 
     /**
@@ -272,24 +267,26 @@ public class SocialNetwork {
                 if (users.size() > 1) {
                     System.out.println(" -> Please, enter the username whom you want to add as a friend: ");
                     String usernameToAdd = inputValidator.processUsernameInput();
-                    User userToAdd = usersData.get(usernameToAdd);
-                    if (mainUser.getFriends().contains(userToAdd)) {
-                        System.out.println("### Error: You are already friends with " + userToAdd + "!");
-                        isValid = false;
-                    } else if (users.contains(userToAdd)) {
-                        mainUser.addFriend(userToAdd);
-                        System.out.printf("*** You have successfully added %s (%s) to your friends list! ***\n", userToAdd, userToAdd.getFullName());
-                        isValid = true;
-                    } else {
-                        System.out.println("### Error: Invalid username. Please, try again.");
-                        isValid = false;
+                    if (!usernameToAdd.isEmpty()) {
+                        User userToAdd = usersData.get(usernameToAdd);
+                        if (mainUser.getFriends().contains(userToAdd)) {
+                            System.out.println("### Error: You are already friends with " + userToAdd + "!");
+                            isValid = false;
+                        } else if (users.contains(userToAdd)) {
+                            mainUser.addFriend(userToAdd);
+                            System.out.printf("*** You have successfully added %s (%s) to your friends list! ***\n", userToAdd, userToAdd.getFullName());
+                            isValid = true;
+                        } else {
+                            System.out.println("### Error: Invalid username. Please, try again.");
+                            isValid = false;
+                        }
                     }
                 } else {
                     User userToAdd = users.iterator().next();
                     mainUser.addFriend(userToAdd);
                     isValid = true;
                 }
-            } else if (!addFriendChoice.equalsIgnoreCase("N")) {
+            } else if (!addFriendChoice.equalsIgnoreCase("N") && !addFriendChoice.isEmpty()) {
                 System.out.println("### Error: Invalid choice. Please, try again.");
                 isValid = false;
             } else {
@@ -311,16 +308,20 @@ public class SocialNetwork {
             String likeChoice = inputValidator.processStringInput();
             if (likeChoice.equalsIgnoreCase("Y")) {
                 System.out.println("\n -> Please, enter the number of the post you want to like: ");
-                int postNumber = inputValidator.processChoiceInput(postsList.size()) - 1;
-                try {
-                    postsList.get(postNumber).addLike();
-                    isValid = true;
-                    System.out.println("*** You have successfully liked this post! ***");
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("### Error: This post does not exist! Please, try again.");
-                    isValid = false;
+                System.out.println("\n -> Press \"Enter\" to skip.");
+                int inputChoice = inputValidator.processChoiceInput(postsList.size());
+                if (inputChoice != -1) {
+                    int postNumber = inputChoice - 1;
+                    try {
+                        postsList.get(postNumber).addLike();
+                        isValid = true;
+                        System.out.println("*** You have successfully liked this post! ***");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("### Error: This post does not exist! Please, try again.");
+                        isValid = false;
+                    }
                 }
-            } else if (!likeChoice.equalsIgnoreCase("N")) {
+            } else if (!likeChoice.equalsIgnoreCase("N") && !likeChoice.isEmpty()) {
                 System.out.println("### Error: Invalid choice. Please, try again.");
                 isValid = false;
             } else {
@@ -475,6 +476,10 @@ public class SocialNetwork {
      */
     public void filterFriendsListByCity(InputValidator inputValidator) {
         String city = inputValidator.processStringInput();
+        if (city.isEmpty()) {
+            return;
+        }
+
         List<User> filteredFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
             if (friend.getCity().equals(city)) {
@@ -501,6 +506,10 @@ public class SocialNetwork {
      */
     public void filterFriendsListByWorkplace(InputValidator inputValidator) {
         String workplace = inputValidator.processStringInput();
+        if (workplace.isEmpty()) {
+            return;
+        }
+
         List<User> filteredFriendsList = new ArrayList<>();
         for (User friend : mainUser.getFriends()) {
             if (friend.getWorkplace().equals(workplace)) {
@@ -664,7 +673,7 @@ public class SocialNetwork {
         String password = inputValidator.processStringInput();
         if (validateUser(username, password)) {
             User user = usersData.get(username);
-            updateMainUser(user);
+            mainUser = new MainUser(user);
             System.out.printf("\n*** Welcome, %s! You have successfully signed in! ***\n", mainUser.getUsername());
         } else {
             System.out.println("\n### Error: Incorrect username or password! Please, try again.");
