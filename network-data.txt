@@ -29,7 +29,7 @@
 "City": "San Francisco"
 "Phone number": "+1 555 555 5555"
 "Posts": ["I just got back from an amazing trip to Japan"/32/09-04-2018/[#travel, #world]; "Next stop, Europe!"/67/01-01-2023/[#travel, #europe]]
-"Friends": ["jim78", "main123", "georgeW00", "jane1232", "maTT444", "traveleR", "musicL0ver789", "fitnessguru", "ai_geek", "techgeek"]
+"Friends": ["jim78", "main123", "georgeW00", "jane1232", "fitnessguru", "traveleR", "ai_geek", "maTT444", "musicL0ver789", "techgeek"]
 
 "Username": "foodie4life"
 "Password": "f004Lif3"
@@ -40,18 +40,18 @@
 "City": "New York"
 "Phone number": "+1 212 555 1234"
 "Posts": ["Just made an amazing lasagna from scratch"/102/05-03-2023/[#food, #cooking]; "Can't wait to try this new recipe for banana bread"/72/15-02-2023/[#food, #baking]]
-"Friends": ["emilyQueen", "jane1232", "animalLover", "maTT444", "karen_Pet12", "traveleR", "musicL0ver789"]
+"Friends": ["emilyQueen", "jane1232", "animalLover", "karen_Pet12", "traveleR", "maTT444", "musicL0ver789"]
 
 "Username": "olivia_saves_nature"
 "Password": "oliviaParker123"
 "Full name": "Olivia Parker"
-"Email": "Environmental activist"
-"Bio": "olivia.parker@hotmail.com"
+"Email": "olivia.parker@hotmail.com"
+"Bio": "Environmental activist"
 "Workplace": "Greenpeace"
 "City": "San Francisco"
 "Phone number": "+1 456 789 0123"
 "Posts": ["Just volunteered at a local beach clean-up, let's all do our part to protect our planet!"/98/05-03-2023/[#environment]; "I'm so inspired by the work of Jane Goodall, who's your environmental hero?"/52/12-03-2023/[#environment]]
-"Friends": ["sarah-books", "musicL0ver789", "daviD", "travelbug"]
+"Friends": ["sarah-books", "daviD", "musicL0ver789", "travelbug"]
 
 "Username": "tomSPORTS"
 "Password": "password777"
@@ -73,18 +73,18 @@
 "City": "San Francisco"
 "Phone number": "+1 415 555 5555"
 "Posts": ["Just attended a great talk on AI and ethics"/92/08-03-2023/[#ai, #ethics]; "What's your favorite programming language?"/54/01-03-2023/[#coding]; "Can't wait to try out the new MacBook Pro!"/67/28-02-2023/[#tech, #apple]]
-"Friends": ["alex_photographer", "main123", "emilyQueen", "maTT444", "ai_geek"]
+"Friends": ["alex_photographer", "main123", "emilyQueen", "ai_geek", "maTT444"]
 
 "Username": "georgeW00"
 "Password": "WWW123!!!"
 "Full name": "George Washington"
-"Email": "History enthusiast, political junkie"
-"Bio": "georgewashington@gmail.com"
+"Email": "georgewashington@gmail.com"
+"Bio": "History enthusiast, political junkie"
 "Workplace": "US Government"
 "City": "Washington, D.C."
 "Phone number": "+1 202 555 5555"
 "Posts": ["What a time to be alive!"/42/20-03-2023/[]; "Remembering the Founding Fathers."/54/17-03-2023/[#history, #politics]]
-"Friends": ["jane1232", "traveleR", "bobsmith000", "ai_geek"]
+"Friends": ["jane1232", "traveleR", "ai_geek", "bobsmith000"]
 
 "Username": "musicL0ver789"
 "Password": "emilyMusicCC"
@@ -106,7 +106,7 @@
 "City": "New York"
 "Phone number": "+1 123 456 789"
 "Posts": ["I love writing code in Java"/5/14-05-2020/[#coding]; "Yesterday I went to the gym"/21/17-10-2019/[#sport, #workout]; "Have you watched recent Lakers game? It is unbelievable!"/95/23-03-2023/[#sport, #nba]; "I cannot believe what GPT4 can do! This is something beyond my understanding"/72/25-03-2023/[#ai, #machine_learning, #gpt]]
-"Friends": ["jim78", "jane1232", "animalLover", "mark-dev", "traveleR", "musicL0ver789", "fitnessguru", "daviD", "techgeek"]
+"Friends": ["jim78", "jane1232", "animalLover", "mark-dev", "fitnessguru", "traveleR", "daviD", "musicL0ver789", "techgeek"]
 
 "Username": "artgalore"
 "Password": "hello123"
@@ -122,8 +122,8 @@
 "Username": "traveleR"
 "Password": "trav3L3R@123"
 "Full name": "Alex Jones"
-"Email": "Travel enthusiast, exploring the world one place at a time"
-"Bio": "alexjones@gmail.com"
+"Email": "alexjones@gmail.com"
+"Bio": "Travel enthusiast, exploring the world one place at a time"
 "Workplace": "Freelance"
 "City": "Los Angeles"
 "Phone number": "+1 123 456 7890"
@@ -139,13 +139,13 @@
 "City": "Los Angeles"
 "Phone number": "+1 987 654 3210"
 "Posts": ["The Lakers are looking strong this season"/94/04-02-2022/[#sport, #nba]; "I can't wait for the next NFL game"/56/12-10-2021/[#sport]]
-"Friends": ["alex_photographer", "main123", "emilyQueen", "jane1232", "animalLover", "sarah-books", "maTT444", "fitnessguru", "bobsmith000", "tomSPORTS", "techgeek"]
+"Friends": ["alex_photographer", "main123", "emilyQueen", "jane1232", "animalLover", "sarah-books", "fitnessguru", "maTT444", "bobsmith000", "tomSPORTS", "techgeek"]
 
 "Username": "mikeMike012"
 "Password": "do_not_forget_123"
 "Full name": "Mike Johnson"
-"Email": "Personal trainer"
-"Bio": "mike.johnson@gmail.com"
+"Email": "mike.johnson@gmail.com"
+"Bio": "Personal trainer"
 "Workplace": "Puregym"
 "City": "London"
 "Phone number": "+1 234 567 8901"
@@ -177,8 +177,8 @@
 "Username": "sarah-books"
 "Password": "new_password_456"
 "Full name": "Sarah Lee"
-"Email": "Bookworm and literature lover"
-"Bio": "sarah.lee@gmail.com"
+"Email": "sarah.lee@gmail.com"
+"Bio": "Bookworm and literature lover"
 "Workplace": "Freelance"
 "City": "Chicago"
 "Phone number": "+1 789 012 3456"
@@ -188,8 +188,8 @@
 "Username": "ai_geek"
 "Password": "ai_geek_123"
 "Full name": "Ryan Kim"
-"Email": "AI researcher, technology enthusiast"
-"Bio": "ryankim@gmail.com"
+"Email": "ryankim@gmail.com"
+"Bio": "AI researcher, technology enthusiast"
 "Workplace": "Google"
 "City": "Mountain View"
 "Phone number": "+1 123 456 7890"
@@ -205,13 +205,13 @@
 "City": "Seattle"
 "Phone number": "+1 206 777 7777""
 "Posts": ["Just finished reading a great novel"/42/15-06-2017/[]; "Can't wait to start my next book"/54/01-08-2019/[#book, #reading]]
-"Friends": ["jim78", "foodie4life", "alex_photographer", "mark-dev", "karen_Pet12", "musicL0ver789", "bobsmith000", "yogaYasmin", "travelbug"]
+"Friends": ["jim78", "foodie4life", "alex_photographer", "mark-dev", "karen_Pet12", "bobsmith000", "musicL0ver789", "yogaYasmin", "travelbug"]
 
 "Username": "yogaYasmin"
 "Password": "namaste444!"
 "Full name": "Yasmin Patel"
-"Email": "Yoga instructor, health enthusiast"
-"Bio": "yasminyoga@gmail.com"
+"Email": "yasminyoga@gmail.com"
+"Bio": "Yoga instructor, health enthusiast"
 "Workplace": "Bikram Yoga"
 "City": "San Francisco"
 "Phone number": "+1 555 555 5555"
@@ -238,7 +238,7 @@
 "City": "Sydney"
 "Phone number": "+61 2 555 5555"
 "Posts": ["Just got back from an amazing trip to Bali"/64/25-02-2023/[#travel, #bali]; "Next stop, Japan!"/36/18-02-2023/[#travel, #japan]]
-"Friends": ["emilyQueen", "olivia_saves_nature", "jane1232", "maTT444", "karen_Pet12", "techgeek"]
+"Friends": ["emilyQueen", "olivia_saves_nature", "jane1232", "karen_Pet12", "maTT444", "techgeek"]
 
 "Username": "jane1232"
 "Password": "coolPassword444"
