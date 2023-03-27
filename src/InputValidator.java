@@ -79,7 +79,6 @@ public class InputValidator {
      * @return Username entered by the user
      */
     public String processUsernameInput() {
-        System.out.println("\n>>> Please, enter the username: ");
         boolean isValid;
         String username = "";
         do {
@@ -102,11 +101,10 @@ public class InputValidator {
      */
     public int processChoiceInput(int maxChoice) {
         int minChoice = 0;
-        System.out.println("\n>>> Please, enter your choice: ");
         boolean isValid;
         int choice = 0;
         do {
-            System.out.print(">>> ");
+            System.out.print("\n>>> ");
             try {
                 choice = Integer.parseInt(scanner.nextLine());
                 if (choice < minChoice || choice > maxChoice) {
@@ -127,7 +125,6 @@ public class InputValidator {
      * @return String entered by the user
      */
     public String processStringInput() {
-        System.out.println("\n>>> Please, provide the neccessary information: ");
         System.out.print(">>> ");
         String input = scanner.nextLine();
         return input;
@@ -139,13 +136,13 @@ public class InputValidator {
      * @return List of hashtags entered by the user
      */
     public List<String> processHashtagsInput() {
+        System.out.println(" - If you want to enter more than one hashtag, hashtags must be separated by space.");
         System.out.println(" - Hashtags must start with \"#\". Press \"Enter\" to skip.");
         List<String> hashtags;
         boolean isValid;
         do {
             isValid = true;
             hashtags = new ArrayList<String>();
-            System.out.println(">>> Please, enter the list of hashtags separated by space: ");
             System.out.print(">>> ");
             String hashtag = scanner.nextLine();
             try {

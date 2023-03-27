@@ -69,7 +69,7 @@ public class Menu {
      * Method to display the main menu to the user
      */
     public void displayMainMenu() {
-        System.out.println("\n*** Main Menu ***\n");
+        System.out.println("\n*** Main Menu ***");
         System.out.println(" - Please, select one the following options: ");
         System.out.println(" -> 1. View my Profile");
         System.out.println(" -> 2. Edit my Profile");
@@ -159,6 +159,7 @@ public class Menu {
                     "\n -> Select what information you would like to edit: \n - 1. Password \n - 2. Full name \n - 3. Email \n - 4. Bio \n - 5. Workplace \n - 6. City \n - 7. Phone number \n - 0. Back to Main Menu");
             editChoice = inputValidator.processChoiceInput(maxChoice);
             if (editChoice != 0) {
+                System.out.println(" -> Please, enter the new information: ");
                 input = inputValidator.processStringInput();
             }
             switch (editChoice) {
@@ -211,14 +212,17 @@ public class Menu {
             choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
+                    System.out.println("\n -> Please, enter the username of the user whose profile you want to view:");
                     String usernameProfile = inputValidator.processUsernameInput();
                     socialNetwork.manageFriends(choice, usernameProfile, inputValidator);
                     break;
                 case 2:
+                    System.out.println("\n -> Please, enter the username of the user whom you want to remove from your friend list:");
                     String usernameToRemove = inputValidator.processUsernameInput();
                     socialNetwork.manageFriends(choice, usernameToRemove, inputValidator);
                     break;
                 case 3:
+                    System.out.println("\n -> Please, enter the username of the user whose friend list you want to view:");
                     String usernameFriendsList = inputValidator.processUsernameInput();
                     socialNetwork.manageFriends(choice, usernameFriendsList, inputValidator);
                     break;

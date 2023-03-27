@@ -263,7 +263,6 @@ public class User {
         } else {
             System.out.printf(" *** %s has no friends yet ***\n", username);
         }
-        System.out.println();
     }
 
     /**

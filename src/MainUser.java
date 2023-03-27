@@ -83,10 +83,10 @@ public class MainUser extends User {
      * @param inputValidator Object to validate the input of the user
      */
     public void editPost(int postIndex, InputValidator inputValidator) {
-        System.out.println("\n-> Type the new content of your post ");
+        System.out.println("\n-> Please, type the new content of your post:");
         String postContent = inputValidator.processStringInput();
 
-        System.out.println("\n-> Type new hashtags that you want to add to your post ");
+        System.out.println("\n-> Please, type new hashtags that you want to add to your post");
         List<String> hashtags = inputValidator.processHashtagsInput();
 
         posts.get(postIndex).setContent(postContent);

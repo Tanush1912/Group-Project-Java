@@ -163,7 +163,10 @@ public class SocialNetwork {
         for (Post post : user.getPosts()) {
             posts += String.format("\"%s\"/%d/%s/%s; ", post.getContent(), post.getNumberOfLikes(), formatter.format(post.getDate()), post.getHashtags());
         }
-        writer.printf("\"Posts\": [%s]\n", posts.substring(0, posts.length() - 2));
+        if (!posts.isEmpty()) {
+            posts = posts.substring(0, posts.length() - 2);
+        }
+        writer.printf("\"Posts\": [%s]\n", posts);
 
         String friends = "";
         for (User friend : user.getFriends()) {
@@ -225,7 +228,7 @@ public class SocialNetwork {
             String addFriendChoice = inputValidator.processStringInput();
             if (addFriendChoice.equalsIgnoreCase("Y")) {
                 if (users.size() > 1) {
-                    System.out.println(" -> Enter the username whom you want to add as a friend: ");
+                    System.out.println(" -> Please, enter the username whom you want to add as a friend: ");
                     String usernameToAdd = inputValidator.processUsernameInput();
                     User userToAdd = usersData.get(usernameToAdd);
                     if (mainUser.getFriends().contains(userToAdd)) {
@@ -262,10 +265,10 @@ public class SocialNetwork {
     public void likePost(InputValidator inputValidator, List<Post> postsList) {
         boolean isValid = true;
         do {
-            System.out.println("\n -> Do you want to like any post? (Y/N)");
+            System.out.println(" -> Do you want to like any post? (Y/N)");
             String likeChoice = inputValidator.processStringInput();
             if (likeChoice.equalsIgnoreCase("Y")) {
-                System.out.println("\n -> Enter the number of the post you want to like");
+                System.out.println("\n -> Please, enter the number of the post you want to like: ");
                 int postNumber = inputValidator.processChoiceInput(postsList.size()) - 1;
                 try {
                     postsList.get(postNumber).addLike();
@@ -305,7 +308,8 @@ public class SocialNetwork {
                 case 2:
                     if (mainUser.getFriends().contains(userToInteract)) {
                         mainUser.removeFriend(userToInteract);
-                        System.out.println("*** You have successfully removed this friend! ***");
+                        userToInteract.removeFriend(mainUser);
+                        System.out.printf("*** You have successfully removed %s (%s) from your friend list! ***\n", userToInteract, userToInteract.getFullName());
                     } else {
                         System.out.println("### Error: You are not friends with this user. Please, try again.");
                     }
@@ -316,7 +320,7 @@ public class SocialNetwork {
                         Set<User> newFriends = compareFriends(userToInteract);
                         addNewFriend(inputValidator, newFriends);
                     } else {
-                        System.out.println("### Error: You are not friends with this user. Please, try again.");
+                        System.out.printf("### Error: You are not friends with %s. Please, try again.\n", userToInteract);
                     }
                     break;
             }
@@ -377,7 +381,7 @@ public class SocialNetwork {
             }
         });
 
-        System.out.println("*** Sorted by the first name ***");
+        System.out.println("\n*** Sorted by the first name ***");
         for (int i = 0; i < sortedFriendsList.size(); i++) {
             User friend = sortedFriendsList.get(i);
             System.out.printf("%2d. %s (%s)\n", i + 1, friend, friend.getFullName());
@@ -396,7 +400,7 @@ public class SocialNetwork {
             }
         });
 
-        System.out.println("*** Sorted by the last name ***");
+        System.out.println("\n*** Sorted by the last name ***");
         for (int i = 0; i < sortedFriendsList.size(); i++) {
             User friend = sortedFriendsList.get(i);
             System.out.printf("%2d. %s (%s)\n", i + 1, friend, friend.getFullName());
@@ -411,11 +415,11 @@ public class SocialNetwork {
         Collections.sort(sortedFriendsList, new Comparator<User>() {
             @Override
             public int compare(User user1, User user2) {
-                return user1.getFriends().size() - user2.getFriends().size();
+                return user2.getFriends().size() - user1.getFriends().size();
             }
         });
 
-        System.out.println("*** Sorted by the total number of friends ***");
+        System.out.println("\n*** Sorted by the total number of friends ***");
         for (int i = 0; i < sortedFriendsList.size(); i++) {
             User friend = sortedFriendsList.get(i);
             System.out.printf("%2d. %s has %d friends\n", i + 1, friend, friend.getFriends().size());
@@ -438,13 +442,13 @@ public class SocialNetwork {
 
         filteredFriendsList = sortByNumberOfCommonFriends(filteredFriendsList);
         if (filteredFriendsList.size() > 0) {
-            System.out.printf("*** Friends who live in %s ***\n", city);
+            System.out.printf("\n*** Friends who live in %s ***\n", city);
             for (int i = 0; i < filteredFriendsList.size(); i++) {
                 User friend = filteredFriendsList.get(i);
-                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+                System.out.printf("%2d. %s (%d common friends)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
             }
         } else {
-            System.out.printf("*** Unfortunately, no friends have been found living in %s ***\n", city);
+            System.out.printf("\n*** Unfortunately, no friends have been found living in %s ***\n", city);
         }
     }
 
@@ -464,13 +468,13 @@ public class SocialNetwork {
 
         filteredFriendsList = sortByNumberOfCommonFriends(filteredFriendsList);
         if (filteredFriendsList.size() > 0) {
-            System.out.printf("*** Friends who work in %s ***\n", workplace);
+            System.out.printf("\n*** Friends who work in %s ***\n", workplace);
             for (int i = 0; i < filteredFriendsList.size(); i++) {
                 User friend = filteredFriendsList.get(i);
-                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+                System.out.printf("%2d. %s (%d common friends)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
             }
         } else {
-            System.out.printf("*** Unfortunately, no friends have been found working in %s ***\n", workplace);
+            System.out.printf("\n*** Unfortunately, no friends have been found working in %s ***\n", workplace);
         }
     }
 
@@ -500,13 +504,13 @@ public class SocialNetwork {
         List<User> recommendedFriends = getRecommendedFriendsList();
         if (!recommendedFriends.isEmpty()) {
             recommendedFriends = sortByNumberOfCommonFriends(recommendedFriends);
-            System.out.println("*** People you may know ***");
+            System.out.println("\n*** People you may know ***");
             for (int i = 0; i < recommendedFriends.size(); i++) {
                 User recommendedFriend = recommendedFriends.get(i);
-                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
+                System.out.printf("%2d. %s (%d common friends)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
             }
         } else {
-            System.out.println("*** No recommended friends yet ***");
+            System.out.println("\n*** No recommended friends yet ***");
         }
     }
 
@@ -529,7 +533,7 @@ public class SocialNetwork {
             System.out.printf("\n*** People who also live in %s ***\n", mainUser.getCity());
             for (int i = 0; i < recommendedFriendsWithSameCity.size(); i++) {
                 User recommendedFriend = recommendedFriendsWithSameCity.get(i);
-                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
+                System.out.printf("%2d. %s (%d common friends)\n", i + 1, recommendedFriend, calculateNumberOfCommonFriends(recommendedFriend));
             }
         }
     }
@@ -553,7 +557,7 @@ public class SocialNetwork {
             System.out.printf("\n*** People who also work in %s ***\n", mainUser.getWorkplace());
             for (int i = 0; i < recommendedFriendsWithSameWorkplace.size(); i++) {
                 User recommendedFriend = recommendedFriendsWithSameWorkplace.get(i);
-                System.out.printf("%2d. %s (%d friends in common)\n", i + 1, recommendedFriend,
+                System.out.printf("%2d. %s (%d common friends)\n", i + 1, recommendedFriend,
                         calculateNumberOfCommonFriends(recommendedFriend));
             }
         }
@@ -612,8 +616,9 @@ public class SocialNetwork {
      * Method to allow the user to sign in
      */
     public void signIn(InputValidator inputValidator) {
+        System.out.println("\n -> Please, enter the username: ");
         String username = inputValidator.processUsernameInput();
-        System.out.println("\n -> Enter the password: ");
+        System.out.println("\n -> Please, enter the password: ");
         String password = inputValidator.processStringInput();
         if (validateUser(username, password)) {
             User user = usersData.get(username);
@@ -621,7 +626,7 @@ public class SocialNetwork {
             mainUser.setFriends(user.getFriends());
             System.out.printf("\n*** Welcome, %s! You have successfully signed in! ***\n", mainUser.getUsername());
         } else {
-            System.out.println("### Error: Incorrect username or password! Please, try again.");
+            System.out.println("\n### Error: Incorrect username or password! Please, try again.");
         }
     }
 
@@ -630,6 +635,7 @@ public class SocialNetwork {
      */
     public void signOut() {
         mainUser = null;
+        saveNetwork();
         System.out.println("*** You have successfully signed out! ***");
     }
 }

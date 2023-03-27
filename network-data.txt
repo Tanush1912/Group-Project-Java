@@ -40,7 +40,7 @@
 "City": "Miami"
 "Phone number": "+1 305 123 4567"
 "Posts": ["Tips for a great workout"/245/15-06-2020/[#sport, #workout]; "My favorite protein shake recipe"/220/16-06-2022/[#food, #health]]
-"Friends": []
+"Friends": ["main123", "bobsmith000", "jim78", "jane1232"]
 
 "Username": "bobsmith000"
 "Password": "smitHHH"
