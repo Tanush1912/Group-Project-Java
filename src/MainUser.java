@@ -20,41 +20,44 @@ public class MainUser extends User {
      * @param city User's city
      * @param posts User's collection of posts
      */
-    public MainUser(String username, String password, String fullName, String email, String bio, String workplace,
-            String city, String phoneNumber, List<Post> posts) {
-        super(username, password, fullName, email, bio, workplace, city, phoneNumber, posts);
+    public MainUser(String username, String password, String fullName, String bio, String email, String workplace, String city, String phoneNumber, List<Post> posts) {
+        super(username, password, fullName, bio, email, workplace, city, phoneNumber, posts);
     }
 
-    /**
-     * Method to allow the main user to edit their profile
-     * 
-     * @param choice The choice of the user on what to edit
-     */
-    public void editProfile(int choice, String input) {
-        switch (choice) {
-            case 1:
-                setPassword(input);
-                break;
-            case 2:
-                setFullName(input);
-                break;
-            case 3:
-                setEmail(input);
-                break;
-            case 4:
-                setBio(input);
-                break;
-            case 5:
-                setWorkplace(input);
-                break;
-            case 6:
-                setCity(input);
-                break;
-            case 7:
-                setPhoneNumber(input);
-                break;
-        }
+    public MainUser(User user) {
+        super(user.getUsername(), user.getPassword(), user.getFullName(), user.getBio(), user.getEmail(), user.getWorkplace(), user.getCity(), user.getPhoneNumber(), user.getPosts());
     }
+
+    // /**
+    //  * Method to allow the main user to edit their profile
+    //  * 
+    //  * @param choice The choice of the user on what to edit
+    //  */
+    // public void editProfile(int choice, String input) {
+    //     switch (choice) {
+    //         case 1:
+    //             setPassword(input);
+    //             break;
+    //         case 2:
+    //             setFullName(input);
+    //             break;
+    //         case 3:
+    //             setEmail(input);
+    //             break;
+    //         case 4:
+    //             setBio(input);
+    //             break;
+    //         case 5:
+    //             setWorkplace(input);
+    //             break;
+    //         case 6:
+    //             setCity(input);
+    //             break;
+    //         case 7:
+    //             setPhoneNumber(input);
+    //             break;
+    //     }
+    // }
 
     /**
      * Method to allow the main user to write a new post

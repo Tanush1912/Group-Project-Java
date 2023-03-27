@@ -152,6 +152,7 @@ public class SocialNetwork {
      */
     public void writeToFile(PrintWriter writer, User user) {
         writer.printf("\"Username\": \"%s\"\n", user.getUsername());
+        writer.printf("\"Password\": \"%s\"\n", user.getPassword());
         writer.printf("\"Full name\": \"%s\"\n", user.getFullName());
         writer.printf("\"Email\": \"%s\"\n", user.getEmail());
         writer.printf("\"Bio\": \"%s\"\n", user.getBio());
@@ -177,6 +178,47 @@ public class SocialNetwork {
         }
         writer.printf("\"Friends\": [%s]\n", friends);
         writer.println();
+    }
+
+
+    /**
+     * Method to allow the main user to edit their profile
+     * 
+     * @param choice The choice of the user on what to edit
+     */
+    public void editProfile(int choice, String input) {
+        User userToUpdate = usersData.get(mainUser.getUsername());
+        switch (choice) {
+            case 1:
+                userToUpdate.setPassword(input);
+                break;
+            case 2:
+                userToUpdate.setFullName(input);
+                break;
+            case 3:
+                userToUpdate.setEmail(input);
+                break;
+            case 4:
+                userToUpdate.setBio(input);
+                break;
+            case 5:
+                userToUpdate.setWorkplace(input);
+                break;
+            case 6:
+                userToUpdate.setCity(input);
+                break;
+            case 7:
+                userToUpdate.setPhoneNumber(input);
+                break;
+        }
+
+        usersData.put(userToUpdate.getUsername(), userToUpdate);
+        updateMainUser(userToUpdate);
+    }
+
+    public void updateMainUser(User user) {
+        mainUser = new MainUser(user);
+        mainUser.setFriends(user.getFriends());
     }
 
     /**
@@ -209,7 +251,7 @@ public class SocialNetwork {
             System.out.println(" -> No unknown friends!");
         } else {
             for (User friend : unknownFriends) {
-                System.out.printf(" -> %s (%d friends in common)\n", friend.getUsername(), calculateNumberOfCommonFriends(friend));
+                System.out.printf(" -> %s (%d common friends)\n", friend.getUsername(), calculateNumberOfCommonFriends(friend));
             }
         }
         return unknownFriends;
@@ -308,7 +350,7 @@ public class SocialNetwork {
                 case 2:
                     if (mainUser.getFriends().contains(userToInteract)) {
                         mainUser.removeFriend(userToInteract);
-                        userToInteract.removeFriend(mainUser);
+                        userToInteract.removeFriend(usersData.get(mainUser.getUsername()));
                         System.out.printf("*** You have successfully removed %s (%s) from your friend list! ***\n", userToInteract, userToInteract.getFullName());
                     } else {
                         System.out.println("### Error: You are not friends with this user. Please, try again.");
@@ -622,8 +664,7 @@ public class SocialNetwork {
         String password = inputValidator.processStringInput();
         if (validateUser(username, password)) {
             User user = usersData.get(username);
-            mainUser = new MainUser(user.getUsername(), user.getPassword(), user.getFullName(), user.getEmail(), user.getBio(), user.getWorkplace(), user.getCity(), user.getPhoneNumber(), user.getPosts());
-            mainUser.setFriends(user.getFriends());
+            updateMainUser(user);
             System.out.printf("\n*** Welcome, %s! You have successfully signed in! ***\n", mainUser.getUsername());
         } else {
             System.out.println("\n### Error: Incorrect username or password! Please, try again.");

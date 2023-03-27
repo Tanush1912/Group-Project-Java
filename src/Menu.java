@@ -194,7 +194,8 @@ public class Menu {
         } while (!isValid);
 
         if (editChoice != 0) {
-            mainUser.editProfile(editChoice, input);
+            socialNetwork.editProfile(editChoice, input);
+            mainUser = socialNetwork.getMainUser();
             System.out.println("*** Your profile has been successfully updated! ***");
         }
     }
@@ -307,7 +308,7 @@ public class Menu {
             choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
-                    System.out.println(" - Choose the post you would like to edit");
+                    System.out.println(" -> Pleasse, choose the post you would like to edit");
                     int postToEdit = inputValidator.processChoiceInput(mainUser.getPosts().size()) - 1;
                     mainUser.editPost(postToEdit, inputValidator);
                     break;
@@ -315,7 +316,7 @@ public class Menu {
                     mainUser.writePost(inputValidator);
                     break;
                 case 3:
-                    System.out.println(" - Choose the post you would like to delete");
+                    System.out.println(" -> Please, choose the post you would like to delete");
                     int postToDelete = inputValidator.processChoiceInput(mainUser.getPosts().size()) - 1;
                     mainUser.deletePost(postToDelete);
                     break;

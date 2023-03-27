@@ -61,12 +61,12 @@ public class User {
      * @param posts User's collection of posts
      * @param friends User's collection of friends
      */
-    public User(String username, String password, String fullName, String email, String bio, String workplace, String city, String phoneNumber, List<Post> posts) {
+    public User(String username, String password, String fullName, String bio, String email, String workplace, String city, String phoneNumber, List<Post> posts) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
-        this.email = email;
         this.bio = bio;
+        this.email = email;
         this.workplace = workplace;
         this.city = city;
         this.phoneNumber = phoneNumber;
