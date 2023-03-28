@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.regex.PatternSyntaxException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -91,7 +90,7 @@ public class InputValidator {
             isValid = isValidUsername(username);
 
             if (!isValid) {
-                System.out.println("### Error: Username must be between 3 and 20 characters long and can contain only letters, numbers, underscores and dashes.");
+                System.out.println("### Error: Invalid username. Please, try again");
             }
         } while(!isValid);
         return username;
@@ -122,7 +121,7 @@ public class InputValidator {
                 }
                 isValid = true;
             } catch (NumberFormatException e) {
-                System.out.println("### Error: Please, enter a valid choice."); 
+                System.out.println("### Error: Invalid choice. Please, try again."); 
                 isValid = false;
             }
         } while(!isValid);
@@ -165,11 +164,40 @@ public class InputValidator {
                         isValid = false;
                     }
                 } 
-            } catch (PatternSyntaxException e) {
+            } catch (Exception e) {
                 System.out.println("### Error: Hashtags must be separated by space!");
                 isValid = false;
             }
         } while(!isValid);
         return hashtags;
+    }
+
+    /**
+     * Method to process the input of interests from the user
+     * 
+     * @return List of interests entered by the user
+     */
+    public List<String> processInterestsInput() {
+        System.out.println(" - If you want to enter more than one interest, interests must be separated by space.");
+        System.out.println(" - Press \"Enter\" to skip.");
+        List<String> interests;
+        boolean isValid;
+        do {
+            isValid = true;
+            interests = new ArrayList<String>();
+            System.out.print(">>> ");
+            String interest = scanner.nextLine();
+            try {
+                for (String tag : interest.split(" ")) {
+                    if (!tag.isEmpty()) {
+                        interests.add(tag);
+                    }
+                } 
+            } catch (Exception e) {
+                System.out.println("### Error: Interests must be separated by space!");
+                isValid = false;
+            }
+        } while(!isValid);
+        return interests;
     }
 }

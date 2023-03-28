@@ -69,6 +69,16 @@ public class SocialNetwork {
                     String phoneNumber = line.split(":")[1].substring(2, line.split(":")[1].length() - 1);
 
                     line = bufferedReader.readLine();
+                    Set<String> interests = new HashSet<>();
+                    String interestsCollection = line.split(": \\[")[1].substring(0, line.split(": \\[")[1].length() - 1);
+                    if (!interestsCollection.isEmpty()) {
+                        for (String interest : interestsCollection.split(", ")) {
+                            String interestName = interest.substring(1, interest.length()-1);
+                            interests.add(interestName);
+                        }
+                    }
+
+                    line = bufferedReader.readLine();
                     List<Post> posts = new ArrayList<>();
                     String postsCollection = line.split(": \\[")[1].substring(0, line.split(": \\[")[1].length() - 1);
                     if (!postsCollection.isEmpty()) {
@@ -97,7 +107,7 @@ public class SocialNetwork {
                         }
                     }
                     friendsMap.put(username, friends);
-                    User user = new User(username, password, fullName, bio, email, workplace, city, phoneNumber, posts);
+                    User user = new User(username, password, fullName, bio, email, workplace, city, phoneNumber, posts, interests);
                     usersData.put(username, user);
                 }
             }
@@ -159,6 +169,16 @@ public class SocialNetwork {
         writer.printf("\"Workplace\": \"%s\"\n", user.getWorkplace());
         writer.printf("\"City\": \"%s\"\n", user.getCity());
         writer.printf("\"Phone number\": \"%s\"\n", user.getPhoneNumber());
+
+        String interests = "";
+        for (String interest : user.getInterests()) {
+            interests += "\"" + interest + "\", ";
+        }
+        if (!interests.isEmpty()) {
+            interests = interests.substring(0, interests.length() - 2);
+        }
+        writer.printf("\"Interests\": [%s]\n", interests);
+
         String posts = "";
         DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         for (Post post : user.getPosts()) {
@@ -210,10 +230,28 @@ public class SocialNetwork {
             case 7:
                 userToUpdate.setPhoneNumber(input);
                 break;
+            case 8:
+                Set<String> newInterests = generateInterestsFromString(input);
+                userToUpdate.setInterests(newInterests);
+                break;
         }
 
         usersData.put(userToUpdate.getUsername(), userToUpdate);
         mainUser = new MainUser(userToUpdate);
+    }
+
+    
+    public Set<String> generateInterestsFromString(String interests) {
+        Set<String> interestsSet = new HashSet<>();
+        try {
+            for (String interest : interests.split(" ")) {
+                interestsSet.add(interest);
+            }
+        } catch (Exception e) {
+            System.out.println("### Error: Interests must be separated by space!");
+        }
+
+        return interestsSet;
     }
 
     /**
@@ -415,9 +453,9 @@ public class SocialNetwork {
     }
 
     /**
-     *  Method to search for a user by username
+     *  Method to search for a user by username and interact with the found user
      * 
-     * @param inputValidator Object to validate the input of the user
+     * @param inputValidator Object to validate the input of the main user
      */
     public void searchUserByUsername(InputValidator inputValidator) {
         System.out.println("\n -> Please, enter the username of the user you want to search: ");
@@ -441,7 +479,8 @@ public class SocialNetwork {
                         System.out.println(" - 3. Add to Friends");
                     }
                     System.out.println(" - 0. Back to Main Menu");
-                    inputChoice = inputValidator.processChoiceInput(3);
+                    int maxChoice = mainUser.getFriends().contains(user) ? 2 : 3;
+                    inputChoice = inputValidator.processChoiceInput(maxChoice);
                     
                     switch (inputChoice) {
                         case 1:
@@ -587,6 +626,40 @@ public class SocialNetwork {
     }
 
     /**
+     * Method to filter friend list by interests and print the list after filtering
+     * 
+     * @param inputValidator Validator object to validate the input of the user
+     */
+    public void filterFriendsListByInterests(InputValidator inputValidator) {
+        System.out.println("\n -> Please, enter the interests you want to filter: ");
+        List<String> interests = inputValidator.processInterestsInput();
+        if (interests.size() == 0) {
+            return;
+        }
+
+        List<User> filteredFriendsList = new ArrayList<>();
+        for (User friend : mainUser.getFriends()) {
+            for (String interest : interests) {
+                if (friend.getInterests().contains(interest)) {
+                    filteredFriendsList.add(friend);
+                    break;
+                }
+            }
+        }
+
+        filteredFriendsList = sortByNumberOfCommonFriends(filteredFriendsList);
+        if (filteredFriendsList.size() > 0) {
+            System.out.printf("\n*** Friends who are interested in %s ***\n", interests);
+            for (int i = 0; i < filteredFriendsList.size(); i++) {
+                User friend = filteredFriendsList.get(i);
+                System.out.printf("%2d. %s (%d common friends)\n", i + 1, friend, calculateNumberOfCommonFriends(friend));
+            }
+        } else {
+            System.out.printf("\n*** Unfortunately, no friends have been found having %s as interests ***\n", interests);
+        }
+    }
+
+    /**
      * Method to get the recommended friends list
      * 
      * @return List of recommended friends
@@ -667,6 +740,37 @@ public class SocialNetwork {
                 User recommendedFriend = recommendedFriendsWithSameWorkplace.get(i);
                 System.out.printf("%2d. %s (%d common friends)\n", i + 1, recommendedFriend,
                         calculateNumberOfCommonFriends(recommendedFriend));
+            }
+        }
+    }
+
+    /**
+     * Method to recommend friends to the main user based on common friends and interests. 
+     * Strangers will not be recommended even if users share same interests
+     */ 
+    public void recommendFriendsByInterests() {
+        List<User> recommendedFriends = getRecommendedFriendsList();
+        List<User> recommendedFriendsWithSameInterests = new ArrayList<>();
+        Set<String> commonInterests = new HashSet<>();
+        for (User recommendedFriend : recommendedFriends) {
+            for (String interest : recommendedFriend.getInterests()) {
+                if (mainUser.getInterests().contains(interest)) {
+                    commonInterests.add(interest);
+                    if (!recommendedFriendsWithSameInterests.contains(recommendedFriend)) {
+                        recommendedFriendsWithSameInterests.add(recommendedFriend);
+                    }
+                }
+            }
+        }
+
+        if (recommendedFriendsWithSameInterests.isEmpty()) {
+            System.out.printf("\n*** No recommended friends who have the same interests ***\n");
+        } else {
+            System.out.printf("\n*** People who share the same interests ***\n");
+            for (int i = 0; i < recommendedFriendsWithSameInterests.size(); i++) {
+                User recommendedFriend = recommendedFriendsWithSameInterests.get(i);
+                System.out.printf("%2d. %s (%d common friends) %s\n", i + 1, recommendedFriend,
+                        calculateNumberOfCommonFriends(recommendedFriend), commonInterests);
             }
         }
     }

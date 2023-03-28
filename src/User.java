@@ -47,6 +47,10 @@ public class User {
      * User's collection of friends
      */
     protected Set<User> friends;
+    /**
+     * User's collection of interests
+     */
+    protected Set<String> interests;
     
     /**
      * Constructor to create the user
@@ -61,7 +65,7 @@ public class User {
      * @param posts User's collection of posts
      * @param friends User's collection of friends
      */
-    public User(String username, String password, String fullName, String bio, String email, String workplace, String city, String phoneNumber, List<Post> posts) {
+    public User(String username, String password, String fullName, String bio, String email, String workplace, String city, String phoneNumber, List<Post> posts, Set<String> interests) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -71,6 +75,7 @@ public class User {
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.posts = posts;
+        this.interests = interests;
         this.friends = new HashSet<>();
     }
 
@@ -155,6 +160,14 @@ public class User {
     }
 
     /**
+     * Method to get the collection of interests
+     * @return Set of interests
+     */
+    public Set<String> getInterests() {
+        return interests;
+    }
+
+    /**
      * Method to set the password
      * @param password Password to be set
      */
@@ -220,6 +233,15 @@ public class User {
     }
 
     /**
+     * Method to set the collection of interests
+     * 
+     * @param interests User's collection of interests to be set
+     */
+    public void setInterests(Set<String> interests) {
+        this.interests = interests;
+    }
+
+    /**
      * Method to display the user's information
      */
     public void viewProfile() {
@@ -231,6 +253,7 @@ public class User {
         System.out.println(" - Workplace: " + workplace);
         System.out.println(" - Phone number: " + phoneNumber);
         System.out.println(" - City: " + city);
+        System.out.println(" - Interests: " + interests);
         System.out.printf(" - %s posted:\n", username);
         viewPosts();
         System.out.println("******");

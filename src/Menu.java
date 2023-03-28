@@ -107,6 +107,7 @@ public class Menu {
                     socialNetwork.recommendFriends();
                     socialNetwork.recommendFriendsByCity();
                     socialNetwork.recommendFriendsByWorkplace();
+                    socialNetwork.recommendFriendsByInterests();
                     socialNetwork.addNewFriend(inputValidator, new HashSet<>(socialNetwork.getRecommendedFriendsList()));
                     break;
                 case 5:
@@ -157,16 +158,20 @@ public class Menu {
      * Method to display the edit profile menu to the user and process their choice
      */
     public void editProfileMenu() {
-        int maxChoice = 7;
+        int maxChoice = 8;
         int editChoice; 
         String input = "";
         boolean isValid = true;
         do {
             System.out.println(
-                    "\n -> Select what information you would like to edit: \n - 1. Password \n - 2. Full name \n - 3. Email \n - 4. Bio \n - 5. Workplace \n - 6. City \n - 7. Phone number \n - 0. Back to Main Menu");
+                    "\n -> Select what information you would like to edit: \n - 1. Password \n - 2. Full name \n - 3. Email \n - 4. Bio \n - 5. Workplace \n - 6. City \n - 7. Phone number \n - 8. Interests \n - 0. Back to Main Menu");
             editChoice = inputValidator.processChoiceInput(maxChoice);
             if (editChoice == -1) {
                 break;
+            }
+
+            if (editChoice == 8) {
+                System.out.println(" - If you want to enter more than one interest, interests must be separated by space.");
             }
 
             if (editChoice != 0) {
@@ -299,10 +304,10 @@ public class Menu {
      */
     public void displayFilterOptions() {
         int choice;
-        int maxChoice = 2;
+        int maxChoice = 3;
         do {
             System.out.println(
-                    "\n -> Select how you would like to filter your friends list: \n - 1. By City \n - 2. By Workplace \n - 0. Back to Sub Menu");
+                    "\n -> Select how you would like to filter your friends list: \n - 1. By City \n - 2. By Workplace \n - 3. By Interests \n - 0. Back to Sub Menu");
             choice = inputValidator.processChoiceInput(maxChoice);
             switch (choice) {
                 case 1:
@@ -310,6 +315,9 @@ public class Menu {
                     break;
                 case 2:
                     socialNetwork.filterFriendsListByWorkplace(inputValidator);
+                    break;
+                case 3:
+                    socialNetwork.filterFriendsListByInterests(inputValidator);
                     break;
                 case 0:
                     break;

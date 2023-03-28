@@ -13,7 +13,7 @@ public class MainUser extends User {
      * @param user User object
      */
     public MainUser(User user) {
-        super(user.getUsername(), user.getPassword(), user.getFullName(), user.getBio(), user.getEmail(), user.getWorkplace(), user.getCity(), user.getPhoneNumber(), user.getPosts());
+        super(user.getUsername(), user.getPassword(), user.getFullName(), user.getBio(), user.getEmail(), user.getWorkplace(), user.getCity(), user.getPhoneNumber(), user.getPosts(), user.getInterests());
         this.friends = user.getFriends();
     }
 
