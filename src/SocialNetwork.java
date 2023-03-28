@@ -267,13 +267,14 @@ public class SocialNetwork {
                 if (users.size() > 1) {
                     System.out.println(" -> Please, enter the username whom you want to add as a friend: ");
                     String usernameToAdd = inputValidator.processUsernameInput();
-                    if (!usernameToAdd.isEmpty()) {
+                    if (!usernameToAdd.trim().isEmpty()) {
                         User userToAdd = usersData.get(usernameToAdd);
                         if (mainUser.getFriends().contains(userToAdd)) {
                             System.out.println("### Error: You are already friends with " + userToAdd + "!");
                             isValid = false;
                         } else if (users.contains(userToAdd)) {
                             mainUser.addFriend(userToAdd);
+                            userToAdd.addFriend(usersData.get(mainUser.getUsername()));
                             System.out.printf("*** You have successfully added %s (%s) to your friends list! ***\n", userToAdd, userToAdd.getFullName());
                             isValid = true;
                         } else {
@@ -284,9 +285,10 @@ public class SocialNetwork {
                 } else {
                     User userToAdd = users.iterator().next();
                     mainUser.addFriend(userToAdd);
+                    userToAdd.addFriend(usersData.get(mainUser.getUsername()));
                     isValid = true;
                 }
-            } else if (!addFriendChoice.equalsIgnoreCase("N") && !addFriendChoice.isEmpty()) {
+            } else if (!addFriendChoice.equalsIgnoreCase("N") && !addFriendChoice.trim().isEmpty()) {
                 System.out.println("### Error: Invalid choice. Please, try again.");
                 isValid = false;
             } else {
@@ -321,7 +323,7 @@ public class SocialNetwork {
                         isValid = false;
                     }
                 }
-            } else if (!likeChoice.equalsIgnoreCase("N") && !likeChoice.isEmpty()) {
+            } else if (!likeChoice.equalsIgnoreCase("N") && !likeChoice.trim().isEmpty()) {
                 System.out.println("### Error: Invalid choice. Please, try again.");
                 isValid = false;
             } else {
@@ -413,6 +415,59 @@ public class SocialNetwork {
     }
 
     /**
+     *  Method to search for a user by username
+     * 
+     * @param inputValidator Object to validate the input of the user
+     */
+    public void searchUserByUsername(InputValidator inputValidator) {
+        System.out.println("\n -> Please, enter the username of the user you want to search: ");
+        String username = inputValidator.processUsernameInput();
+        if (username.trim().isEmpty()) {
+            return;
+        }
+
+        if (usersData.containsKey(username)) {
+            User user = usersData.get(username);
+            System.out.printf("*** The user %s (%s) has been found! ***\n", user, user.getFullName());
+            System.out.println("\n -> Do you want to interact with this user? (Y/N)");
+            String choice = inputValidator.processStringInput();
+            if (choice.equalsIgnoreCase("Y")) {
+                int inputChoice;
+                do {
+                    System.out.printf("\n -> Please, select the option you want to perform with %s: \n", user);
+                    System.out.println(" - 1. View Profile");
+                    System.out.println(" - 2. View Friends");
+                    if (!mainUser.getFriends().contains(user)) {
+                        System.out.println(" - 3. Add to Friends");
+                    }
+                    System.out.println(" - 0. Back to Main Menu");
+                    inputChoice = inputValidator.processChoiceInput(3);
+                    
+                    switch (inputChoice) {
+                        case 1:
+                            user.viewProfile();
+                            likePost(inputValidator, user.getPosts());
+                            break;
+                        case 2:
+                            user.viewFriends();
+                            Set<User> newFriends = compareFriends(user);
+                            addNewFriend(inputValidator, newFriends);
+                            break;
+                        case 3:
+                            mainUser.addFriend(user);
+                            user.addFriend(usersData.get(mainUser.getUsername()));
+                            System.out.printf("*** You have successfully added %s (%s) to your friend list! ***\n", user, user.getFullName());
+                    }
+                } while (inputChoice != 0);
+            } else if (!choice.equalsIgnoreCase("N") && !choice.trim().isEmpty()) {
+                System.out.println("### Error: Invalid choice. Please, try again.");
+            }
+        } else {
+            System.out.printf("### Error: The user with username %s does not exist! Please, try again.\n", username);
+        }
+    }
+
+    /**
      * Method to sort friends list by first name and print the list after sorting
      */
     public void sortFriendsListByFirstName() {
@@ -475,8 +530,9 @@ public class SocialNetwork {
      * @param inputValidator Validator object to validate the input of the user
      */
     public void filterFriendsListByCity(InputValidator inputValidator) {
+        System.out.println("\n -> Please, enter the city you want to filter: ");
         String city = inputValidator.processStringInput();
-        if (city.isEmpty()) {
+        if (city.trim().isEmpty()) {
             return;
         }
 
@@ -505,8 +561,9 @@ public class SocialNetwork {
      * @param inputValidator Validator object to validate the input of the user
      */
     public void filterFriendsListByWorkplace(InputValidator inputValidator) {
+        System.out.println("\n -> Please, enter the workplace you want to filter: ");
         String workplace = inputValidator.processStringInput();
-        if (workplace.isEmpty()) {
+        if (workplace.trim().isEmpty()) {
             return;
         }
 

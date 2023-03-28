@@ -79,7 +79,8 @@ public class Menu {
         System.out.println(" -> 4. View Recommended Friends");
         System.out.println(" -> 5. Manage my Posts");
         System.out.println(" -> 6. Search Posts by Hashtag");
-        System.out.println(" -> 7. Update the social network");
+        System.out.println(" -> 7. Search User by Username");
+        System.out.println(" -> 8. Update the social network");
         System.out.println(" -> 0. Sign out");
     }
 
@@ -88,7 +89,7 @@ public class Menu {
      */
     public void processMainMenu() {
         int choice;
-        int maxChoice = 7;
+        int maxChoice = 8;
         do {
             displayMainMenu();
             choice = inputValidator.processChoiceInput(maxChoice);
@@ -115,6 +116,9 @@ public class Menu {
                     socialNetwork.searchPostByHashtag(inputValidator);
                     break;
                 case 7:
+                    socialNetwork.searchUserByUsername(inputValidator);
+                    break;
+                case 8:
                     socialNetwork.saveNetwork();
                     break;
                 case 0:
@@ -139,7 +143,7 @@ public class Menu {
                 socialNetwork.signOut();
                 mainUser = null;
                 isValid = true;
-            } else if (signOutChoice.equalsIgnoreCase("N") || signOutChoice.isEmpty()) {
+            } else if (signOutChoice.equalsIgnoreCase("N") || signOutChoice.trim().isEmpty()) {
                 processMainMenu();
                 isValid = true;
             } else {
@@ -170,7 +174,7 @@ public class Menu {
                 input = inputValidator.processStringInput();
             }
             
-            if (input.isEmpty() && editChoice != 0) {
+            if (input.trim().isEmpty() && editChoice != 0) {
                 break;
             }
 
@@ -205,7 +209,7 @@ public class Menu {
             }
         } while (!isValid);
 
-        if (editChoice != 0) {
+        if (editChoice != 0 && !input.trim().isEmpty()) {
             socialNetwork.editProfile(editChoice, input);
             mainUser = socialNetwork.getMainUser();
             System.out.println("*** Your profile has been successfully updated! ***");
@@ -227,21 +231,21 @@ public class Menu {
                 case 1:
                     System.out.println("\n -> Please, enter the username of the user whose profile you want to view:");
                     String usernameProfile = inputValidator.processUsernameInput();
-                    if (!usernameProfile.isEmpty()) {
+                    if (!usernameProfile.trim().isEmpty()) {
                         socialNetwork.manageFriends(choice, usernameProfile, inputValidator);
                     }
                     break;
                 case 2:
                     System.out.println("\n -> Please, enter the username of the user whom you want to remove from your friend list:");
                     String usernameToRemove = inputValidator.processUsernameInput();
-                    if (!usernameToRemove.isEmpty()) {
+                    if (!usernameToRemove.trim().isEmpty()) {
                         socialNetwork.manageFriends(choice, usernameToRemove, inputValidator);
                     }
                     break;
                 case 3:
                     System.out.println("\n -> Please, enter the username of the user whose friend list you want to view:");
                     String usernameFriendsList = inputValidator.processUsernameInput();
-                    if (!usernameFriendsList.isEmpty()) {
+                    if (!usernameFriendsList.trim().isEmpty()) {
                         socialNetwork.manageFriends(choice, usernameFriendsList, inputValidator);
                     }
                     break;
