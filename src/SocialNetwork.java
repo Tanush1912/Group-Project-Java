@@ -304,7 +304,11 @@ public class SocialNetwork {
     public void addNewFriend(InputValidator inputValidator, Set<User> users) {
         boolean isValid = true;
         do {
-            System.out.println("\n -> Do you want anyone to your friend list? (Y/N)");
+            if (users.size() > 1) {
+                System.out.println("\n -> Do you want to add anyone to your friend list? (Y/N)");
+            } else {
+                System.out.printf("\n -> Do you want to add %s to your friend list? (Y/N)\n", users.iterator().next());
+            }
             String addFriendChoice = inputValidator.processStringInput();
             if (addFriendChoice.equalsIgnoreCase("Y")) {
                 if (users.size() > 1) {
@@ -329,6 +333,7 @@ public class SocialNetwork {
                     User userToAdd = users.iterator().next();
                     mainUser.addFriend(userToAdd);
                     userToAdd.addFriend(usersData.get(mainUser.getUsername()));
+                    System.out.printf("*** You have successfully added %s (%s) to your friends list! ***\n", userToAdd, userToAdd.getFullName());
                     isValid = true;
                 }
             } else if (!addFriendChoice.equalsIgnoreCase("N") && !addFriendChoice.trim().isEmpty()) {
@@ -480,11 +485,11 @@ public class SocialNetwork {
                     System.out.printf("\n -> Please, select the option you want to perform with %s: \n", user);
                     System.out.println(" - 1. View Profile");
                     System.out.println(" - 2. View Friends");
-                    if (!mainUser.getFriends().contains(user)) {
+                    if (!mainUser.getFriends().contains(user) && !mainUser.getUsername().equals(username)) {
                         System.out.println(" - 3. Add to Friends");
                     }
                     System.out.println(" - 0. Back to Main Menu");
-                    int maxChoice = mainUser.getFriends().contains(user) ? 2 : 3;
+                    int maxChoice = (mainUser.getFriends().contains(user) || mainUser.getUsername().equals(username)) ? 2 : 3;
                     inputChoice = inputValidator.processChoiceInput(maxChoice);
                     
                     switch (inputChoice) {
@@ -494,8 +499,10 @@ public class SocialNetwork {
                             break;
                         case 2:
                             user.viewFriends();
-                            Set<User> newFriends = compareFriends(user);
-                            addNewFriend(inputValidator, newFriends);
+                            if (!mainUser.getUsername().equals(username)) {
+                                Set<User> newFriends = compareFriends(user);
+                                addNewFriend(inputValidator, newFriends);
+                            }
                             break;
                         case 3:
                             mainUser.addFriend(user);
