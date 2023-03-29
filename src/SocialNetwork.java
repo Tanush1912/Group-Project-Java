@@ -304,11 +304,11 @@ public class SocialNetwork {
     public void addNewFriend(InputValidator inputValidator, Set<User> users) {
         boolean isValid = true;
         do {
-            System.out.println("\n -> Do you want anyone to your friend list? (Y/N)");
+            System.out.println("\n -> Do you want anyone to add anyone to your friend list? (Y/N)");
             String addFriendChoice = inputValidator.processStringInput();
             if (addFriendChoice.equalsIgnoreCase("Y")) {
                 if (users.size() > 1) {
-                    System.out.println(" -> Please, enter the username whom you want to add as a friend: ");
+                    System.out.println(" -> Please, enter the username of whom you want to add as a friend: ");
                     String usernameToAdd = inputValidator.processUsernameInput();
                     if (!usernameToAdd.trim().isEmpty()) {
                         User userToAdd = usersData.get(usernameToAdd);
