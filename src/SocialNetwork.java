@@ -240,7 +240,12 @@ public class SocialNetwork {
         mainUser = new MainUser(userToUpdate);
     }
 
-    
+    /**
+     * Method to generate a set of interests from a string entered by user
+     * 
+     * @param interests String of interests entered by user
+     * @return Set of interests
+     */
     public Set<String> generateInterestsFromString(String interests) {
         Set<String> interestsSet = new HashSet<>();
         try {

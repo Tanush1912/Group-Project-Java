@@ -353,7 +353,7 @@ public class Menu {
                     System.out.println(" -> Please, choose the post you would like to delete");
                     int inputChoice2 = inputValidator.processChoiceInput(mainUser.getPosts().size());
                     if (inputChoice2 != -1) {
-                        int postToDelete = inputValidator.processChoiceInput(mainUser.getPosts().size()) - 1;
+                        int postToDelete = inputChoice2 - 1;
                         mainUser.deletePost(postToDelete);
                     }
                     break;
