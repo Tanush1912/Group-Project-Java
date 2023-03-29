@@ -312,7 +312,7 @@ public class SocialNetwork {
             String addFriendChoice = inputValidator.processStringInput();
             if (addFriendChoice.equalsIgnoreCase("Y")) {
                 if (users.size() > 1) {
-                    System.out.println(" -> Please, enter the username whom you want to add as a friend: ");
+                    System.out.println(" -> Please, enter the username of whom you want to add as a friend: ");
                     String usernameToAdd = inputValidator.processUsernameInput();
                     if (!usernameToAdd.trim().isEmpty()) {
                         User userToAdd = usersData.get(usernameToAdd);
